@@ -1,4 +1,3 @@
-from UserInterface import displayNumericMenu
 from NetworkRequests import Request
 from bs4 import BeautifulSoup as BS
 import requests, json, time, datetime
@@ -8,9 +7,7 @@ URL = 'https://gestioacademica.upf.edu/pds/consultaPublica/look%5Bconpub%5DInici
 URL_RND = 'https://gestioacademica.upf.edu/pds/consultaPublica/look[conpub]MostrarPubHora' # Con esta URL obtenemos un número "aleatorio" que nos permite simular la conexión de un usuario consultando el horario.
 URL_JSON ='https://gestioacademica.upf.edu/pds/consultaPublica/[Ajax]selecionarRangoHorarios' # Con esta URL obtenermos el archivo JSON que contiene el horario.
 
-DATA = "planEstudio=634&idiomaPais=es.ES&ultimoPlanDocente=&indExamenRecuperacion=true&trimestre=T/1&planDocente=2021&accesoSecretaria=" \
-              "&entradaPublica=true&centro=337&estudio=3377&idPestana=1&curso=3&grupo1=1&grupos=1&asignatura24304=24304&asignatura26003=26003"
-
+DATA = "planEstudio=634&idiomaPais=ca.ES&ultimoPlanDocente=&indExamenRecuperacion=true&trimestre=T/1&planDocente=2021&accesoSecretaria=&entradaPublica=true&centro=337&estudio=3377&idPestana=1&curso=3&grupo1=1&grupos=1&asignatura24304=24304&asignatura26003=26003"
 fromDate, toDate = "27/09/2021", "03/10/2021" # La fecha de entrada se puede meter en este formato y el programa la pasa a UNIX Time.
 fromDate, toDate = int(time.mktime(datetime.datetime.strptime(fromDate, "%d/%m/%Y").timetuple())), int(time.mktime(datetime.datetime.strptime(toDate, "%d/%m/%Y").timetuple()))
 
