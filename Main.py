@@ -22,7 +22,7 @@ DATA = "planEstudio=634" \
        "&asignatura24306=24306" \
        "&asignatura26003=26003"
 
-fromDate, toDate = "30/09/2021", "30/09/2021" # La fecha de entrada se puede meter en este formato y el programa la pasa a UNIX Time.
+fromDate, toDate = "30/09/2021", "30/09/2021" # La fecha de entrada se puede meter en este formato y en la siguiente linea se pasa a UNIX Time.
 fromDate, toDate = int(time.mktime(datetime.datetime.strptime(fromDate, "%d/%m/%Y").timetuple())), int(time.mktime(datetime.datetime.strptime(toDate, "%d/%m/%Y").timetuple()))
 
 def extractRND(fromSoup):
