@@ -27,7 +27,7 @@ class Request:
         self.URL = URL
         self.HEADERS = HEADERS
         self.SESSION = SESSION
-        self.jSON = None
+        self.jSON, self.jsonDir = None, "Path not defined."
         if requestMethod == 'GET' and makeRequest:
             self.HTML_Page = self.SESSION.get(self.URL, headers=self.HEADERS)
         elif requestMethod == 'POST' and makeRequest:
@@ -51,6 +51,8 @@ class Request:
             if not os.path.isdir('./JSON Files'): os.mkdir('./JSON Files')
             if not nameID:
                 open('./JSON Files/Data.json', 'w').write(str(self.jSON))
+                self.jsonDir = './JSON Files/Data.json'
             else:
                 open(f'./JSON Files/Data{nameID}.json', 'w').write(str(self.jSON))
+                self.jsonDir = f'./JSON Files/Data{nameID}.json'
         return self.jSON
