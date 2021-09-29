@@ -1,6 +1,7 @@
 from NetworkRequests import Request
 from bs4 import BeautifulSoup as BS
-import requests, json, ScheduleBlocks
+import requests, json
+from ScheduleBlocks import *
 
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36"}
 URL = 'https://gestioacademica.upf.edu/pds/consultaPublica/look%5Bconpub%5DInicioPubHora?entradaPublica=true' # URL principal para establecer una conexión y obtener una sesión.
@@ -8,7 +9,7 @@ URL_RND = 'https://gestioacademica.upf.edu/pds/consultaPublica/look[conpub]Mostr
 URL_JSON = 'https://gestioacademica.upf.edu/pds/consultaPublica/[Ajax]selecionarRangoHorarios' # Con esta URL obtenermos el archivo JSON que contiene el horario.
 
 DATA = "planEstudio=634" \
-       "&idiomaPais=es.ES" \
+       "&idiomaPais=en.GB" \
        "&trimestre=T/1" \
        "&planDocente=2021" \
        "&centro=337" \
@@ -24,35 +25,45 @@ DATA = "planEstudio=634" \
 fromDate, toDate = "30/09/2021", "30/09/2021" # La fecha de entrada se puede meter en este formato y el programa la pasa a UNIX Time.
 fromDate, toDate = int(time.mktime(datetime.datetime.strptime(fromDate, "%d/%m/%Y").timetuple())), int(time.mktime(datetime.datetime.strptime(toDate, "%d/%m/%Y").timetuple()))
 
-contentDownloaded = False
+def extractRND(fromSoup):
+       javaScriptCode = str(fromSoup.findAll('script', type='text/javascript')[4])
+       initialPosition = javaScriptCode.find('selecionarRangoHorarios?rnd=') + len('selecionarRangoHorarios?rnd=')  # Obteniendo la primera posición del primer dígito de RND.
+       RND = javaScriptCode[initialPosition:initialPosition + 6].replace("'", "").replace(" ", "")
+       return RND
 
-try:
-       print("Establishing session.")
-       SESSION = Request(URL, HEADERS, requests.Session(), requestMethod='GET').SESSION
-except Exception as ErrorCode:
-       print(f"Something went wrong while generating session. {ErrorCode}")
-else:
-       print("Session successfully established.")
+def downloadContent():
+       jsonFile = False
 
        try:
-              print("Searching for RND number.")
-              soupRND = Request(URL_RND, HEADERS, SESSION, requestMethod='POST', postData=DATA).Soup
+              print("Establishing session.")
+              SESSION = Request(URL, HEADERS, requests.Session(), requestMethod='GET').SESSION
        except Exception as ErrorCode:
-              print(f"Something went wrong while simulating a user connection. {ErrorCode}")
+              print(f"Something went wrong while generating session. {ErrorCode}")
        else:
-              javaScriptCode = str(soupRND.findAll('script', type='text/javascript')[4])
-              initialPosition = javaScriptCode.find('selecionarRangoHorarios?rnd=') + len('selecionarRangoHorarios?rnd=') # Obteniendo la primera posición del primer dígito de RND.
-              RND = javaScriptCode[initialPosition:initialPosition+6].replace("'", "").replace(" ", "")
-              timeRND = f'rnd={RND}&start={fromDate}&end={toDate}'
-              print("RND Number found.")
-              try:
-                     print("Downloading the content.")
-                     contentRequest = Request(URL_JSON, HEADERS, SESSION, requestMethod='POST', postData=timeRND)
-              except Exception as ErrorCode:
-                     print(f"Something went wrong while obtaining the request content. {ErrorCode}")
-              else:
-                     jsonFile = contentRequest.getJSON(exportFile=True)
-                     print("Content downloaded, JSON file saved.")
-                     contentDownloaded = True
+              print("Session successfully established.")
 
-if contentDownloaded: print(f"Downloaded {len(jsonFile)-1} subjects blocks.")
+              try:
+                     print("Searching for RND number.")
+                     soupRND = Request(URL_RND, HEADERS, SESSION, requestMethod='POST', postData=DATA).Soup
+              except Exception as ErrorCode:
+                     print(f"Something went wrong while simulating a user connection. {ErrorCode}")
+              else:
+                     RND = extractRND(soupRND)
+                     timeRND = f'rnd={RND}&start={fromDate}&end={toDate}'
+                     print("RND Number found.")
+
+                     try:
+                            print("Downloading the content.")
+                            contentRequest = Request(URL_JSON, HEADERS, SESSION, requestMethod='POST', postData=timeRND)
+                     except Exception as ErrorCode:
+                            print(f"Something went wrong while obtaining the request content. {ErrorCode}")
+                     else:
+                            jsonFile = contentRequest.getJSON(exportFile=True)
+                            print("Content downloaded, JSON file saved.")
+                            contentDownloaded = True
+
+       return jsonFile
+
+if (jsonFile := downloadContent()):
+       print(f"Downloaded {len(jsonFile)-1} subjects blocks.")
+       generateBlocks(jsonFile, len(jsonFile)-1)
