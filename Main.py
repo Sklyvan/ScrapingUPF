@@ -1,29 +1,4 @@
-from NetworkRequests import Request
-from bs4 import BeautifulSoup as BS
-import requests, json
-from ScheduleBlocks import *
-
-HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36"}
-URL = 'https://gestioacademica.upf.edu/pds/consultaPublica/look%5Bconpub%5DInicioPubHora?entradaPublica=true' # URL principal para establecer una conexión y obtener una sesión.
-URL_RND = 'https://gestioacademica.upf.edu/pds/consultaPublica/look[conpub]MostrarPubHora' # Con esta URL obtenemos un número "aleatorio" que nos permite simular la conexión de un usuario consultando el horario.
-URL_JSON = 'https://gestioacademica.upf.edu/pds/consultaPublica/[Ajax]selecionarRangoHorarios' # Con esta URL obtenermos el archivo JSON que contiene el horario.
-
-DATA = "planEstudio=634" \
-       "&idiomaPais=en.GB" \
-       "&trimestre=T/1" \
-       "&planDocente=2021" \
-       "&centro=337" \
-       "&estudio=3377" \
-       "&curso=3" \
-       "&grupo1=1" \
-       "&grupo2=2" \
-       "&asignatura24303=24303" \
-       "&asignatura24304=24304" \
-       "&asignatura24306=24306" \
-       "&asignatura26003=26003"
-
-fromDate, toDate = "30/09/2021", "30/09/2021" # La fecha de entrada se puede meter en este formato y en la siguiente linea se pasa a UNIX Time.
-fromDate, toDate = int(time.mktime(datetime.datetime.strptime(fromDate, "%d/%m/%Y").timetuple())), int(time.mktime(datetime.datetime.strptime(toDate, "%d/%m/%Y").timetuple()))
+from Imports import *
 
 def extractRND(fromSoup):
        javaScriptCode = str(fromSoup.findAll('script', type='text/javascript')[4])
@@ -31,39 +6,45 @@ def extractRND(fromSoup):
        RND = javaScriptCode[initialPosition:initialPosition + 6].replace("'", "").replace(" ", "")
        return RND
 
-def downloadContent():
+def downloadContent(fromData, fromHeaders=''):
        jsonFile = False
 
        try:
               print("Establishing session.")
-              SESSION = Request(URL, HEADERS, requests.Session(), requestMethod='GET').SESSION
+              SESSION = Request(URL, fromHeaders, requests.Session(), requestMethod='GET').SESSION
        except Exception as ErrorCode:
               print(f"Something went wrong while generating session. {ErrorCode}")
-       else:
-              print("Session successfully established.")
+              return False
+       print("Session successfully established.")
 
-              try:
-                     print("Searching for RND number.")
-                     soupRND = Request(URL_RND, HEADERS, SESSION, requestMethod='POST', postData=DATA).Soup
-              except Exception as ErrorCode:
-                     print(f"Something went wrong while simulating a user connection. {ErrorCode}")
-              else:
-                     RND = extractRND(soupRND)
-                     timeRND = f'rnd={RND}&start={fromDate}&end={toDate}'
-                     print("RND Number found.")
+       try:
+              print("Searching for RND number.")
+              soupRND = Request(URL_RND, fromHeaders, SESSION, requestMethod='POST', postData=fromData).Soup
+       except Exception as ErrorCode:
+              print(f"Something went wrong while connecting to search RND number. {ErrorCode}")
+              return False
+       RND = extractRND(soupRND)
+       timeRND = f'rnd={RND}&start={fromDate}&end={toDate}'
+       print("RND Number found.")
 
-                     try:
-                            print("Downloading the content.")
-                            contentRequest = Request(URL_JSON, HEADERS, SESSION, requestMethod='POST', postData=timeRND)
-                     except Exception as ErrorCode:
-                            print(f"Something went wrong while obtaining the request content. {ErrorCode}")
-                     else:
-                            jsonFile = contentRequest.getJSON(exportFile=True)
-                            print("Content downloaded, JSON file saved.")
-                            contentDownloaded = True
+       try:
+              print("Downloading the content.")
+              contentRequest = Request(URL_JSON, fromHeaders, SESSION, requestMethod='POST', postData=timeRND)
+       except Exception as ErrorCode:
+              print(f"Something went wrong while obtaining the request content. {ErrorCode}")
+              return False
+       jsonFile = contentRequest.getJSON(exportFile=True)
+       print("Content downloaded, JSON file saved.")
 
        return jsonFile
 
-if (jsonFile := downloadContent()):
-       print(f"Downloaded {len(jsonFile)-1} subjects blocks.")
-       generateBlocks(jsonFile, len(jsonFile)-1)
+if __name__ == '__main__':
+       fromSubjects, userSubjectsGroups, fromGroups, basicInformation, timeRange = extractConfig(CONFIG_FILE)
+       DATA = generateData(fromSubjects, fromGroups, basicInformation)
+       fromDate, toDate = int(time.mktime(datetime.datetime.strptime(timeRange[0], "%d/%m/%Y").timetuple())), int(time.mktime(datetime.datetime.strptime(timeRange[1], "%d/%m/%Y").timetuple()))
+
+       if (jsonFile := downloadContent(DATA, fromHeaders=getUserHeaders(CONFIG_FILE))):
+              print(f"Downloaded {len(jsonFile)-1} subjects blocks.")
+              generateBlocks(jsonFile, len(jsonFile)-1)
+       else:
+              print(f"Something went wrong, request failed.")
