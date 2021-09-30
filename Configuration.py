@@ -10,10 +10,12 @@ def extractConfig(FILEPATH):
        UserPreferences.read(FILEPATH)
        BasicInformation = UserPreferences[UserPreferences.sections()[1]]
        Subjects, SubjectsGroups = UserPreferences[UserPreferences.sections()[2]]['Asignaturas'], UserPreferences[UserPreferences.sections()[2]]['GruposAsignaturas']
+       PGroups, SGroups = UserPreferences[UserPreferences.sections()[2]]['GruposPracticas'], UserPreferences[UserPreferences.sections()[2]]['GruposSeminarios']
        Subjects, SubjectsGroups = Subjects.split(','), SubjectsGroups.split(',')
+       PGroups, SGroups = PGroups.split(','), SGroups.split(',')
        Groups = list(set(SubjectsGroups))
        timeRange = tuple(UserPreferences[UserPreferences.sections()[3]].values())
-       return Subjects, SubjectsGroups, Groups, BasicInformation, timeRange
+       return Subjects, SubjectsGroups, Groups, BasicInformation, timeRange, PGroups, SGroups
 
 def generateData(fromSubjects, fromGroups, BasicInformation):
        DATA = f"planEstudio={BasicInformation['PlanEstudio']}" \

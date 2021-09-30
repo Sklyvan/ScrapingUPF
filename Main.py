@@ -39,14 +39,15 @@ def downloadContent(fromData, fromHeaders=''):
        return jsonFile
 
 if __name__ == '__main__':
-       fromSubjects, userSubjectsGroups, fromGroups, basicInformation, timeRange = extractConfig(CONFIG_FILE)
+       fromSubjects, userSubjectsGroups, fromGroups, basicInformation, timeRange, pGroups, sGroups = extractConfig(CONFIG_FILE)
        DATA = generateData(fromSubjects, fromGroups, basicInformation)
        fromDate, toDate = int(time.mktime(datetime.datetime.strptime(timeRange[0], "%d/%m/%Y").timetuple())), int(time.mktime(datetime.datetime.strptime(timeRange[1], "%d/%m/%Y").timetuple()))
 
        if (jsonFile := downloadContent(DATA, fromHeaders=getUserHeaders(CONFIG_FILE))):
               if (n_downloadedSubjects := len(jsonFile)-1) > 0:
                      print(f"Downloaded {n_downloadedSubjects} subjects blocks.")
-                     subjectsBlocks = generateBlocks(jsonFile, dict(zip(fromSubjects, userSubjectsGroups)), n_downloadedSubjects)
+                     subjectsBlocks = generateBlocks(jsonFile, dict(zip(fromSubjects, zip(userSubjectsGroups, pGroups, sGroups))), n_downloadedSubjects)
+                     print(f"Using {len(subjectsBlocks)} subjects blocks.")
               else:
                      sys.exit("No subjects blocks have been downloaded, closing program.")
        else:
@@ -56,6 +57,6 @@ if __name__ == '__main__':
 
        for subject in subjectsBlocks:
               print(f"Adding {subject.name} to the calendar.")
-              MyCalendar.addEvent(subject.name, subject.classroom, subject.getDescription(), subject.start, subject.end)
+              MyCalendar.addEvent(f"{subject.name} ({subject.type[0]})", subject.classroom, subject.getDescription(), subject.start, subject.end)
               print(f"{subject.name} added to the calendar.")
        print("Done!")
