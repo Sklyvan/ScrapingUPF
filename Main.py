@@ -44,7 +44,18 @@ if __name__ == '__main__':
        fromDate, toDate = int(time.mktime(datetime.datetime.strptime(timeRange[0], "%d/%m/%Y").timetuple())), int(time.mktime(datetime.datetime.strptime(timeRange[1], "%d/%m/%Y").timetuple()))
 
        if (jsonFile := downloadContent(DATA, fromHeaders=getUserHeaders(CONFIG_FILE))):
-              print(f"Downloaded {len(jsonFile)-1} subjects blocks.")
-              generateBlocks(jsonFile, len(jsonFile)-1)
+              if (n_downloadedSubjects := len(jsonFile)-1) > 0:
+                     print(f"Downloaded {n_downloadedSubjects} subjects blocks.")
+                     subjectsBlocks = generateBlocks(jsonFile, dict(zip(fromSubjects, userSubjectsGroups)), n_downloadedSubjects)
+              else:
+                     sys.exit("No subjects blocks have been downloaded, closing program.")
        else:
-              print(f"Something went wrong, request failed.")
+              sys.exit(f"Something went wrong generating blocks, closing program.")
+
+       MyCalendar = Calendar()
+
+       for subject in subjectsBlocks:
+              print(f"Adding {subject.name} to the calendar.")
+              MyCalendar.addEvent(subject.name, subject.classroom, subject.getDescription(), subject.start, subject.end)
+              print(f"{subject.name} added to the calendar.")
+       print("Done!")
