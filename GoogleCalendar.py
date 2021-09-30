@@ -32,7 +32,7 @@ class Calendar:
         """
         :param eventName: Event name, that name is going to appear at Google Calendar GUI.
         :param eventLocation: Event location, Google Maps can use it.
-        :param eventDescription: Text, any restriction with that.
+        :param eventDescription: Text.
         :param start: YYYY-MM-DDTHours:Minutes:Seconds
         :param end: YYYY-MM-DDTHours:Minutes:Seconds
         :return: The event object.
@@ -50,6 +50,9 @@ class Calendar:
                 'dateTime': end,
                 'timeZone': 'Europe/Madrid',
             },
+            "reminders": {
+                "useDefault": False,
+            }
 
         }
 
