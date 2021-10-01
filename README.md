@@ -48,9 +48,18 @@ La selección de asignaturas se hace modificando el archivo [UserPreferences.ini
 | **CodigoEstudio** | Código identificador de la carrera que se está cursando.           | CodigoEstudio=3377<br/>CodigoEstudio=3370<br/>CodigoEstudio=3378 |
 | **Curso**         | Curso del que se hacen la mayoría de asignaturas.                  | Curso=1<br/>Curso=2<br/>Curso=3<br/>Curso=4                      |
 
-· **Asignaturas**: Información sobre cada una de las asignaturas que se quiere añadir al horario. Para añadir la asignatura Bases de Datos (24303), del grupo 2 de teorías, 201 de prácticas y 202 de seminarios:
+· **Asignaturas**: Información sobre cada una de las asignaturas que se quiere añadir al horario. 
+
+Se pueden añadir tantas asignaturas como se quiera siempre que:
+
+1. Para toda asignatura se añada un grupo de teoría, uno de prácticas y uno de seminarios. En caso de que no haya uno de ellos, hay que poner un código inventado igualmente.
+
+2. Los valores deben estar separados por comas y sin espacios.
+
+Para añadir la asignatura Bases de Datos (24303), del grupo 2 de teorías, 201 de prácticas y 202 de seminarios:
 
 ```ini
+[ASIGNATURAS]
 Asignaturas=24303
 GruposAsignaturas=2
 GruposPracticas=201
@@ -60,19 +69,44 @@ GruposSeminarios=202
 Si se quiere añadir también Inteligencia Artificial (24304) con el grupo 1 de teorías, 101 de prácticas y 102 de seminarios:
 
 ```ini
+[ASIGNATURAS]
 Asignaturas=24303,24304
 GruposAsignaturas=2,1
 GruposPracticas=201,101
 GruposSeminarios=202,102
 ```
 
-Se pueden añadir tantas asignaturas como se quiera siempre que:
+· **Fechas**: Estas fechas determinan a partir de que día y hasta que día queremos guardar los horarios. Las dos fechas deben estar en formato DD/MM/YY.
 
-1. Para toda asignatura se añada un grupo de teoría, uno de prácticas y uno de seminarios. En caso de que no haya uno de ellos, hay que poner un código inventado igualmente.
+Si queremos añadir las asignaturas de solo el de 10 de Octubre de 2021:
 
-2. Los valores deben estar separados por comas y sin espacios.
+```ini
+[FECHAS]
+Inicio=10/10/2021
+Final=10/10/2021
+```
 
-### 4. Información de Desarrolladores
+Si queremos añadir todo el mes de Octubre:
+
+```ini
+[FECHAS]
+Inicio=01/10/2021
+Final=31/10/2021
+```
+
+### 4. Ejecutar el programa.
+
+Para ejecutar el programa simplemente hay que lanzar el archivo Main.py mediante Python:
+
+```shell
+python3 Main.py
+```
+
+Al iniciar el programa se va a abrir una ventana con nuestro buscador que nos va a pedir autorización para la API de Google Calendar.
+
+![](/home/sklyvan/Documents/Python%20Scripts/ScrapingUPF/RunningTheApplication.gif)
+
+### 5. Información de Desarrolladores
 
 El producto ha sido desarrollado bajo la licencia [GNU General Public License 3](https://www.gnu.org/licenses/gpl-3.0.en.html), por lo que se permite la modificación del mismo, su distribución y su uso privado, siempre que el código siga siendo completamente abierto y público tal y como obliga su licencia. 
 
@@ -80,11 +114,9 @@ Es archivo de credenciales de la API de Google Calendar es totalmente pública, 
 
 En caso de que se quiera crear una interfaz gráfica para la aplicación se pueden usar herramientas como [PyQt5](https://pypi.org/project/PyQt5/) que solo van a necesitar editar el archivo de [UserPreferences.ini](https://github.com/Sklyvan/ScrapingUPF/blob/main/UserPreferences.ini). 
 
-### 5. Contacto
+### Contacto
 
 Cualquier duda, consulta o problema: joan.gracia01@estudiant.upf.edu
-
-
 
 ### Próximamente
 
