@@ -104,7 +104,7 @@ python3 Main.py
 
 Al iniciar el programa se va a abrir una ventana con nuestro buscador que nos va a pedir autorización para la API de Google Calendar.
 
-![](/home/sklyvan/Documents/Python%20Scripts/ScrapingUPF/RunningTheApplication.gif)
+![](RunningTheApplication.gif)
 
 ### 5. Información de Desarrolladores
 
