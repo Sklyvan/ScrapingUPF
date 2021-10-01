@@ -106,7 +106,7 @@ Al iniciar el programa se va a abrir una ventana con nuestro buscador que nos va
 
 ![](RunningTheApplication.gif)
 
-### 5. Información de Desarrolladores
+### 5. Información para Desarrolladores
 
 El producto ha sido desarrollado bajo la licencia [GNU General Public License 3](https://www.gnu.org/licenses/gpl-3.0.en.html), por lo que se permite la modificación del mismo, su distribución y su uso privado, siempre que el código siga siendo completamente abierto y público tal y como obliga su licencia. 
 
