@@ -4,15 +4,11 @@ Esta aplicación nos permite transferir el horario de la página web de la [Univ
 
 Esta aplicación no requiere que el usuario introduzca datos sensibles de inicio de sesión en el Campus Global o ningún otro tipo de información, así que en todo momento tus datos sensibles son respetados.
 
-
-
 ### 1. Requisitos Previos
 
 - [Python 3](https://www.python.org/downloads/)
 
 - [Python Package Installer](https://github.com/pypa/pip) (PIP) 
-  
-  
 
 ### 2. Instalación
 
@@ -33,8 +29,6 @@ pip install -r Requirements.txt # Si PIP da error, hay que usar pip3.
 3. Abrir una terminal en el directorio ScrapingUPF.
 
 4. Instalar de la misma forma que la tercera línea de la instalación de MacOS y Linux.
-   
-   
 
 ### 3. Seleccionar las Preferencias
 
@@ -77,8 +71,6 @@ Se pueden añadir tantas asignaturas como se quiera siempre que:
 1. Para toda asignatura se añada un grupo de teoría, uno de prácticas y uno de seminarios. En caso de que no haya uno de ellos, hay que poner un código inventado igualmente.
 
 2. Los valores deben estar separados por comas y sin espacios.
-   
-   
 
 ### 4. Información de Desarrolladores
 
@@ -91,3 +83,9 @@ En caso de que se quiera crear una interfaz gráfica para la aplicación se pued
 ### 5. Contacto
 
 Cualquier duda, consulta o problema: joan.gracia01@estudiant.upf.edu
+
+
+
+### Próximamente
+
+Añadir asignaturas al archivo [UserPreferences.ini](https://github.com/Sklyvan/ScrapingUPF/blob/main/UserPreferences.ini) no es un proceso muy sencillo y cómodo, así que estoy actualmente trabajando en implementar un sistema en el que simplemente le tengas que indicar la ruta de un archivo HTML de la página del Espai Aula para extraer directamente las asignaturas y sus grupos.
