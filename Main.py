@@ -39,7 +39,13 @@ def downloadContent(fromData, fromHeaders=''):
        return jsonFile
 
 if __name__ == '__main__':
-       fromSubjects, userSubjectsGroups, fromGroups, basicInformation, timeRange, pGroups, sGroups = extractConfig(CONFIG_FILE)
+       if sys.version_info.major < 3 or (sys.version_info.major >= 3 and sys.version_info.minor < 8):
+              sys.exit(f"You're using Python {sys.version_info.major}.{sys.version_info.minor}, required version is 3.8 or bigger.")
+
+       userPreferences = getUserPreferences(CONFIG_FILE)
+       print(f"Using EspaiAulaFilePath: {isUsingEspaiAulaFilePath(userPreferences)}")
+       fromGroups, userSubjectsGroups, pGroups, sGroups = extractSubjectsPreferences(userPreferences)
+       basicInformation, fromSubjects, timeRange = extractRequestInformation(userPreferences)
        DATA = generateData(fromSubjects, fromGroups, basicInformation)
        fromDate, toDate = int(time.mktime(datetime.datetime.strptime(timeRange[0], "%d/%m/%Y").timetuple())), int(time.mktime(datetime.datetime.strptime(timeRange[1], "%d/%m/%Y").timetuple()))
 

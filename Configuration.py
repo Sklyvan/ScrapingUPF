@@ -5,17 +5,27 @@ def getUserHeaders(FILEPATH):
        UserPreferences.read(FILEPATH)
        return {"User-Agent": UserPreferences[UserPreferences.sections()[0]]['Headers']}
 
-def extractConfig(FILEPATH):
+def getUserPreferences(FILEPATH):
        UserPreferences = configparser.ConfigParser()
        UserPreferences.read(FILEPATH)
-       BasicInformation = UserPreferences[UserPreferences.sections()[1]]
-       Subjects, SubjectsGroups = UserPreferences[UserPreferences.sections()[2]]['Asignaturas'], UserPreferences[UserPreferences.sections()[2]]['GruposAsignaturas']
+       return UserPreferences
+
+def isUsingEspaiAulaFilePath(UserPreferences): return UserPreferences[UserPreferences.sections()[2]]['EspaiAulaFilePath'] != 'False'
+
+def extractSubjectsPreferences(UserPreferences):
+       SubjectsGroups = UserPreferences[UserPreferences.sections()[2]]['GruposAsignaturas'].split(',')
        PGroups, SGroups = UserPreferences[UserPreferences.sections()[2]]['GruposPracticas'], UserPreferences[UserPreferences.sections()[2]]['GruposSeminarios']
-       Subjects, SubjectsGroups = Subjects.split(','), SubjectsGroups.split(',')
+
        PGroups, SGroups = PGroups.split(','), SGroups.split(',')
        Groups = list(set(SubjectsGroups))
-       timeRange = tuple(UserPreferences[UserPreferences.sections()[3]].values())
-       return Subjects, SubjectsGroups, Groups, BasicInformation, timeRange, PGroups, SGroups
+
+       return Groups, SubjectsGroups, PGroups, SGroups
+
+def extractRequestInformation(UserPreferences):
+       basicInformation = UserPreferences[UserPreferences.sections()[1]] # Information to generate the DATA request.
+       subjectsList = UserPreferences[UserPreferences.sections()[2]]['Asignaturas'].split(',')
+       timeRange = tuple(UserPreferences[UserPreferences.sections()[3]].values()) # Tuple which contains fromDate and toDate.
+       return basicInformation, subjectsList, timeRange
 
 def generateData(fromSubjects, fromGroups, BasicInformation):
        DATA = f"planEstudio={BasicInformation['PlanEstudio']}" \
