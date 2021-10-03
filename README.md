@@ -54,7 +54,7 @@ Si hay alguna duda sobre cual es su código de su Plan de Estudio, el Plan Docen
 · **Asignaturas**: Información sobre cada una de las asignaturas que se quiere añadir al horario. <br>
 Se pueden añadir las asignaturas mediante dos métodos:
 
-#### Método Automático
+#### Método Automático (Sistema en Fase de Pruebas)
 
 1. Acceder al apartado [Espai Aula](https://campusglobal.upf.edu/GGiA/SVGELPortal?OPERACIO=ESTUDIANT) e iniciar sesión.
 
