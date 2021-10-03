@@ -1,3 +1,5 @@
+import sys
+
 from Imports import *
 
 def extractRND(fromSoup):
@@ -13,7 +15,7 @@ def downloadContent(fromData, fromHeaders=''):
               print("Establishing session.")
               SESSION = Request(URL, fromHeaders, requests.Session(), requestMethod='GET').SESSION
        except Exception as ErrorCode:
-              print(f"Something went wrong while generating session. {ErrorCode}")
+              sys.exit(f"Something went wrong while generating session. {ErrorCode}")
               return False
        print("Session successfully established.")
 
@@ -21,7 +23,7 @@ def downloadContent(fromData, fromHeaders=''):
               print("Searching for RND number.")
               soupRND = Request(URL_RND, fromHeaders, SESSION, requestMethod='POST', postData=fromData).Soup
        except Exception as ErrorCode:
-              print(f"Something went wrong while connecting to search RND number. {ErrorCode}")
+              sys.exit(f"Something went wrong while connecting to search RND number. {ErrorCode}")
               return False
        RND = extractRND(soupRND)
        timeRND = f'rnd={RND}&start={fromDate}&end={toDate}'
@@ -31,7 +33,7 @@ def downloadContent(fromData, fromHeaders=''):
               print("Downloading the content.")
               contentRequest = Request(URL_JSON, fromHeaders, SESSION, requestMethod='POST', postData=timeRND)
        except Exception as ErrorCode:
-              print(f"Something went wrong while obtaining the request content. {ErrorCode}")
+              sys.exit(f"Something went wrong while obtaining the request content. {ErrorCode}")
               return False
        jsonFile = contentRequest.getJSON(exportFile=True)
        print("Content downloaded, JSON file saved.")
@@ -39,13 +41,18 @@ def downloadContent(fromData, fromHeaders=''):
        return jsonFile
 
 if __name__ == '__main__':
-       if sys.version_info.major < 3 or (sys.version_info.major >= 3 and sys.version_info.minor < 8):
+       if sys.version_info.major < 3 or (sys.version_info.major >= 3 and sys.version_info.minor < 8): # Python 3.8 or bigger version is needed for Walrus Operator.
               sys.exit(f"You're using Python {sys.version_info.major}.{sys.version_info.minor}, required version is 3.8 or bigger.")
 
        userPreferences = getUserPreferences(CONFIG_FILE)
-       print(f"Using EspaiAulaFilePath: {isUsingEspaiAulaFilePath(userPreferences)}")
-       fromGroups, userSubjectsGroups, pGroups, sGroups = extractSubjectsPreferences(userPreferences)
-       basicInformation, fromSubjects, timeRange = extractRequestInformation(userPreferences)
+
+       if isUsingEspaiAulaFilePath(userPreferences):
+              espaiAulaFile = HTML_LocalFile(getEspaiAulaFilePath(userPreferences), 'latin-1')
+              fromGroups, fromSubjects, userSubjectsGroups, pGroups, sGroups = extractSubjectsPreferencesFromFile(espaiAulaFile)
+       else:
+              fromGroups, fromSubjects, userSubjectsGroups, pGroups, sGroups = extractSubjectsPreferences(userPreferences)
+
+       basicInformation, timeRange = extractRequestInformation(userPreferences)
        DATA = generateData(fromSubjects, fromGroups, basicInformation)
        fromDate, toDate = int(time.mktime(datetime.datetime.strptime(timeRange[0], "%d/%m/%Y").timetuple())), int(time.mktime(datetime.datetime.strptime(timeRange[1], "%d/%m/%Y").timetuple()))
 

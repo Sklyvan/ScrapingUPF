@@ -6,7 +6,8 @@ Esta aplicación no requiere que el usuario introduzca datos sensibles de inicio
 
 ### 1. Requisitos Previos
 
-- [Python 3](https://www.python.org/downloads/)
+- [Python 3.8](https://www.python.org/downloads/) o versiones superiores.
+  (Hay una [versión del programa para Python 3.7](https://github.com/Sklyvan/ScrapingUPF/tree/oldpython) y versiones inferiores, pero no está en mantenimiento.)
 
 - [Python Package Installer](https://github.com/pypa/pip) (PIP) 
 
@@ -20,7 +21,7 @@ cd ScrapingUPF/
 pip install -r Requirements.txt # Si PIP da error, hay que usar pip3.
 ```
 
-#### - Windows)
+#### - Windows
 
 1. [Descargar Repositorio](https://github.com/Sklyvan/ScrapingUPF/archive/refs/heads/main.zip)
 
@@ -50,6 +51,31 @@ La selección de asignaturas se hace modificando el archivo [UserPreferences.ini
 
 · **Asignaturas**: Información sobre cada una de las asignaturas que se quiere añadir al horario. 
 
+Se pueden añadir las asignaturas mediante dos métodos:
+
+#### Método Automático
+
+1. Acceder al apartado [Espai Aula](https://campusglobal.upf.edu/GGiA/SVGELPortal?OPERACIO=ESTUDIANT) y iniciar sesión.
+
+2. Click derecho en la página y seleccionar Guardar Como.
+   
+   <img src="file:///home/sklyvan/Documents/Python%20Scripts/ScrapingUPF/Save%20File.png" title="" alt="Save File.png" width="222">
+
+3. Guardar el archivo (Recomendable guardar la página web en una carpeta dentro del directorio ScrapingUPF).
+
+4. Añadir la ubicación del archivo HTML en el archivo de preferencias. (En este ejemplo se guarda en ./EspaiAulaFiles/Gestió de Grups i Aules.html)
+   
+   ```ini
+   [ASIGNATURAS]
+   Asignaturas=False
+   GruposAsignaturas=False
+   GruposPracticas=False
+   GruposSeminarios=False
+   EspaiAulaFilePath=./EspaiAulaFiles/Gestió de Grups i Aules.html
+   ```
+
+#### Método Manual
+
 Se pueden añadir tantas asignaturas como se quiera siempre que:
 
 1. Para toda asignatura se añada un grupo de teoría, uno de prácticas y uno de seminarios. En caso de que no haya uno de ellos, hay que poner un código inventado igualmente.
@@ -64,6 +90,7 @@ Asignaturas=24303
 GruposAsignaturas=2
 GruposPracticas=201
 GruposSeminarios=202
+EspaiAulaFilePath=False
 ```
 
 Si se quiere añadir también Inteligencia Artificial (24304) con el grupo 1 de teorías, 101 de prácticas y 102 de seminarios:
@@ -74,6 +101,7 @@ Asignaturas=24303,24304
 GruposAsignaturas=2,1
 GruposPracticas=201,101
 GruposSeminarios=202,102
+EspaiAulaFilePath=False
 ```
 
 · **Fechas**: Estas fechas determinan a partir de que día y hasta que día queremos guardar los horarios. Las dos fechas deben estar en formato DD/MM/YY.
@@ -110,7 +138,7 @@ Al iniciar el programa se va a abrir una ventana con nuestro buscador que nos va
 
 El producto ha sido desarrollado bajo la licencia [GNU General Public License 3](https://www.gnu.org/licenses/gpl-3.0.en.html), por lo que se permite la modificación del mismo, su distribución y su uso privado, siempre que el código siga siendo completamente abierto y público tal y como obliga su licencia. 
 
-Es archivo de credenciales de la API de Google Calendar es totalmente pública, de manera que se puede seguir usando la misma API para proyectos basados en esta aplicación. Si se hace un mal uso del archivo se regenerará la clave y pasará a ser privada. 
+El archivo de credenciales de la API de Google Calendar es totalmente pública, de manera que se puede seguir usando la misma API para proyectos basados en esta aplicación. Si se hace un mal uso del archivo se regenerará la clave y pasará a ser privada. 
 
 En caso de que se quiera crear una interfaz gráfica para la aplicación se pueden usar herramientas como [PyQt5](https://pypi.org/project/PyQt5/) que solo van a necesitar editar el archivo de [UserPreferences.ini](https://github.com/Sklyvan/ScrapingUPF/blob/main/UserPreferences.ini). 
 

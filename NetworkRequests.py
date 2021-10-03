@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup as BS
-import requests, json, os
+import requests, json, os, html
 
 def getDataDict(dataString):
     """
@@ -56,3 +56,22 @@ class Request:
                 open(f'./JSON Files/Data{nameID}.json', 'w').write(str(self.jSON))
                 self.jsonDir = f'./JSON Files/Data{nameID}.json'
         return self.jSON
+
+class HTML_LocalFile:
+    def __init__(self, FILEPATH, encodingType):
+        self.filePath = FILEPATH
+        self.HTML = open(FILEPATH, 'r', encoding=encodingType)
+        self.HTML_Content = self.HTML.read()
+        self.Soup =  BS(self.HTML_Content, 'html.parser')
+
+    def findAll(self, tagName, className, searchRecursive=True): return self.Soup.findAll(tagName, {"class": className}, recursive=searchRecursive)
+    def findAllContent(self, tagName, className, searchRecursive=True, cleanContent=True):
+        if cleanContent:
+            return list(map(lambda x: html.unescape(x.get_text()).replace('\n', '').replace('  ', '').replace('\xa0', '.'),
+                            self.Soup.findAll(tagName, {"class": className}, recursive=searchRecursive)))
+        else:
+            return list(map(lambda x: x.get_text(),
+                            self.Soup.findAll(tagName, {"class": className}, recursive=searchRecursive)))
+    def findFrom(self, tagName, className, from_n, searchRecursive=True): return self.findAll(tagName, className, searchRecursive)[from_n]
+
+    def __str__(self): return str(self.HTML_Content)
