@@ -55,7 +55,7 @@ Se pueden añadir las asignaturas mediante dos métodos:
 
 #### Método Automático
 
-1. Acceder al apartado [Espai Aula](https://campusglobal.upf.edu/GGiA/SVGELPortal?OPERACIO=ESTUDIANT) y iniciar sesión.
+1. Acceder al apartado [Espai Aula](https://campusglobal.upf.edu/GGiA/SVGELPortal?OPERACIO=ESTUDIANT) e iniciar sesión.
 
 2. Click derecho en la página y seleccionar Guardar Como.
 
