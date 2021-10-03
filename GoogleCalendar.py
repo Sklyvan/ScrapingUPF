@@ -28,33 +28,38 @@ class Calendar:
 
         self.Service = service
 
-    def addEvent(self, eventName="", eventLocation="", eventDescription="", start="", end="", timeZone="Europe/Madrid"):
+    def addEvent(self, eventName="", eventLocation="", eventDescription="", start="", end="", timeZone="Europe/Madrid", calendarID='primary'):
         """
         :param eventName: Event name, that name is going to appear at Google Calendar GUI.
         :param eventLocation: Event location, Google Maps can use it.
-        :param eventDescription: Text.
+        :param eventDescription: Just text about the event.
         :param start: YYYY-MM-DDTHours:Minutes:Seconds
         :param end: YYYY-MM-DDTHours:Minutes:Seconds
+        :param timeZone: TimeZone of the event inside the calendar.
+        :param calendarID: ID to detect the subcalendar where you want to add it.
         :return: The event object.
         """
 
-        newEvent = {
-            'summary': eventName,
-            'location': eventLocation,
-            'description': eventDescription,
-            'start': {
+        newEvent = \
+        {
+            'summary': eventName, 'location': eventLocation, 'description': eventDescription,
+
+            'start':
+            {
                 'dateTime': start,
                 'timeZone': timeZone,
             },
-            'end': {
+            'end':
+            {
                 'dateTime': end,
                 'timeZone': timeZone,
             },
-            "reminders": {
+            "reminders":
+            {
                 "useDefault": False,
             }
 
         }
 
-        newEvent = self.Service.events().insert(calendarId='primary', body=newEvent).execute()
+        newEvent = self.Service.events().insert(calendarId=calendarID, body=newEvent).execute()
         return newEvent
