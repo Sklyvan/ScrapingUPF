@@ -30,11 +30,12 @@ def getEspaiAulaFilePath(UserPreferences): return UserPreferences[UserPreference
 
 def extractSubjectsPreferencesFromFile(searchOn):
        contentList = searchOn.findAllContent('td', 'lletrab')
+       contentList = [x for x in contentList if x != '..'] # Cleaning trash
        Groups, SubjectsGroups, PGroups, SGroups = set(), [], [], []
        subjectsList = []
        i = 0
        while i < (len(contentList)-1):
-              if contentList[i+1][0] == 'P' or contentList[i+1][0] == 'S':
+              if contentList[i+1][0] == 'P' and contentList[i+2][0] == 'S':
                      subject, practice, seminar = contentList[i], contentList[i+1], contentList[i+2]
                      separatorPosition = subject.find('-')
                      subjectCode, subjectGroup = subject[0:separatorPosition], subject[separatorPosition+1:separatorPosition+2]
@@ -45,6 +46,28 @@ def extractSubjectsPreferencesFromFile(searchOn):
                      SGroups.append(seminarGroup)
                      subjectsList.append(subjectCode)
                      i += 2
+              elif contentList[i+1][0] == 'S':
+                     subject, seminar = contentList[i], contentList[i + 1]
+                     separatorPosition = subject.find('-')
+                     subjectCode, subjectGroup = subject[0:separatorPosition], subject[separatorPosition + 1:separatorPosition + 2]
+                     seminarGroup = seminar[seminar.find('-') + 1:]
+                     Groups.add(subjectGroup)
+                     SubjectsGroups.append(subjectGroup)
+                     PGroups.append('-1')
+                     SGroups.append(seminarGroup)
+                     subjectsList.append(subjectCode)
+                     i += 1
+              elif contentList[i+1][0] == 'P':
+                     subject, practice = contentList[i], contentList[i + 1]
+                     separatorPosition = subject.find('-')
+                     subjectCode, subjectGroup = subject[0:separatorPosition], subject[separatorPosition + 1:separatorPosition + 2]
+                     practiceGroup = practice[practice.find('-') + 1:]
+                     Groups.add(subjectGroup)
+                     SubjectsGroups.append(subjectGroup)
+                     PGroups.append(practiceGroup)
+                     SGroups.append('-1')
+                     subjectsList.append(subjectCode)
+                     i += 1
               i += 1
        return list(Groups), subjectsList, SubjectsGroups, PGroups, SGroups
 

@@ -1,10 +1,18 @@
+import sys
+
 from Imports import *
 
 def extractRND(fromSoup):
        javaScriptCode = str(fromSoup.findAll('script', type='text/javascript')[4])
        initialPosition = javaScriptCode.find('selecionarRangoHorarios?rnd=') + len('selecionarRangoHorarios?rnd=')  # Obteniendo la primera posición del primer dígito de RND.
        RND = javaScriptCode[initialPosition:initialPosition + 6].replace("'", "").replace(" ", "")
-       return RND
+       try:
+              float(RND)
+       except ValueError:
+              sys.exit("Something went pretty wrong while searching the RND value. This is probably a code bug, so contact Sklyvan.")
+              return -1
+       else:
+              return RND
 
 def downloadContent(fromData, fromHeaders=''):
        jsonFile = False
