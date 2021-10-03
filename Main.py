@@ -1,5 +1,3 @@
-import sys
-
 from Imports import *
 
 def extractRND(fromSoup):

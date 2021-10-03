@@ -30,7 +30,7 @@ def getEspaiAulaFilePath(UserPreferences): return UserPreferences[UserPreference
 
 def extractSubjectsPreferencesFromFile(searchOn):
        contentList = searchOn.findAllContent('td', 'lletrab')
-       contentList = [x for x in contentList if x != '..'] # Cleaning trash
+       contentList = [x for x in contentList if x != '..'] # Removing some trash data.
        Groups, SubjectsGroups, PGroups, SGroups = set(), [], [], []
        subjectsList = []
        i = 0
