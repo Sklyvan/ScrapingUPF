@@ -34,7 +34,9 @@ pip install -r Requirements.txt # Si PIP da error, hay que usar pip3.
 ### 3. Seleccionar las Preferencias
 
 La selección de asignaturas se hace modificando el archivo [UserPreferences.ini](https://github.com/Sklyvan/ScrapingUPF/blob/main/UserPreferences.ini), no hay que modificar nada más del programa para su uso común. **Solo se puede añadir una línea de cada elemento, es decir, no se pueden añadir dos PlanEstudio.**
-
+<br>
+Si hay alguna duda sobre cual es su código de su Plan de Estudio, el Plan Docente o similares, se pueden conocer mediante: [Calendario y Horarios](https://gestioacademica.upf.edu/pds/consultaPublica/look%5Bconpub%5DInicioPubHora?entradaPublica=true&idiomaPais=ca.ES&centro=332&estudi=3324&planDocente=2021) <br>
+<br>
 · **Connection**: Este apartado solo contiene los Headers de la petición, solo es necesario para usuarios que tengan algún problema, no debería ser necesario modificar los valores que se encuentran por defecto.
 
 · **Información Básica**: Este apartado contiene información genérica sobre el estudiante, hay que rellenar esos campos con la información deseada.
@@ -49,8 +51,7 @@ La selección de asignaturas se hace modificando el archivo [UserPreferences.ini
 | **CodigoEstudio** | Código identificador de la carrera que se está cursando.           | CodigoEstudio=3377<br/>CodigoEstudio=3370<br/>CodigoEstudio=3378 |
 | **Curso**         | Curso del que se hacen la mayoría de asignaturas.                  | Curso=1<br/>Curso=2<br/>Curso=3<br/>Curso=4                      |
 
-· **Asignaturas**: Información sobre cada una de las asignaturas que se quiere añadir al horario. 
-
+· **Asignaturas**: Información sobre cada una de las asignaturas que se quiere añadir al horario. <br>
 Se pueden añadir las asignaturas mediante dos métodos:
 
 #### Método Automático
@@ -74,8 +75,7 @@ Se pueden añadir las asignaturas mediante dos métodos:
 
 #### Método Manual
 
-Se pueden añadir tantas asignaturas como se quiera siempre que:
-
+Se pueden añadir tantas asignaturas como se quiera siempre que: <br>
 1. Para toda asignatura se añada un grupo de teoría, uno de prácticas y uno de seminarios. En caso de que no haya uno de ellos, hay que poner un código inventado igualmente.
 
 2. Los valores deben estar separados por comas y sin espacios.
