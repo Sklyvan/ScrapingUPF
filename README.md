@@ -61,7 +61,7 @@ Se pueden añadir las asignaturas mediante dos métodos:
 
 3. Guardar el archivo (Recomendable guardar la página web en una carpeta dentro del directorio ScrapingUPF).
 
-4. Añadir la ubicación del archivo HTML en el archivo de preferencias. (En este ejemplo se guarda en ./EspaiAulaFiles/Gestió de Grups i Aules.html)
+4. Añadir la ubicación del archivo HTML en el archivo de preferencias. (En este ejemplo se guarda en *./EspaiAulaFiles/Gestió de Grups i Aules.html*)
    
    ```ini
    [ASIGNATURAS]
@@ -143,7 +143,3 @@ En caso de que se quiera crear una interfaz gráfica para la aplicación se pued
 ### Contacto
 
 Cualquier duda, consulta o problema: joan.gracia01@estudiant.upf.edu
-
-### Próximamente
-
-Añadir asignaturas al archivo [UserPreferences.ini](https://github.com/Sklyvan/ScrapingUPF/blob/main/UserPreferences.ini) no es un proceso muy sencillo y cómodo, así que estoy actualmente trabajando en implementar un sistema en el que simplemente le tengas que indicar la ruta de un archivo HTML de la página del Espai Aula para extraer directamente las asignaturas y sus grupos.
