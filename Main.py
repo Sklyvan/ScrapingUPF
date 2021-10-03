@@ -68,6 +68,6 @@ if __name__ == '__main__':
 
        for subject in subjectsBlocks:
               print(f"Adding {subject.name} to the calendar.")
-              MyCalendar.addEvent(f"{subject.name} ({subject.type[0]})", subject.classroom, subject.getDescription(), subject.start, subject.end)
+              MyCalendar.addEvent(f"{subject.name} ({subject.type[0]})", subject.classroom, subject.getDescription(), subject.start, subject.end, TIMEZONE)
               print(f"{subject.name} added to the calendar.")
        print("Done!")

@@ -28,7 +28,7 @@ class Calendar:
 
         self.Service = service
 
-    def addEvent(self, eventName="", eventLocation="", eventDescription="", start="", end=""):
+    def addEvent(self, eventName="", eventLocation="", eventDescription="", start="", end="", timeZone="Europe/Madrid"):
         """
         :param eventName: Event name, that name is going to appear at Google Calendar GUI.
         :param eventLocation: Event location, Google Maps can use it.
@@ -44,11 +44,11 @@ class Calendar:
             'description': eventDescription,
             'start': {
                 'dateTime': start,
-                'timeZone': 'Europe/Madrid',
+                'timeZone': timeZone,
             },
             'end': {
                 'dateTime': end,
-                'timeZone': 'Europe/Madrid',
+                'timeZone': timeZone,
             },
             "reminders": {
                 "useDefault": False,
