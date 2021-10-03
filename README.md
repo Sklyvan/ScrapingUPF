@@ -58,8 +58,7 @@ Se pueden añadir las asignaturas mediante dos métodos:
 1. Acceder al apartado [Espai Aula](https://campusglobal.upf.edu/GGiA/SVGELPortal?OPERACIO=ESTUDIANT) y iniciar sesión.
 
 2. Click derecho en la página y seleccionar Guardar Como.
-   
-   <img src="Save%20File.png" title="" alt="Save File.png" width="222">
+![](Save File.png)
 
 3. Guardar el archivo (Recomendable guardar la página web en una carpeta dentro del directorio ScrapingUPF).
 
