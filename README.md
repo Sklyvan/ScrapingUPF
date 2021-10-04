@@ -7,7 +7,7 @@ Esta aplicación no requiere que el usuario introduzca datos sensibles de inicio
 ### 1. Requisitos Previos
 
 - [Python 3.8](https://www.python.org/downloads/) o versiones superiores.
-  (Hay una [versión del programa para Python 3.7](https://github.com/Sklyvan/ScrapingUPF/tree/oldpython) y versiones inferiores, pero no está en mantenimiento.)
+ (Hay una [versión del programa para Python 3.7](https://github.com/Sklyvan/ScrapingUPF/tree/oldpython) y versiones inferiores, pero no está en mantenimiento.)
 
 - [Python Package Installer](https://github.com/pypa/pip) (PIP) 
 
@@ -35,7 +35,7 @@ pip install -r Requirements.txt # Si PIP da error, hay que usar pip3.
 
 La selección de asignaturas se hace modificando el archivo [UserPreferences.ini](https://github.com/Sklyvan/ScrapingUPF/blob/main/UserPreferences.ini), no hay que modificar nada más del programa para su uso común. **Solo se puede añadir una línea de cada elemento, es decir, no se pueden añadir dos PlanEstudio.**
 <br>
-Si hay alguna duda sobre cual es su código de su Plan de Estudio, el Plan Docente o similares, se pueden conocer mediante: [Calendario y Horarios](https://gestioacademica.upf.edu/pds/consultaPublica/look%5Bconpub%5DInicioPubHora?entradaPublica=true&idiomaPais=ca.ES&centro=332&estudi=3324&planDocente=2021) <br>
+Si hay alguna duda sobre cuál es su código de su Plan de Estudio, el Plan Docente o similares, se pueden conocer mediante: [Calendario y Horarios](https://gestioacademica.upf.edu/pds/consultaPublica/look%5Bconpub%5DInicioPubHora?entradaPublica=true&idiomaPais=ca.ES&centro=332&estudi=3324&planDocente=2021) <br>
 <br>
 · **Connection**: Este apartado solo contiene los Headers de la petición, solo es necesario para usuarios que tengan algún problema, no debería ser necesario modificar los valores que se encuentran por defecto.
 
@@ -58,7 +58,7 @@ Se pueden añadir las asignaturas mediante dos métodos:
 
 1. Acceder al apartado [Espai Aula](https://campusglobal.upf.edu/GGiA/SVGELPortal?OPERACIO=ESTUDIANT) e iniciar sesión.
 
-2. Click derecho en la página y seleccionar Guardar Como.
+2. Clic derecho en la página y seleccionar Guardar Como.
 
 3. Guardar el archivo (Recomendable guardar la página web en una carpeta dentro del directorio ScrapingUPF).
 
