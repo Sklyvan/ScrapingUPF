@@ -47,7 +47,6 @@ def downloadContent(fromData, fromHeaders=''):
 if __name__ == '__main__':
        if sys.version_info.major < 3 or (sys.version_info.major >= 3 and sys.version_info.minor < 8): # Python 3.8 or bigger version is needed for Walrus Operator.
               sys.exit(f"You're using Python {sys.version_info.major}.{sys.version_info.minor}, required version is 3.8 or bigger.")
-
        userPreferences = getUserPreferences(CONFIG_FILE)
 
        if isUsingEspaiAulaFilePath(userPreferences):
@@ -55,6 +54,8 @@ if __name__ == '__main__':
               fromGroups, fromSubjects, userSubjectsGroups, pGroups, sGroups = extractSubjectsPreferencesFromFile(espaiAulaFile)
        else:
               fromGroups, fromSubjects, userSubjectsGroups, pGroups, sGroups = extractSubjectsPreferences(userPreferences)
+
+       subjectsColors = dict(zip(fromSubjects, [str(x+1) for x in range(len(fromSubjects))]))
 
        basicInformation, timeRange = extractRequestInformation(userPreferences)
        DATA = generateData(fromSubjects, fromGroups, basicInformation)
@@ -72,8 +73,20 @@ if __name__ == '__main__':
 
        MyCalendar = Calendar()
 
-       for subject in subjectsBlocks:
-              print(f"Adding {subject.name} to the calendar.")
-              MyCalendar.addEvent(f"{subject.name} ({subject.type[0]})", subject.classroom, subject.getDescription(), subject.start, subject.end, TIMEZONE)
-              print(f"{subject.name} added to the calendar.")
-       print("Done!")
+       if sys.argv[len(sys.argv)-1] == 'R':
+              descriptions = list(map(lambda x: x.getDescription(),subjectsBlocks))
+              events = MyCalendar.getEvents()
+              for event in events:
+                     eventDescription, eventID = event[0], event[1]
+                     if eventDescription in descriptions:
+                            print(f"Deleting EventID: {eventID} | {eventDescription}")
+                            MyCalendar.deleteEvent(eventID)
+                     else:
+                            print(f"Skipped EventID: {eventID} | {eventDescription}")
+              print("Events Deleted!")
+       else:
+              for subject in subjectsBlocks:
+                     print(f"Adding {subject.name} to the calendar.")
+                     MyCalendar.addEvent(f"{subject.name} ({subject.type[0]})", subject.classroom, subject.getDescription(), subject.start, subject.end, TIMEZONE, colorID=subjectsColors[str(subject.code)])
+                     print(f"{subject.name} added to the calendar.")
+              print("Done!")

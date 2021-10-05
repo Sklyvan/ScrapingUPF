@@ -1,7 +1,7 @@
 import time, datetime, html
 
 class SubjectBlock:
-    def __init__(self, name, classroom, type, group, code, start, end):
+    def __init__(self, name, classroom, type, group, code, start, end, colorID='1'):
         self.name, self.classroom, self.type = name, classroom, type
         self.group, self.code = group, code
         self.start, self.end = start, end
@@ -9,6 +9,7 @@ class SubjectBlock:
         self.startUnix = time.mktime(datetime.datetime.strptime(start, "%Y-%m-%d %H:%M:%S").timetuple())
         self.endUnix = time.mktime(datetime.datetime.strptime(end, "%Y-%m-%d %H:%M:%S").timetuple())
         self.start, self.end = self.start.replace(" ", "T"), self.end.replace(" ", "T") # Converting to the Google Calendar API format.
+        self.colorID = colorID
 
     def getDescription(self): return f"{self.type}: {self.name} ({self.code}) at {self.classroom} ({self.type[0]}{self.group})"
 

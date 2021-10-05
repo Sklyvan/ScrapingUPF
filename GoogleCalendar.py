@@ -28,7 +28,7 @@ class Calendar:
 
         self.Service = service
 
-    def addEvent(self, eventName="", eventLocation="", eventDescription="", start="", end="", timeZone="Europe/Madrid", calendarID='primary'):
+    def addEvent(self, eventName="", eventLocation="", eventDescription="", start="", end="", timeZone="Europe/Madrid", colorID='undefined', calendarID='primary'):
         """
         :param eventName: Event name, that name is going to appear at Google Calendar GUI.
         :param eventLocation: Event location, Google Maps can use it.
@@ -42,8 +42,7 @@ class Calendar:
 
         newEvent = \
         {
-            'summary': eventName, 'location': eventLocation, 'description': eventDescription,
-
+            'summary': eventName, 'location': eventLocation, 'description': eventDescription, 'colorId': colorID,
             'start':
             {
                 'dateTime': start,
@@ -63,3 +62,23 @@ class Calendar:
 
         newEvent = self.Service.events().insert(calendarId=calendarID, body=newEvent).execute()
         return newEvent
+
+    def deleteEvent(self, eventID, calendarID='primary'):
+        self.Service.events().delete(calendarId=calendarID, eventId=eventID).execute()
+
+    def getEvent(self, eventID, calendarID='primary'):
+        self.Service.events().get(calendarId=calendarID, eventId=eventID)
+
+    def getEvents(self, fromDate=None, toDate=None, calendarID='primary'):
+        eventsList = []
+        pageToken = None
+        while True:
+            events = self.Service.events().list(calendarId=calendarID, pageToken=pageToken).execute()
+            for event in events['items']:
+                try:
+                    eventsList.append((event['description'], event['id']))
+                except KeyError:
+                    None
+            pageToken = events.get('nextPageToken')
+            if not pageToken: break
+        return eventsList
