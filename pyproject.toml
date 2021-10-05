@@ -1,0 +1,13 @@
+[build-system]
+requires =  [
+    "setuptools >= 58",
+    "wheel",
+    "beautifulsoup4 >= 4.10.0",
+    "requests >= 2.25.1",
+    "datetime >= 4.3",
+    "google-api-python-client",
+    "google-auth-httplib2",
+    "google-auth-oauthlib",
+    "tzlocal >= 3.0"
+            ]
+build-backend = "setuptools.build_meta"
