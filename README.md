@@ -7,7 +7,7 @@ Esta aplicación no requiere que el usuario introduzca datos sensibles de inicio
 ### 1. Requisitos Previos
 
 - [Python 3.8](https://www.python.org/downloads/) o versiones superiores.
- (Hay una [versión del programa para Python 3.7](https://github.com/Sklyvan/ScrapingUPF/tree/oldpython) y versiones inferiores, pero no está en mantenimiento.)
+  (Hay una [versión del programa para Python 3.7](https://github.com/Sklyvan/ScrapingUPF/tree/oldpython) y versiones inferiores, pero no está en mantenimiento.)
 
 - [Python Package Installer](https://github.com/pypa/pip) (PIP) 
 
@@ -33,7 +33,7 @@ pip install -r Requirements.txt # Si PIP da error, hay que usar pip3.
 
 ### 3. Seleccionar las Preferencias
 
-La selección de asignaturas se hace modificando el archivo [UserPreferences.ini](https://github.com/Sklyvan/ScrapingUPF/blob/main/UserPreferences.ini), no hay que modificar nada más del programa para su uso común. **Solo se puede añadir una línea de cada elemento, es decir, no se pueden añadir dos PlanEstudio.**
+La selección de asignaturas se hace modificando el archivo [UserPreferences.ini](UserPreferences.ini), no hay que modificar nada más del programa para su uso común. **Solo se puede añadir una línea de cada elemento, es decir, no se pueden añadir dos PlanEstudio.**
 <br>
 Si hay alguna duda sobre cuál es su código de su Plan de Estudio, el Plan Docente o similares, se pueden conocer mediante: [Calendario y Horarios](https://gestioacademica.upf.edu/pds/consultaPublica/look%5Bconpub%5DInicioPubHora?entradaPublica=true&idiomaPais=ca.ES&centro=332&estudi=3324&planDocente=2021) <br>
 <br>
@@ -76,6 +76,7 @@ Se pueden añadir las asignaturas mediante dos métodos:
 #### Método Manual
 
 Se pueden añadir tantas asignaturas como se quiera siempre que: <br>
+
 1. Para toda asignatura se añada un grupo de teoría, uno de prácticas y uno de seminarios. En caso de que no haya uno de ellos, hay que poner un código inventado igualmente.
 
 2. Los valores deben estar separados por comas y sin espacios.
@@ -125,20 +126,20 @@ Final=31/10/2021
 Para ejecutar el programa simplemente hay que lanzar el archivo Main.py mediante Python:
 
 ```shell
-python3 Main.py
+python3 ./src/Main.py
 ```
 
 Al iniciar el programa se va a abrir una ventana con nuestro buscador que nos va a pedir autorización para la API de Google Calendar.
 
-![](RunningTheApplication.gif)
+![](./res/RunningTheApplication.gif)
 
 ### 5. Información para Desarrolladores
 
 El producto ha sido desarrollado bajo la licencia [GNU General Public License 3](https://www.gnu.org/licenses/gpl-3.0.en.html), por lo que se permite la modificación del mismo, su distribución y su uso privado, siempre que el código siga siendo completamente abierto y público tal y como obliga su licencia. 
 
-El archivo de credenciales de la API de Google Calendar es totalmente pública, de manera que se puede seguir usando la misma API para proyectos basados en esta aplicación. Si se hace un mal uso del archivo se regenerará la clave y pasará a ser privada. 
+El archivo de credenciales de la API de Google Calendar es totalmente pública, de manera que se puede seguir usando la misma API para proyectos basados en esta 
 
-En caso de que se quiera crear una interfaz gráfica para la aplicación se pueden usar herramientas como [PyQt5](https://pypi.org/project/PyQt5/) que solo van a necesitar editar el archivo de [UserPreferences.ini](https://github.com/Sklyvan/ScrapingUPF/blob/main/UserPreferences.ini). 
+En caso de que se quiera crear una interfaz gráfica para la aplicación se pueden usar herramientas como [PyQt5](https://pypi.org/project/PyQt5/) que solo van a necesitar editar el archivo de [UserPreferences.ini](UserPreferences.ini). 
 
 ### Contacto
 

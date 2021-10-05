@@ -5,23 +5,24 @@ import pickle
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
+tokenPath, credsPath = '../keys/token.pickle', '../keys/credentials.json'
 
 class Calendar:
     def __init__(self):
         self.Service = None
         SCOPES = ['https://www.googleapis.com/auth/calendar']
         CREDS = None # Google API Function, generating the current Auth without opening the browser, so cool :).
-        if os.path.exists('token.pickle'):
-            with open('token.pickle', 'rb') as token:
+        if os.path.exists(tokenPath):
+            with open(tokenPath, 'rb') as token:
                 CREDS = pickle.load(token)
         if not CREDS or not CREDS.valid:
             if CREDS and CREDS.expired and CREDS.refresh_token:
                 CREDS.refresh(Request())
             else:
                 flow = InstalledAppFlow.from_client_secrets_file(
-                    'credentials.json', SCOPES)
+                    credsPath, SCOPES)
                 CREDS = flow.run_local_server(port=0)
-            with open('token.pickle', 'wb') as token:
+            with open(tokenPath, 'wb') as token:
                 pickle.dump(CREDS, token)
 
         service = build('calendar', 'v3', credentials=CREDS)

@@ -8,7 +8,7 @@ def extractRND(fromSoup):
               float(RND)
        except ValueError:
               sys.exit("Something went pretty wrong while searching the RND value. This is probably a code bug, so contact Sklyvan.")
-              return -1
+              return False
        else:
               return RND
 
@@ -45,12 +45,13 @@ def downloadContent(fromData, fromHeaders=''):
        return jsonFile
 
 if __name__ == '__main__':
-       if sys.version_info.major < 3 or (sys.version_info.major >= 3 and sys.version_info.minor < 8): # Python 3.8 or bigger version is needed for Walrus Operator.
+       # Python 3.8 or bigger version is needed for Walrus Operator.
+       if sys.version_info.major < PYTHON_VERSION['Major'] or (sys.version_info.major >= PYTHON_VERSION['Major'] and sys.version_info.minor < PYTHON_VERSION['Minor']):
               sys.exit(f"You're using Python {sys.version_info.major}.{sys.version_info.minor}, required version is 3.8 or bigger.")
        userPreferences = getUserPreferences(CONFIG_FILE)
 
        if isUsingEspaiAulaFilePath(userPreferences):
-              espaiAulaFile = HTML_LocalFile(getEspaiAulaFilePath(userPreferences), 'latin-1')
+              espaiAulaFile = HTML_LocalFile(getEspaiAulaFilePath(userPreferences), DECODE_HTML_FILE)
               fromGroups, fromSubjects, userSubjectsGroups, pGroups, sGroups = extractSubjectsPreferencesFromFile(espaiAulaFile)
        else:
               fromGroups, fromSubjects, userSubjectsGroups, pGroups, sGroups = extractSubjectsPreferences(userPreferences)
@@ -73,7 +74,7 @@ if __name__ == '__main__':
 
        MyCalendar = Calendar()
 
-       if sys.argv[len(sys.argv)-1] == 'R':
+       if sys.argv[len(sys.argv)-1] == DELETE_EVENTS_SYMBOL:
               descriptions = list(map(lambda x: x.getDescription(),subjectsBlocks))
               events = MyCalendar.getEvents()
               for event in events:

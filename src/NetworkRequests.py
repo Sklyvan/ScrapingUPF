@@ -48,13 +48,13 @@ class Request:
     def getJSON(self, exportFile=False, nameID=None): # Como al final nos devuelve un horario, lo extraemos en formato JSON ya que es mucho más cómo de trabajar.
         self.jSON = json.loads(self.HTML_Page.text)
         if exportFile:
-            if not os.path.isdir('./JSON Files'): os.mkdir('./JSON Files')
+            if not os.path.isdir('../res/JSON Files'): os.mkdir('../res/JSON Files')
             if not nameID:
-                open('./JSON Files/Data.json', 'w').write(str(self.jSON))
-                self.jsonDir = './JSON Files/Data.json'
+                open('../res/JSON Files/Data.json', 'w').write(str(self.jSON))
+                self.jsonDir = '../res/JSON Files/Data.json'
             else:
-                open(f'./JSON Files/Data{nameID}.json', 'w').write(str(self.jSON))
-                self.jsonDir = f'./JSON Files/Data{nameID}.json'
+                open(f'../res/JSON Files/Data{nameID}.json', 'w').write(str(self.jSON))
+                self.jsonDir = f'../res/JSON Files/Data{nameID}.json'
         return self.jSON
 
 class HTML_LocalFile:
