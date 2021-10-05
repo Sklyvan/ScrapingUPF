@@ -62,7 +62,7 @@ Se pueden añadir las asignaturas mediante dos métodos:
 
 3. Guardar el archivo (Recomendable guardar la página web en una carpeta dentro del directorio ScrapingUPF).
 
-4. Añadir la ubicación del archivo HTML en el archivo de preferencias. (En este ejemplo se guarda en *./EspaiAulaFiles/Gestió de Grups i Aules.html*)
+4. Añadir la ubicación del archivo HTML en el archivo de preferencias. (En este ejemplo se guarda en *ScrapingUPF/res/EspaiAulaFiles/Gestió de Grups i Aules.html*)
    
    ```ini
    [ASIGNATURAS]
@@ -70,7 +70,7 @@ Se pueden añadir las asignaturas mediante dos métodos:
    GruposAsignaturas=False
    GruposPracticas=False
    GruposSeminarios=False
-   EspaiAulaFilePath=./EspaiAulaFiles/Gestió de Grups i Aules.html
+   EspaiAulaFilePath=../res/EspaiAulaFiles/Gestió de Grups i Aules.html
    ```
 
 #### Método Manual
