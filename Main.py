@@ -55,7 +55,7 @@ if __name__ == '__main__':
        else:
               fromGroups, fromSubjects, userSubjectsGroups, pGroups, sGroups = extractSubjectsPreferences(userPreferences)
 
-       subjectsColors = dict(zip(fromSubjects, [str(x+1) for x in range(len(fromSubjects))]))
+       subjectsColors = dict(zip(fromSubjects, [str(x%GOOGLE_CALENDAR_API_MAX_COLORS+1) for x in range(len(fromSubjects))]))
 
        basicInformation, timeRange = extractRequestInformation(userPreferences)
        DATA = generateData(fromSubjects, fromGroups, basicInformation)

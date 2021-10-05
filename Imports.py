@@ -13,3 +13,5 @@ URL = 'https://gestioacademica.upf.edu/pds/consultaPublica/look%5Bconpub%5DInici
 URL_RND = 'https://gestioacademica.upf.edu/pds/consultaPublica/look[conpub]MostrarPubHora' # Con esta URL obtenemos un número "aleatorio" que nos permite simular la conexión de un usuario consultando el horario.
 URL_JSON = 'https://gestioacademica.upf.edu/pds/consultaPublica/[Ajax]selecionarRangoHorarios' # Con esta URL obtenermos el archivo JSON que contiene el horario.
 TIMEZONE = get_localzone().key
+
+GOOGLE_CALENDAR_API_MAX_COLORS = 11
