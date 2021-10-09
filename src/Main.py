@@ -12,7 +12,7 @@ def extractRND(fromSoup):
        else:
               return RND
 
-def downloadContent(fromData, fromHeaders=''):
+def downloadContent(fromData, fromDate, toDate, fromHeaders=''):
        jsonFile = False
 
        try:
@@ -44,7 +44,7 @@ def downloadContent(fromData, fromHeaders=''):
 
        return jsonFile
 
-if __name__ == '__main__':
+def RunApplication(deleteMode=False):
        # Python 3.8 or bigger version is needed for Walrus Operator.
        if sys.version_info.major < PYTHON_VERSION['Major'] or (sys.version_info.major >= PYTHON_VERSION['Major'] and sys.version_info.minor < PYTHON_VERSION['Minor']):
               sys.exit(f"You're using Python {sys.version_info.major}.{sys.version_info.minor}, required version is 3.8 or bigger.")
@@ -62,7 +62,7 @@ if __name__ == '__main__':
        DATA = generateData(fromSubjects, fromGroups, basicInformation)
        fromDate, toDate = int(time.mktime(datetime.datetime.strptime(timeRange[0], "%d/%m/%Y").timetuple())), int(time.mktime(datetime.datetime.strptime(timeRange[1], "%d/%m/%Y").timetuple()))
 
-       if (jsonFile := downloadContent(DATA, fromHeaders=getUserHeaders(CONFIG_FILE))):
+       if (jsonFile := downloadContent(DATA, fromDate, toDate, fromHeaders=getUserHeaders(CONFIG_FILE))):
               if (n_downloadedSubjects := len(jsonFile)-1) > 0:
                      print(f"Downloaded {n_downloadedSubjects} subjects blocks.")
                      subjectsBlocks = generateBlocks(jsonFile, dict(zip(fromSubjects, zip(userSubjectsGroups, pGroups, sGroups))), n_downloadedSubjects)
@@ -74,7 +74,7 @@ if __name__ == '__main__':
 
        MyCalendar = Calendar()
 
-       if sys.argv[len(sys.argv)-1] == DELETE_EVENTS_SYMBOL:
+       if deleteMode:
               descriptions = list(map(lambda x: x.getDescription(),subjectsBlocks))
               events = MyCalendar.getEvents()
               for event in events:

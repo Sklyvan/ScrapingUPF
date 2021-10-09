@@ -145,4 +145,5 @@ En caso de que se quiera crear una interfaz gráfica para la aplicación se pued
 Cualquier duda, consulta o problema: joan.gracia01@estudiant.upf.edu
 
 ### Captura de Pantalla en Google Calendar
-![](./res/GoogleCalendar.png)
+![](./res/GoogleCalendar-Month.png)
+![](./res/GoogleCalendar-Week.png)

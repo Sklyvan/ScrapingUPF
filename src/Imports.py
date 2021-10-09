@@ -16,5 +16,6 @@ TIMEZONE = get_localzone().key
 
 GOOGLE_CALENDAR_API_MAX_COLORS = 11
 DECODE_HTML_FILE = 'latin-1'
-DELETE_EVENTS_SYMBOL = 'R'
 PYTHON_VERSION = {'Major': 3, 'Minor': 8}
+REPOSITORY_URL = "https://github.com/Sklyvan/ScrapingUPF"
+README_URL = "https://github.com/Sklyvan/ScrapingUPF/blob/main/README.md"

@@ -10,6 +10,68 @@ def getUserPreferences(FILEPATH):
        UserPreferences.read(FILEPATH)
        return UserPreferences
 
+def insertUserPreferences(CONFIG_FILEPATH, planEstudio, idiomaPais, trimestre, planDocente, codigoCentro, codigoEstudio, curso):
+       UserPreferences = getUserPreferences(CONFIG_FILEPATH)
+
+       BasicInformation = UserPreferences[UserPreferences.sections()[1]]
+       BasicInformation['PlanEstudio'] = planEstudio
+       BasicInformation['IdiomaPais'] = idiomaPais
+       BasicInformation['Trimestre'] = trimestre
+       BasicInformation['PlanDocente'] = planDocente
+       BasicInformation['CodigoCentro'] = codigoCentro
+       BasicInformation['CodigoEstudio'] = codigoEstudio
+       BasicInformation['Curso'] = curso
+
+       with open(CONFIG_FILEPATH, 'w') as configurationFile: UserPreferences.write(configurationFile)
+
+def insertFilePath(CONFIG_FILEPATH, filePath):
+       UserPreferences = getUserPreferences(CONFIG_FILEPATH)
+       Subjects = UserPreferences[UserPreferences.sections()[2]]
+       Subjects['EspaiAulaFilePath'] = filePath
+
+       with open(CONFIG_FILEPATH, 'w') as configurationFile: UserPreferences.write(configurationFile)
+
+def insertSubjectPreferences(CONFIG_FILEPATH, toInsert):
+       """
+       Adds a subject to the .init file, it checks if is the first subject.
+       :param CONFIG_FILEPATH: .init file path.
+       :param toInsert: Dictionary that contains subject['Code'] as the subject ID, subject['T'] for the theory group,
+       subject['S'] and subject['P'] for the seminars and practice groups.
+       """
+       UserPreferences = getUserPreferences(CONFIG_FILEPATH)
+       SubjectsInformation = UserPreferences[UserPreferences.sections()[2]]
+
+       if SubjectsInformation['Asignaturas'].lower() != 'false':
+              SubjectsInformation['Asignaturas'] = SubjectsInformation['Asignaturas'] + ',' + toInsert['Code']
+              SubjectsInformation['GruposAsignaturas'] = SubjectsInformation['GruposAsignaturas'] + ',' + toInsert['T']
+              SubjectsInformation['GruposPracticas'] = SubjectsInformation['GruposPracticas'] + ',' + toInsert['P']
+              SubjectsInformation['GruposSeminarios'] = SubjectsInformation['GruposSeminarios'] + ',' + toInsert['S']
+       else:
+              SubjectsInformation['Asignaturas'] = toInsert['Code']
+              SubjectsInformation['GruposAsignaturas'] = toInsert['T']
+              SubjectsInformation['GruposPracticas'] = toInsert['P']
+              SubjectsInformation['GruposSeminarios'] = toInsert['S']
+
+       with open(CONFIG_FILEPATH, 'w') as configurationFile: UserPreferences.write(configurationFile)
+
+def clearSubjectsPreferences(CONFIG_FILEPATH):
+       UserPreferences = getUserPreferences(CONFIG_FILEPATH)
+       SubjectsInformation = UserPreferences[UserPreferences.sections()[2]]
+
+       SubjectsInformation['Asignaturas'] = 'False'
+       SubjectsInformation['GruposAsignaturas'] = 'False'
+       SubjectsInformation['GruposPracticas'] = 'False'
+       SubjectsInformation['GruposSeminarios'] = 'False'
+
+       with open(CONFIG_FILEPATH, 'w') as configurationFile: UserPreferences.write(configurationFile)
+
+def insertTimeRange(CONFIG_FILEPATH, fromDate, toDate):
+       UserPreferences = getUserPreferences(CONFIG_FILEPATH)
+       Dates = UserPreferences[UserPreferences.sections()[3]]
+       Dates['Inicio'], Dates['Final'] = fromDate, toDate
+
+       with open(CONFIG_FILEPATH, 'w') as configurationFile: UserPreferences.write(configurationFile)
+
 def isUsingEspaiAulaFilePath(UserPreferences): return UserPreferences[UserPreferences.sections()[2]]['EspaiAulaFilePath'] != 'False'
 
 def extractSubjectsPreferences(UserPreferences):
