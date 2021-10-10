@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>ScrapingUPF</string>
   </property>
   <property name="locale">
    <locale language="Spanish" country="Spain"/>

@@ -19,3 +19,4 @@ DECODE_HTML_FILE = 'latin-1'
 PYTHON_VERSION = {'Major': 3, 'Minor': 8}
 REPOSITORY_URL = "https://github.com/Sklyvan/ScrapingUPF"
 README_URL = "https://github.com/Sklyvan/ScrapingUPF/blob/main/README.md"
+APP_LOGO = "../res/GUI/AppLogo.png"

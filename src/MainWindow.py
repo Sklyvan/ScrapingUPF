@@ -9,9 +9,8 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from Configuration import getUserPreferences, insertUserPreferences, \
-    insertFilePath, insertSubjectPreferences, insertTimeRange, clearSubjectsPreferences
-from Imports import CONFIG_FILE, README_URL, REPOSITORY_URL
+from Configuration import *
+from Imports import CONFIG_FILE, README_URL, REPOSITORY_URL, APP_LOGO
 from Main import RunApplication
 import sys, webbrowser, qdarkstyle, os
 
@@ -243,6 +242,7 @@ class Ui_MainWindowDesign(object):
         self.menuBar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(MainWindowDesign)
+
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindowDesign)
         MainWindowDesign.setTabOrder(self.planEstudioText, self.idiomaPaisText)
@@ -280,7 +280,7 @@ class Ui_MainWindowDesign(object):
 
     def retranslateUi(self, MainWindowDesign):
         _translate = QtCore.QCoreApplication.translate
-        MainWindowDesign.setWindowTitle(_translate("MainWindowDesign", "MainWindow"))
+        MainWindowDesign.setWindowTitle(_translate("MainWindowDesign", "ScrapingUPF"))
         self.basicInformation.setTitle(_translate("MainWindowDesign", "Información Básica"))
         self.planEstudio.setText(_translate("MainWindowDesign", "Plan de Estudio"))
         self.saveButton.setText(_translate("MainWindowDesign", "Guardar"))
@@ -310,6 +310,8 @@ class Ui_MainWindowDesign(object):
         self.actionManual.setText(_translate("MainWindowDesign", "Manual"))
         self.actionQuit.setText(_translate("MainWindowDesign", "Quit"))
         self.actionAgradecimientos.setText(_translate("MainWindowDesign", "Agradecimientos"))
+
+        MainWindowDesign.setWindowIcon(QtGui.QIcon(APP_LOGO))
 
     def clickSaveButton(self): # Guardar
         planEstudio = self.planEstudioText.text()
