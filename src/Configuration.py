@@ -1,4 +1,4 @@
-import configparser
+import configparser, os
 
 def getUserHeaders(FILEPATH):
        UserPreferences = configparser.ConfigParser()
@@ -12,7 +12,6 @@ def getUserPreferences(FILEPATH):
 
 def insertUserPreferences(CONFIG_FILEPATH, planEstudio, idiomaPais, trimestre, planDocente, codigoCentro, codigoEstudio, curso):
        UserPreferences = getUserPreferences(CONFIG_FILEPATH)
-
        BasicInformation = UserPreferences[UserPreferences.sections()[1]]
        BasicInformation['PlanEstudio'] = planEstudio
        BasicInformation['IdiomaPais'] = idiomaPais

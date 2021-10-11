@@ -386,3 +386,5 @@ UserPreferences.ini
 /res/EspaiAulaFiles/
 /res/JSON Files/
 /keys/token.pickle
+/res/GUI/AppLogo.xcf
+src/MainWindow
