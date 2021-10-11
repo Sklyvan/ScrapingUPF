@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindowDesign(object):
     def setupUi(self, MainWindowDesign):
         MainWindowDesign.setObjectName("MainWindowDesign")
-        MainWindowDesign.resize(690, 608)
+        MainWindowDesign.resize(594, 658)
         MainWindowDesign.setLocale(QtCore.QLocale(QtCore.QLocale.Spanish, QtCore.QLocale.Spain))
         self.mainWindow = QtWidgets.QWidget(MainWindowDesign)
         self.mainWindow.setObjectName("mainWindow")
@@ -212,9 +212,14 @@ class Ui_MainWindowDesign(object):
         self.transferButton.setObjectName("transferButton")
         self.verticalLayout.addWidget(self.transferButton)
         self.gridLayout_3.addWidget(self.endBox, 2, 0, 1, 1)
+        self.plainTextEdit = QtWidgets.QPlainTextEdit(self.mainWindow)
+        self.plainTextEdit.setReadOnly(True)
+        self.plainTextEdit.setPlainText("")
+        self.plainTextEdit.setObjectName("plainTextEdit")
+        self.gridLayout_3.addWidget(self.plainTextEdit, 3, 0, 1, 1)
         MainWindowDesign.setCentralWidget(self.mainWindow)
         self.menuBar = QtWidgets.QMenuBar(MainWindowDesign)
-        self.menuBar.setGeometry(QtCore.QRect(0, 0, 690, 22))
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 594, 22))
         self.menuBar.setObjectName("menuBar")
         self.menuHelp = QtWidgets.QMenu(self.menuBar)
         self.menuHelp.setObjectName("menuHelp")
@@ -238,7 +243,7 @@ class Ui_MainWindowDesign(object):
         self.menuBar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(MainWindowDesign)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindowDesign)
         MainWindowDesign.setTabOrder(self.planEstudioText, self.idiomaPaisText)
         MainWindowDesign.setTabOrder(self.idiomaPaisText, self.trimestreSpinBox)
@@ -263,7 +268,7 @@ class Ui_MainWindowDesign(object):
 
     def retranslateUi(self, MainWindowDesign):
         _translate = QtCore.QCoreApplication.translate
-        MainWindowDesign.setWindowTitle(_translate("MainWindowDesign", "MainWindow"))
+        MainWindowDesign.setWindowTitle(_translate("MainWindowDesign", "ScrapingUPF"))
         self.basicInformation.setTitle(_translate("MainWindowDesign", "Información Básica"))
         self.planEstudio.setText(_translate("MainWindowDesign", "Plan de Estudio"))
         self.saveButton.setText(_translate("MainWindowDesign", "Guardar"))

@@ -18,7 +18,7 @@ class Ui_MainWindowDesign(object):
     def setupUi(self, MainWindowDesign, QtApplication):
         self.QtApplication = QtApplication
         MainWindowDesign.setObjectName("MainWindowDesign")
-        MainWindowDesign.resize(690, 608)
+        MainWindowDesign.resize(594, 658)
         MainWindowDesign.setLocale(QtCore.QLocale(QtCore.QLocale.Spanish, QtCore.QLocale.Spain))
         self.mainWindow = QtWidgets.QWidget(MainWindowDesign)
         self.mainWindow.setObjectName("mainWindow")
@@ -216,9 +216,14 @@ class Ui_MainWindowDesign(object):
         self.transferButton.setObjectName("transferButton")
         self.verticalLayout.addWidget(self.transferButton)
         self.gridLayout_3.addWidget(self.endBox, 2, 0, 1, 1)
+        self.plainTextEdit = QtWidgets.QPlainTextEdit(self.mainWindow)
+        self.plainTextEdit.setReadOnly(True)
+        self.plainTextEdit.setPlainText("")
+        self.plainTextEdit.setObjectName("plainTextEdit")
+        self.gridLayout_3.addWidget(self.plainTextEdit, 3, 0, 1, 1)
         MainWindowDesign.setCentralWidget(self.mainWindow)
         self.menuBar = QtWidgets.QMenuBar(MainWindowDesign)
-        self.menuBar.setGeometry(QtCore.QRect(0, 0, 690, 22))
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 594, 22))
         self.menuBar.setObjectName("menuBar")
         self.menuHelp = QtWidgets.QMenu(self.menuBar)
         self.menuHelp.setObjectName("menuHelp")
@@ -242,8 +247,7 @@ class Ui_MainWindowDesign(object):
         self.menuBar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(MainWindowDesign)
-
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindowDesign)
         MainWindowDesign.setTabOrder(self.planEstudioText, self.idiomaPaisText)
         MainWindowDesign.setTabOrder(self.idiomaPaisText, self.trimestreSpinBox)
@@ -300,7 +304,7 @@ class Ui_MainWindowDesign(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.subjectsWidget1), _translate("MainWindowDesign", "Método Manual"))
         self.subjectFilePathBox.setTitle(_translate("MainWindowDesign", "Introducir la ubicación del archivo:"))
         self.useFileButton.setText(_translate("MainWindowDesign", "Usar Archivo"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.subjectsWidget2),_translate("MainWindowDesign", "Método Automático"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.subjectsWidget2), _translate("MainWindowDesign", "Método Automático"))
         self.startDateLabel.setText(_translate("MainWindowDesign", "Fecha Inicial"))
         self.endDateLabel.setText(_translate("MainWindowDesign", "Fecha Final"))
         self.deleteButton.setText(_translate("MainWindowDesign", "Eliminar asignaturas de Google Calendar"))
@@ -350,14 +354,16 @@ class Ui_MainWindowDesign(object):
     def clickRemoveSubjectsButton(self): # Eliminar asignaturas de Google Calendar
         fromDate, toDate = self.startDateEdit.text(), self.endDateEdit.text()
         insertTimeRange(CONFIG_FILE, fromDate, toDate)
-        RunApplication(deleteMode=True)
+        RunApplication(deleteMode=True, logMessages=self.plainTextEdit)
 
     def clickAddSubjectsButton(self): # Transferir asignaturas a Google Calendar
         fromDate, toDate = self.startDateEdit.text(), self.endDateEdit.text()
         insertTimeRange(CONFIG_FILE, fromDate, toDate)
-        RunApplication()
+        RunApplication(logMessages=self.plainTextEdit)
 
     def clickClearSubjectsButton(self): clearSubjectsPreferences(CONFIG_FILE)
+
+    def addLogInformation(self, logInformation): self.plainTextEdit.appendPlainText(logInformation)
 
     def runInformationWindow(self): print("Not implemented.")
 

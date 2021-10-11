@@ -7,7 +7,8 @@ def extractRND(fromSoup):
        try:
               float(RND)
        except ValueError:
-              sys.exit("Something went pretty wrong while searching the RND value. This is probably a code bug, so contact Sklyvan.")
+              if not logOutput: sys.exit("Something went pretty wrong while searching the RND value. This is probably a code bug, so contact Sklyvan.")
+              else: logOutput.appendPlainText("ERROR: Something went pretty wrong while searching the RND value. This is probably a code bug, so contact Sklyvan.")
               return False
        else:
               return RND
@@ -16,35 +17,46 @@ def downloadContent(fromData, fromDate, toDate, fromHeaders=''):
        jsonFile = False
 
        try:
-              print("Establishing session.")
+              if not logOutput: print("Establishing session.")
+              else: logOutput.appendPlainText("Establishing session.")
               SESSION = Request(URL, fromHeaders, requests.Session(), requestMethod='GET').SESSION
        except Exception as ErrorCode:
-              sys.exit(f"Something went wrong while generating session. {ErrorCode}")
+              if not logOutput: sys.exit(f"Something went wrong while generating session. {ErrorCode}")
+              else: logOutput.appendPlainText(f"ERROR: Something went wrong while generating session. {ErrorCode}")
               return False
-       print("Session successfully established.")
+       if not logOutput: print("Session successfully established.")
+       else: logOutput.appendPlainText("Session successfully established.")
 
        try:
-              print("Searching for RND number.")
+              if not logOutput: print("Searching for RND number.")
+              else: logOutput.appendPlainText("Searching for RND number.")
               soupRND = Request(URL_RND, fromHeaders, SESSION, requestMethod='POST', postData=fromData).Soup
        except Exception as ErrorCode:
-              sys.exit(f"Something went wrong while connecting to search RND number. {ErrorCode}")
+              if not logOutput: sys.exit(f"Something went wrong while connecting to search RND number. {ErrorCode}")
+              else: logOutput.appendPlainText(f"ERROR: Something went wrong while connecting to search RND number. {ErrorCode}")
               return False
        RND = extractRND(soupRND)
        timeRND = f'rnd={RND}&start={fromDate}&end={toDate}'
-       print("RND Number found.")
+       if not logOutput: print("RND Number found.")
+       else: logOutput.appendPlainText("RND Number found.")
 
        try:
-              print("Downloading the content.")
+              if not logOutput: print("Downloading the content.")
+              else: logOutput.appendPlainText("Downloading the content.")
               contentRequest = Request(URL_JSON, fromHeaders, SESSION, requestMethod='POST', postData=timeRND)
        except Exception as ErrorCode:
-              sys.exit(f"Something went wrong while obtaining the request content. {ErrorCode}")
+              if not logOutput: sys.exit(f"Something went wrong while obtaining the request content. {ErrorCode}")
+              else: logOutput.appendPlainText(f"ERROR: Something went wrong while obtaining the request content. {ErrorCode}")
               return False
        jsonFile = contentRequest.getJSON(exportFile=True)
-       print("Content downloaded, JSON file saved.")
+       if not logOutput: print("Content downloaded, JSON file saved.")
+       else: logOutput.appendPlainText("Content downloaded, JSON file saved.")
 
        return jsonFile
 
-def RunApplication(deleteMode=False):
+def RunApplication(deleteMode=False, logMessages=None):
+       global logOutput # Esto es cutre, pero me da pereza modificar la estructura entera del proyecto por culpa de una puta GUI.
+       logOutput = logMessages
        # Python 3.8 or bigger version is needed for Walrus Operator.
        if sys.version_info.major < PYTHON_VERSION['Major'] or (sys.version_info.major >= PYTHON_VERSION['Major'] and sys.version_info.minor < PYTHON_VERSION['Minor']):
               sys.exit(f"You're using Python {sys.version_info.major}.{sys.version_info.minor}, required version is 3.8 or bigger.")
@@ -64,13 +76,17 @@ def RunApplication(deleteMode=False):
 
        if (jsonFile := downloadContent(DATA, fromDate, toDate, fromHeaders=getUserHeaders(CONFIG_FILE))):
               if (n_downloadedSubjects := len(jsonFile)-1) > 0:
-                     print(f"Downloaded {n_downloadedSubjects} subjects blocks.")
+                     if not logOutput: print(f"Downloaded {n_downloadedSubjects} subjects blocks.")
+                     else: logOutput.appendPlainText(f"Downloaded {n_downloadedSubjects} subjects blocks.")
                      subjectsBlocks = generateBlocks(jsonFile, dict(zip(fromSubjects, zip(userSubjectsGroups, pGroups, sGroups))), n_downloadedSubjects)
-                     print(f"Using {len(subjectsBlocks)} subjects blocks.")
+                     if not logOutput: print(f"Using {len(subjectsBlocks)} subjects blocks.")
+                     else: logOutput.appendPlainText(f"Using {len(subjectsBlocks)} subjects blocks.")
               else:
-                     sys.exit("No subjects blocks have been downloaded, closing program.")
+                     if not logOutput: sys.exit("No subjects blocks have been downloaded, closing program.")
+                     else: logOutput.appendPlainText(f"WARNING: No subjects blocks have been downloaded, closing program.")
        else:
-              sys.exit(f"Something went wrong generating blocks, closing program.")
+              if not logOutput: sys.exit(f"Something went wrong generating blocks, closing program.")
+              else: logOutput.appendPlainText(f"ERROR: Something went wrong generating blocks, closing program.")
 
        MyCalendar = Calendar()
 
@@ -80,14 +96,20 @@ def RunApplication(deleteMode=False):
               for event in events:
                      eventDescription, eventID = event[0], event[1]
                      if eventDescription in descriptions:
-                            print(f"Deleting EventID: {eventID} | {eventDescription}")
+                            if not logOutput: print(f"Deleting EventID: {eventID} | {eventDescription}")
+                            else: logOutput.appendPlainText(f"Deleting EventID: {eventID} | {eventDescription}")
                             MyCalendar.deleteEvent(eventID)
                      else:
-                            print(f"Skipped EventID: {eventID} | {eventDescription}")
-              print("Events Deleted!")
+                            if not logOutput: print(f"Skipped EventID: {eventID} | {eventDescription}")
+                            else: logOutput.appendPlainText(f"Skipped EventID: {eventID} | {eventDescription}")
+              if not logOutput: print("Events Removed!")
+              else: logOutput.appendPlainText("Events Removed!")
        else:
               for subject in subjectsBlocks:
-                     print(f"Adding {subject.name} to the calendar.")
+                     if not logOutput: print(f"Adding {subject.name} to the calendar.")
+                     else: logOutput.appendPlainText(f"Adding {subject.name} to the calendar.")
                      MyCalendar.addEvent(f"{subject.name} ({subject.type[0]})", subject.classroom, subject.getDescription(), subject.start, subject.end, TIMEZONE, colorID=subjectsColors[str(subject.code)])
-                     print(f"{subject.name} added to the calendar.")
-              print("Done!")
+                     if not logOutput: print(f"{subject.name} added to the calendar.")
+                     else: logOutput.appendPlainText(f"{subject.name} added to the calendar.")
+              if not logOutput: print("Done!")
+              else: logOutput.appendPlainText("Done!")
