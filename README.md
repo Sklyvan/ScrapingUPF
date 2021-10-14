@@ -125,7 +125,8 @@ Final=31/10/2021
 Para ejecutar el programa simplemente hay que lanzar el archivo Main.py mediante Python:
 
 ```shell
-python3 ./src/Main.py
+cd src
+python3 Application.py
 ```
 
 Al iniciar el programa se va a abrir una ventana con nuestro buscador que nos va a pedir autorización para la API de Google Calendar.
