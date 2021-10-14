@@ -7,3 +7,4 @@ google-auth-oauthlib == 0.4.6
 tzlocal == 3.0
 qdarkstyle == 3.0.2
 pyinstaller == 4.5.1
+PyQt5 == 5.15.4
