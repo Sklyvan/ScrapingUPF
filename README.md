@@ -141,10 +141,14 @@ El archivo de credenciales de la API de Google Calendar es totalmente pública, 
 
 En caso de que se quiera crear una interfaz gráfica para la aplicación se pueden usar herramientas como [PyQt5](https://pypi.org/project/PyQt5/) que solo van a necesitar editar el archivo de [UserPreferences.ini](UserPreferences.ini). 
 
+### Próximamente
+· Implementar una Interfaz Gráfica.
+<br>
+· Generar binarios para Windows, MacOS y Linux.
+
 ### Contacto
 
 Cualquier duda, consulta o problema: joan.gracia01@estudiant.upf.edu
 
-### Captura de Pantalla en Google Calendar
 ![](./res/GoogleCalendar-Month.png)
 ![](./res/GoogleCalendar-Week.png)
