@@ -1,5 +1,3 @@
-import os.path
-
 from Imports import *
 
 def extractRND(fromSoup):

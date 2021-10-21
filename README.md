@@ -156,6 +156,8 @@ En caso de que se quiera crear una interfaz gráfica para la aplicación se pued
 · Implementar una Interfaz Gráfica.
 <br>
 · Generar binarios para Windows, MacOS y Linux.
+<br>
+· Reemplazar asignatura existente en el calendario.
 
 ### Contacto
 
