@@ -1,3 +1,5 @@
+import os.path
+
 from Imports import *
 
 def extractRND(fromSoup):
@@ -7,8 +9,8 @@ def extractRND(fromSoup):
        try:
               float(RND)
        except ValueError:
-              if not logOutput: sys.exit("Something went pretty wrong while searching the RND value. This is probably a code bug, so contact Sklyvan.")
-              else: logOutput.appendPlainText("ERROR: Something went pretty wrong while searching the RND value. This is probably a code bug, so contact Sklyvan.")
+              if not logOutput: sys.exit("Something went pretty wrong while searching the RND value. This is probably caused by wrong UserPreferences.ini data.")
+              else: logOutput.appendPlainText("ERROR:Something went pretty wrong while searching the RND value. This is probably caused by wrong UserPreferences.ini data.")
               return False
        else:
               return RND
@@ -60,7 +62,9 @@ def RunApplication(deleteMode=False, logMessages=None):
        # Python 3.8 or bigger version is needed for Walrus Operator.
        if sys.version_info.major < PYTHON_VERSION['Major'] or (sys.version_info.major >= PYTHON_VERSION['Major'] and sys.version_info.minor < PYTHON_VERSION['Minor']):
               sys.exit(f"You're using Python {sys.version_info.major}.{sys.version_info.minor}, required version is 3.8 or bigger.")
-       userPreferences = getUserPreferences(CONFIG_FILE)
+
+       if os.path.isfile(CONFIG_FILE): userPreferences = getUserPreferences(CONFIG_FILE)
+       else: sys.exit(f"UserPreferences.ini not found at {CONFIG_FILE}.")
 
        if isUsingEspaiAulaFilePath(userPreferences):
               espaiAulaFile = HTML_LocalFile(getEspaiAulaFilePath(userPreferences), DECODE_HTML_FILE)
