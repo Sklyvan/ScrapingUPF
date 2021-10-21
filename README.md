@@ -3,6 +3,18 @@ Esta aplicación nos permite transferir el horario de la página web de la [Univ
 
 Esta aplicación no requiere que el usuario introduzca datos sensibles de inicio de sesión en el Campus Global o ningún otro tipo de información, así que en todo momento tus datos sensibles son respetados.
 
+### Índice de Contenido
+
+1. [Requisitos Previos](#1-requisitos-previos)
+
+2. [Instalación](#2-instalación)
+
+3. [Seleccionar las Preferencias](#3-seleccionar-las-preferencias)
+
+4. [Ejecutar el Programa](#4-ejecutar-el-programa)
+
+5. [Información para Desarrolladores](#5-información-para-desarrolladores)
+
 ### 1. Requisitos Previos
 
 - [Python 3.8](https://www.python.org/downloads/) o versiones superiores.
@@ -53,15 +65,13 @@ Si hay alguna duda sobre cuál es su código de su Plan de Estudio, el Plan Doce
 · **Asignaturas**: Información sobre cada una de las asignaturas que se quiere añadir al horario. <br>
 Se pueden añadir las asignaturas mediante dos métodos:
 
-#### Método Automático (Sistema en Fase de Pruebas)
+#### Método Automático
 
-1. Acceder al apartado [Espai Aula](https://campusglobal.upf.edu/GGiA/SVGELPortal?OPERACIO=ESTUDIANT) e iniciar sesión.
+1. Clic derecho en la página y seleccionar Guardar Como.
 
-2. Clic derecho en la página y seleccionar Guardar Como.
+2. Guardar el archivo (Recomendable guardar la página web en una carpeta dentro del directorio ScrapingUPF).
 
-3. Guardar el archivo (Recomendable guardar la página web en una carpeta dentro del directorio ScrapingUPF).
-
-4. Añadir la ubicación del archivo HTML en el archivo de preferencias. (En este ejemplo se guarda en *ScrapingUPF/res/EspaiAulaFiles/Gestió de Grups i Aules.html*)
+3. Añadir la ubicación del archivo HTML en el archivo de preferencias. (En este ejemplo se guarda en *ScrapingUPF/res/EspaiAulaFiles/Gestió de Grups i Aules.html*)
    
    ```ini
    [ASIGNATURAS]
@@ -120,7 +130,7 @@ Inicio=01/10/2021
 Final=31/10/2021
 ```
 
-### 4. Ejecutar el programa.
+### 4. Ejecutar el Programa
 
 Para ejecutar el programa simplemente hay que lanzar el archivo Main.py mediante Python:
 
@@ -142,6 +152,7 @@ El archivo de credenciales de la API de Google Calendar es totalmente pública, 
 En caso de que se quiera crear una interfaz gráfica para la aplicación se pueden usar herramientas como [PyQt5](https://pypi.org/project/PyQt5/) que solo van a necesitar editar el archivo de [UserPreferences.ini](UserPreferences.ini). 
 
 ### Próximamente
+
 · Implementar una Interfaz Gráfica.
 <br>
 · Generar binarios para Windows, MacOS y Linux.
