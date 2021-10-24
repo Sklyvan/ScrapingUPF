@@ -91,6 +91,7 @@ def RunApplication(deleteMode=False, logMessages=None):
               else: logOutput.appendPlainText(f"ERROR: Something went wrong generating blocks, closing program.")
 
        MyCalendar = Calendar()
+       calendarID = getCalendarID(userPreferences)
 
        if deleteMode:
               descriptions = list(map(lambda x: x.getDescription(),subjectsBlocks))
@@ -100,7 +101,7 @@ def RunApplication(deleteMode=False, logMessages=None):
                      if eventDescription in descriptions:
                             if not logOutput: print(f"Deleting EventID: {eventID} | {eventDescription}")
                             else: logOutput.appendPlainText(f"Deleting EventID: {eventID} | {eventDescription}")
-                            MyCalendar.deleteEvent(eventID)
+                            MyCalendar.deleteEvent(eventID, calendarID=calendarID)
                      else:
                             if not logOutput: print(f"Skipped EventID: {eventID} | {eventDescription}")
                             else: logOutput.appendPlainText(f"Skipped EventID: {eventID} | {eventDescription}")
@@ -110,7 +111,9 @@ def RunApplication(deleteMode=False, logMessages=None):
               for subject in subjectsBlocks:
                      if not logOutput: print(f"Adding {subject.name} to the calendar.")
                      else: logOutput.appendPlainText(f"Adding {subject.name} to the calendar.")
-                     MyCalendar.addEvent(f"{subject.name} ({subject.type[0]})", subject.classroom, subject.getDescription(), subject.start, subject.end, TIMEZONE, colorID=subjectsColors[str(subject.code)])
+                     MyCalendar.addEvent(f"{subject.name} ({subject.type[0]})", subject.classroom, subject.getDescription(),
+                                         subject.start, subject.end, TIMEZONE, colorID=subjectsColors[str(subject.code)],
+                                         calendarID=calendarID)
                      if not logOutput: print(f"{subject.name} added to the calendar.")
                      else: logOutput.appendPlainText(f"{subject.name} added to the calendar.")
               if not logOutput: print("Done!")

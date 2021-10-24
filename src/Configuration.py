@@ -89,6 +89,8 @@ def extractRequestInformation(UserPreferences):
 
 def getEspaiAulaFilePath(UserPreferences): return UserPreferences[UserPreferences.sections()[2]]['EspaiAulaFilePath']
 
+def getCalendarID(UserPreferences): return UserPreferences[UserPreferences.sections()[4]]['CalendarID']
+
 def extractSubjectsPreferencesFromFile(searchOn):
        contentList = searchOn.findAllContent('td', 'lletrab')
        contentList = [x for x in contentList if x != '..'] # Removing some trash data.
