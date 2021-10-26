@@ -1,13 +1,14 @@
 import configparser, os
+from Constants import DECODE_HTML_FILE
 
 def getUserHeaders(FILEPATH):
        UserPreferences = configparser.ConfigParser()
-       UserPreferences.read(FILEPATH)
+       UserPreferences.read(FILEPATH, encoding=DECODE_HTML_FILE)
        return {"User-Agent": UserPreferences[UserPreferences.sections()[0]]['Headers']}
 
 def getUserPreferences(FILEPATH):
        UserPreferences = configparser.ConfigParser()
-       UserPreferences.read(FILEPATH)
+       UserPreferences.read(FILEPATH, encoding=DECODE_HTML_FILE)
        return UserPreferences
 
 def insertUserPreferences(CONFIG_FILEPATH, planEstudio, idiomaPais, trimestre, planDocente, codigoCentro, codigoEstudio, curso):
