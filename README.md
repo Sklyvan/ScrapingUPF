@@ -143,6 +143,15 @@ Al iniciar el programa se va a abrir una ventana con nuestro buscador que nos va
 
 ![](./res/RunningTheApplication.gif)
 
+#### Eliminar Asignaturas Añadidas
+Si se quieren eliminar de Google Calendar asignaturas que se han añadido mediante el archivo UserPreferences.ini, se debe abrir el Application.py y establecer deleteMode=True.
+```python
+from Main import RunApplication
+
+if __name__ == "__main__": RunApplication(deleteMode=True)
+```
+A continuación hay que ejecutar el programa de la misma manera.
+
 ### 5. Información para Desarrolladores
 
 El producto ha sido desarrollado bajo la licencia [GNU General Public License 3](https://www.gnu.org/licenses/gpl-3.0.en.html), por lo que se permite la modificación del mismo, su distribución y su uso privado, siempre que el código siga siendo completamente abierto y público tal y como obliga su licencia. 
