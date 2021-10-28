@@ -79,8 +79,9 @@ Se pueden añadir las asignaturas mediante dos métodos:
    GruposAsignaturas=False
    GruposPracticas=False
    GruposSeminarios=False
-   EspaiAulaFilePath=../res/EspaiAulaFiles/Gestió de Grups i Aules.html
+   EspaiAulaFilePath=../res/EspaiAulaFiles/Grups.html
    ```
+⚠ **Se recomienda no usar tildes ni ñ en el EspaiAulaFilePath.**
 
 #### Método Manual
 
