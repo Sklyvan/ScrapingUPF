@@ -34,7 +34,7 @@ pip install -r Requirements.txt # Si PIP da error, hay que usar pip3.
 
 #### - Windows
 
-1. [Descargar Repositorio](https://github.com/Sklyvan/ScrapingUPF/archive/refs/heads/main.zip)
+1. [Descargar Repositorio.](https://github.com/Sklyvan/ScrapingUPF/archive/refs/heads/main.zip)
 
 2. Descomprimir el archivo descargado.
 
