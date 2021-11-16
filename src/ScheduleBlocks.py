@@ -11,11 +11,19 @@ class SubjectBlock:
         self.start, self.end = self.start.replace(" ", "T"), self.end.replace(" ", "T") # Converting to the Google Calendar API format.
         self.colorID = colorID
 
-    def getDescription(self): return f"{self.type}: {self.name} ({self.code}) at {self.classroom} ({self.type[0]}{self.group})"
+    def getDescription(self):
+        if self.classroom == 'Online':
+            return f"{self.type}: {self.name} ({self.code}) is {self.classroom} ({self.type[0]}{self.group})"
+        else:
+            return f"{self.type}: {self.name} ({self.code}) at {self.classroom} ({self.type[0]}{self.group})"
 
-    def __len__(self): return int((self.endUnix - self.startUnix)/(60*60)) # Returning the duration of the class in hours.
+    def __len__(self): return float((self.endUnix - self.startUnix)/(60*60)) # Returning the duration of the class in hours.
 
-    def __str__(self): return f"{self.type} {self.name} at {self.classroom} | Group: {self.group} | Code: {self.code} | {self.start} - {self.end}"
+    def __str__(self):
+        if self.classroom == 'Online':
+            return f"{self.type} {self.name} is {self.classroom} | Group: {self.group} | Code: {self.code} | {self.start} - {self.end}"
+        else:
+            return f"{self.type} {self.name} at {self.classroom} | Group: {self.group} | Code: {self.code} | {self.start} - {self.end}"
 
 def generateBlocks(jsonFile, subjectsGroups, toRead=False):
     blocks = []

@@ -24,7 +24,7 @@ Esta aplicación no requiere que el usuario introduzca datos sensibles de inicio
 
 ### 2. Instalación
 
-#### - MacOS & Linux
+#### - MacOS, Linux & UNIX-Like Systems. 
 
 ```shell
 git clone https://github.com/Sklyvan/ScrapingUPF.git
@@ -40,7 +40,11 @@ pip install -r Requirements.txt # Si PIP da error, hay que usar pip3.
 
 3. Abrir una terminal en el directorio ScrapingUPF.
 
-4. Instalar de la misma forma que la tercera línea de la instalación de MacOS y Linux.
+4. Seguir los pasos:
+```shell
+cd ScrapingUPF/
+pip install -r Requirements.txt # Si PIP da error, hay que usar pip3.
+```
 
 ### 3. Seleccionar las Preferencias
 
@@ -146,6 +150,7 @@ Al iniciar el programa se va a abrir una ventana con nuestro buscador que nos va
 
 #### Eliminar Asignaturas Añadidas
 Si se quieren eliminar de Google Calendar asignaturas que se han añadido mediante el archivo UserPreferences.ini, se debe abrir el Application.py y establecer deleteMode=True.
+De todas formas, el programa reemplaza asignaturas ya añadidas.
 ```python
 from Main import RunApplication
 
@@ -166,8 +171,6 @@ En caso de que se quiera crear una interfaz gráfica para la aplicación se pued
 · Implementar una Interfaz Gráfica.
 <br>
 · Generar binarios para Windows, MacOS y Linux.
-<br>
-· Reemplazar asignatura existente en el calendario.
 
 ### Contacto
 
