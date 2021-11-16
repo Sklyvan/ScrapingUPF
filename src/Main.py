@@ -12,8 +12,7 @@ def extractRND(fromSoup):
               else: logOutput.appendPlainText("ERROR:Something went pretty wrong while searching the RND value. "
                                               "This is probably caused by wrong UserPreferences.ini data.")
               return False
-       else:
-              return RND
+       else: return RND
 
 def downloadContent(fromData, fromDate, toDate, fromHeaders=''):
        jsonFile = False
