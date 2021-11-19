@@ -6,3 +6,4 @@ from ScheduleBlocks import *
 from Configuration import *
 from GoogleCalendar import Calendar
 from Constants import *
+import pretty_errors

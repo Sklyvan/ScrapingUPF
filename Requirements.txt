@@ -6,3 +6,4 @@ google-auth-httplib2 == 0.1.0
 google-auth-oauthlib == 0.4.6
 tzlocal == 3.0
 pyinstaller == 4.5.1
+pretty-errors
