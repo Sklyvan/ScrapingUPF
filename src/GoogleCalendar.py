@@ -54,7 +54,7 @@ class Calendar:
                 'dateTime': end,
                 'timeZone': timeZone,
             },
-            "reminders":
+            "reminders": # By default, Google Calendar will send a reminder to the user.
             {
                 "useDefault": False,
             }
