@@ -24,6 +24,14 @@ def extractRND(fromSoup):
        else: return RND
 
 def downloadContent(fromData, fromDate, toDate, fromHeaders=''):
+       """
+       Downloads the content from the server.
+       :param fromData: UserPreferences data
+       :param fromDate: Initial date.
+       :param toDate: Final date.
+       :param fromHeaders: User headers, better to leave it empty.
+       :return: The extracted JSON file.
+       """
        jsonFile = False
 
        try:
