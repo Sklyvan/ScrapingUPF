@@ -1,17 +1,41 @@
 import configparser, os
 from Constants import DECODE_HTML_FILE
 
+# This file contains the functions to read and write the configuration file.
+
 def getUserHeaders(FILEPATH):
+       """
+       Returns the headers used to generate the POST/GET requests.
+       :param FILEPATH: UserPreferences file path where the headers are stored.
+       :return: The dictionary with the headers.
+       """
        UserPreferences = configparser.ConfigParser()
        UserPreferences.read(FILEPATH, encoding=DECODE_HTML_FILE)
        return {"User-Agent": UserPreferences[UserPreferences.sections()[0]]['Headers']}
 
 def getUserPreferences(FILEPATH):
+       """
+       Returns a ConfigParser object with the user preferences.
+       :param FILEPATH: UserPreferences file path.
+       :return: ConfigParser object with the user preferences.
+       """
        UserPreferences = configparser.ConfigParser()
        UserPreferences.read(FILEPATH, encoding=DECODE_HTML_FILE)
        return UserPreferences
 
 def insertUserPreferences(CONFIG_FILEPATH, planEstudio, idiomaPais, trimestre, planDocente, codigoCentro, codigoEstudio, curso):
+       """
+       Inserts the user preferences into the UserPreferences.ini file.
+       :param CONFIG_FILEPATH: File path of the UserPreferences.ini file.
+       :param planEstudio: Identifier of the plan of study. (Integer)
+       :param idiomaPais: The subjects are going to be added in the selected language. (en.GB, es.ES, ca.ES)
+       :param trimestre: Number of the trimestre. (1, 2, 3)
+       :param planDocente: Year of the plan of study. (Integer)
+       :param codigoCentro: Identifier of the center. (Integer)
+       :param codigoEstudio: Identifier of the study. (Integer)
+       :param curso: Main subjects course number. (1, 2, 3, 4)
+       :return: True if the preferences were inserted, False otherwise.
+       """
        UserPreferences = getUserPreferences(CONFIG_FILEPATH)
        BasicInformation = UserPreferences[UserPreferences.sections()[1]]
        BasicInformation['PlanEstudio'] = planEstudio
@@ -22,21 +46,40 @@ def insertUserPreferences(CONFIG_FILEPATH, planEstudio, idiomaPais, trimestre, p
        BasicInformation['CodigoEstudio'] = codigoEstudio
        BasicInformation['Curso'] = curso
 
-       with open(CONFIG_FILEPATH, 'w') as configurationFile: UserPreferences.write(configurationFile)
+       try:
+              with open(CONFIG_FILEPATH, 'w') as configurationFile: UserPreferences.write(configurationFile)
+       except Exception as ErrorCode:
+              print(f"Something went wrong while inserting user preferences into the file. {ErrorCode}")
+              return False
+       else:
+              return True
 
 def insertFilePath(CONFIG_FILEPATH, filePath):
+       """
+       Inserts the file path of the Groups.html file into the UserPreferences.ini file.
+       :param CONFIG_FILEPATH: Path of the UserPreferences.ini file.
+       :param filePath: HTML file path.
+       :return: True if the file path was inserted, False otherwise.
+       """
        UserPreferences = getUserPreferences(CONFIG_FILEPATH)
        Subjects = UserPreferences[UserPreferences.sections()[2]]
        Subjects['EspaiAulaFilePath'] = filePath
 
-       with open(CONFIG_FILEPATH, 'w') as configurationFile: UserPreferences.write(configurationFile)
+       try:
+              with open(CONFIG_FILEPATH, 'w') as configurationFile: UserPreferences.write(configurationFile)
+       except Exception as ErrorCode:
+              print(f"Someting went wrong while inserting the HTML file path intro the UserPreferences.ini file. {ErrorCode}")
+              return False
+       else:
+              return True
 
 def insertSubjectPreferences(CONFIG_FILEPATH, toInsert):
        """
        Adds a subject to the .init file, it checks if is the first subject.
        :param CONFIG_FILEPATH: .init file path.
-       :param toInsert: Dictionary that contains subject['Code'] as the subject ID, subject['T'] for the theory group,
-       subject['S'] and subject['P'] for the seminars and practice groups.
+       :param toInsert: Dictionary that contains subject['Code'] as the subject ID, subject['T']
+       for the theory group, subject['S'] and subject['P'] for the seminars and practice groups.
+       :return: True if the subject information was inserted, False otherwise.
        """
        UserPreferences = getUserPreferences(CONFIG_FILEPATH)
        SubjectsInformation = UserPreferences[UserPreferences.sections()[2]]
@@ -52,9 +95,20 @@ def insertSubjectPreferences(CONFIG_FILEPATH, toInsert):
               SubjectsInformation['GruposPracticas'] = toInsert['P']
               SubjectsInformation['GruposSeminarios'] = toInsert['S']
 
-       with open(CONFIG_FILEPATH, 'w') as configurationFile: UserPreferences.write(configurationFile)
+       try:
+              with open(CONFIG_FILEPATH, 'w') as configurationFile: UserPreferences.write(configurationFile)
+       except Exception as ErrorCode:
+              print(f"Something went wrong while inserting the subject information into the file. {ErrorCode}")
+              return False
+       else:
+              return True
 
 def clearSubjectsPreferences(CONFIG_FILEPATH):
+       """
+       Removes all the subjects information from the .ini file.
+       :param CONFIG_FILEPATH: File path of the UserPreferences.ini file.
+       :return: True if the subjects information was removed, False otherwise.
+       """
        UserPreferences = getUserPreferences(CONFIG_FILEPATH)
        SubjectsInformation = UserPreferences[UserPreferences.sections()[2]]
 
@@ -63,18 +117,39 @@ def clearSubjectsPreferences(CONFIG_FILEPATH):
        SubjectsInformation['GruposPracticas'] = 'False'
        SubjectsInformation['GruposSeminarios'] = 'False'
 
-       with open(CONFIG_FILEPATH, 'w') as configurationFile: UserPreferences.write(configurationFile)
+       try:
+              with open(CONFIG_FILEPATH, 'w') as configurationFile: UserPreferences.write(configurationFile)
+       except Exception as ErrorCode:
+              print(f"Something went wrong while removing the subjects information from the file. {ErrorCode}")
+              return False
+       else:
+              return True
 
 def insertTimeRange(CONFIG_FILEPATH, fromDate, toDate):
+       """
+       Inserting the initial and final date of the subjects.
+       :param CONFIG_FILEPATH: File path of the UserPreferences.ini file.
+       :param fromDate: Initial date of the subjects.
+       :param toDate: Final date of the subjects.
+       :return: True if the date were inserted, False otherwise.
+       """
        UserPreferences = getUserPreferences(CONFIG_FILEPATH)
        Dates = UserPreferences[UserPreferences.sections()[3]]
        Dates['Inicio'], Dates['Final'] = fromDate, toDate
 
-       with open(CONFIG_FILEPATH, 'w') as configurationFile: UserPreferences.write(configurationFile)
+       try:
+              with open(CONFIG_FILEPATH, 'w') as configurationFile: UserPreferences.write(configurationFile)
+       except Exception as ErrorCode:
+              print(f"Something went wrong while inserting the date information into the file. {ErrorCode}")
+              return False
+       else:
+              return True
 
-def isUsingEspaiAulaFilePath(UserPreferences): return UserPreferences[UserPreferences.sections()[2]]['EspaiAulaFilePath'] != 'False'
+def isUsingEspaiAulaFilePath(UserPreferences):
+       # Function to check if the user is using the automatic mode.
+       return UserPreferences[UserPreferences.sections()[2]]['EspaiAulaFilePath'] != 'False'
 
-def extractSubjectsPreferences(UserPreferences):
+def extractSubjectsPreferences(UserPreferences): # Reads the subjects information from the .ini file.
        SubjectsGroups = UserPreferences[UserPreferences.sections()[2]]['GruposAsignaturas'].split(',')
        PGroups, SGroups = UserPreferences[UserPreferences.sections()[2]]['GruposPracticas'], UserPreferences[UserPreferences.sections()[2]]['GruposSeminarios']
        subjectsList = UserPreferences[UserPreferences.sections()[2]]['Asignaturas'].split(',')
@@ -136,6 +211,13 @@ def extractSubjectsPreferencesFromFile(searchOn):
        return list(Groups), subjectsList, SubjectsGroups, PGroups, SGroups
 
 def generateData(fromSubjects, fromGroups, BasicInformation):
+       """
+       Generating the request data in POST/GET structure.
+       :param fromSubjects: List of subjects codes.
+       :param fromGroups: List of theory groups for every subject.
+       :param BasicInformation: Main information to generate the request.
+       :return: POST/GET request data.
+       """
        DATA = f"planEstudio={BasicInformation['PlanEstudio']}" \
               f"&idiomaPais={BasicInformation['IdiomaPais']}" \
               f"&trimestre=T/{BasicInformation['Trimestre']}" \
