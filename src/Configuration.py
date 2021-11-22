@@ -1,5 +1,6 @@
 import configparser, os
 from Constants import DECODE_HTML_FILE
+from NetworkRequests import HTML_LocalFile
 
 # This file contains the functions to read and write the configuration file.
 
@@ -163,7 +164,10 @@ def extractRequestInformation(UserPreferences):
        timeRange = tuple(UserPreferences[UserPreferences.sections()[3]].values()) # Tuple which contains fromDate and toDate.
        return basicInformation, timeRange
 
-def getEspaiAulaFilePath(UserPreferences): return UserPreferences[UserPreferences.sections()[2]]['EspaiAulaFilePath']
+def getEspaiAulaFilePath(UserPreferences):
+       espaiAulaFilePath = UserPreferences[UserPreferences.sections()[2]]['EspaiAulaFilePath']
+       if not os.path.isfile(espaiAulaFilePath): print(f"WARNING! It looks like the HTML file with subjects information does not exist at {espaiAulaFilePath}")
+       return espaiAulaFilePath
 
 def getCalendarID(UserPreferences): return UserPreferences[UserPreferences.sections()[4]]['CalendarID']
 
@@ -230,3 +234,14 @@ def generateData(fromSubjects, fromGroups, BasicInformation):
        for subject in fromSubjects: DATA += f"&asignatura{subject}={subject}"
 
        return DATA
+
+def checkEspaiAulaFileIntegrity(filePath):
+       if os.path.exists(filePath):
+              try: espaiAulaFile = HTML_LocalFile(filePath, DECODE_HTML_FILE)
+              except: return 50
+
+              try: extractSubjectsPreferencesFromFile(espaiAulaFile)
+              except: return 75
+
+              return 100
+       return 25

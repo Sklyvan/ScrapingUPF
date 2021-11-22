@@ -32,7 +32,7 @@ def generateBlocks(jsonFile, subjectsGroups, toRead=False):
         try:
             mainGroup, pGroup, sGroup = subjectsGroups[str(subject['codAsignatura'])]
         except KeyError:
-            print("Ignored Block")
+            None
         else:
             addBlock = False
             if subject['tipologia'][0] == 'T' and mainGroup == subject['grup']: # Si es una teoria, y el grupo de teorías es el que ha seleccionado el usuario.

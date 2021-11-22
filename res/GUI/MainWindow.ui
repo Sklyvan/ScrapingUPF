@@ -133,7 +133,7 @@
              <bool>false</bool>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="subjectsWidget1">
              <attribute name="title">
@@ -220,17 +220,22 @@
                   <widget class="QLineEdit" name="filePathText"/>
                  </item>
                  <item>
-                  <spacer name="verticalSeparator">
-                   <property name="orientation">
-                    <enum>Qt::Vertical</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>20</width>
-                     <height>40</height>
-                    </size>
-                   </property>
-                  </spacer>
+                  <layout class="QGridLayout" name="gridLayout_5">
+                   <item row="1" column="0">
+                    <widget class="QPushButton" name="verificationButton">
+                     <property name="text">
+                      <string>Verificar Archivo</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="0">
+                    <widget class="QProgressBar" name="progressBar">
+                     <property name="value">
+                      <number>0</number>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
                  <item>
                   <widget class="QPushButton" name="useFileButton">
@@ -421,7 +426,6 @@
   <tabstop>subjectSeminarsText</tabstop>
   <tabstop>addButton</tabstop>
   <tabstop>filePathText</tabstop>
-  <tabstop>useFileButton</tabstop>
   <tabstop>clearButton</tabstop>
   <tabstop>startDateEdit</tabstop>
   <tabstop>endDateEdit</tabstop>

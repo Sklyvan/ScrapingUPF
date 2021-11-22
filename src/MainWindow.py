@@ -157,8 +157,17 @@ class Ui_MainWindowDesign(object):
         self.filePathText = QtWidgets.QLineEdit(self.subjectFilePathBox)
         self.filePathText.setObjectName("filePathText")
         self.verticalLayout_7.addWidget(self.filePathText)
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_7.addItem(spacerItem)
+        self.gridLayout_5 = QtWidgets.QGridLayout()
+        self.gridLayout_5.setSpacing(6)
+        self.gridLayout_5.setObjectName("gridLayout_5")
+        self.verificationButton = QtWidgets.QPushButton(self.subjectFilePathBox)
+        self.verificationButton.setObjectName("verificationButton")
+        self.gridLayout_5.addWidget(self.verificationButton, 1, 0, 1, 1)
+        self.progressBar = QtWidgets.QProgressBar(self.subjectFilePathBox)
+        self.progressBar.setProperty("value", 0)
+        self.progressBar.setObjectName("progressBar")
+        self.gridLayout_5.addWidget(self.progressBar, 0, 0, 1, 1)
+        self.verticalLayout_7.addLayout(self.gridLayout_5)
         self.useFileButton = QtWidgets.QPushButton(self.subjectFilePathBox)
         self.useFileButton.setObjectName("useFileButton")
         self.verticalLayout_7.addWidget(self.useFileButton)
@@ -263,8 +272,7 @@ class Ui_MainWindowDesign(object):
         MainWindowDesign.setTabOrder(self.subjectPracticesText, self.subjectSeminarsText)
         MainWindowDesign.setTabOrder(self.subjectSeminarsText, self.addButton)
         MainWindowDesign.setTabOrder(self.addButton, self.filePathText)
-        MainWindowDesign.setTabOrder(self.filePathText, self.useFileButton)
-        MainWindowDesign.setTabOrder(self.useFileButton, self.clearButton)
+        MainWindowDesign.setTabOrder(self.filePathText, self.clearButton)
         MainWindowDesign.setTabOrder(self.clearButton, self.startDateEdit)
         MainWindowDesign.setTabOrder(self.startDateEdit, self.endDateEdit)
         MainWindowDesign.setTabOrder(self.endDateEdit, self.deleteButton)
@@ -276,6 +284,7 @@ class Ui_MainWindowDesign(object):
         self.deleteButton.clicked.connect(self.clickRemoveSubjectsButton)
         self.transferButton.clicked.connect(self.clickAddSubjectsButton)
         self.clearButton.clicked.connect(self.clickClearSubjectsButton)
+        self.verificationButton.clicked.connect(self.clickVerificationButton)
 
         self.actionQuit.triggered.connect(self.exitApplication)
         self.actionAbout.triggered.connect(self.openRepository)
@@ -303,6 +312,7 @@ class Ui_MainWindowDesign(object):
         self.clearButton.setText(_translate("MainWindowDesign", "Limpiar Asignaturas"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.subjectsWidget1), _translate("MainWindowDesign", "Método Manual"))
         self.subjectFilePathBox.setTitle(_translate("MainWindowDesign", "Introducir la ubicación del archivo:"))
+        self.verificationButton.setText(_translate("MainWindowDesign", "Verificar Archivo"))
         self.useFileButton.setText(_translate("MainWindowDesign", "Usar Archivo"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.subjectsWidget2), _translate("MainWindowDesign", "Método Automático"))
         self.startDateLabel.setText(_translate("MainWindowDesign", "Fecha Inicial"))
@@ -380,6 +390,10 @@ class Ui_MainWindowDesign(object):
         fromDate, toDate = self.startDateEdit.text(), self.endDateEdit.text()
         insertTimeRange(CONFIG_FILE, fromDate, toDate)
         RunApplication(logMessages=self.plainTextEdit)
+
+    def clickVerificationButton(self):
+        for i in range(checkEspaiAulaFileIntegrity(self.filePathText.text())):
+            self.progressBar.setValue(i+1)
 
     def clickClearSubjectsButton(self): clearSubjectsPreferences(CONFIG_FILE)
 
