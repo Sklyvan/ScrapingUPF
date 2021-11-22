@@ -347,7 +347,7 @@ class Ui_MainWindowDesign(object):
         self.endDateEdit.setDate(QtCore.QDate.fromString(timeRange[1], 'dd/MM/yyyy'))
         if isUsingEspaiAulaFilePath(userPreferences): self.filePathText.setText(getEspaiAulaFilePath(userPreferences))
 
-    def clickSaveButton(self): # Guardar
+    def clickSaveButton(self):
         planEstudio = self.planEstudioText.text()
         idiomaPais = self.idiomaPaisText.text()
         trimestre = self.trimestreSpinBox.text()
@@ -360,7 +360,7 @@ class Ui_MainWindowDesign(object):
 
         return planEstudio, idiomaPais, trimestre, planDocente, codigoCentro, codigoEstudio, curso
 
-    def clickAddButton(self): # Añadir
+    def clickAddButton(self):
         newSubject = {}
 
         newSubject['Code'] = self.subjectCodeText.text()
@@ -396,9 +396,7 @@ class Ui_MainWindowDesign(object):
             self.progressBar.setValue(i+1)
 
     def clickClearSubjectsButton(self): clearSubjectsPreferences(CONFIG_FILE)
-
     def addLogInformation(self, logInformation): self.plainTextEdit.appendPlainText(logInformation)
-
     def runInformationWindow(self): print("Not implemented.")
 
     def openManual(self): webbrowser.open(README_URL)
@@ -407,7 +405,6 @@ class Ui_MainWindowDesign(object):
 
 if __name__ == "__main__":
     QtApplication = QtWidgets.QApplication(sys.argv)
-    # QtApplication.setStyleSheet(qdarkstyle.load_stylesheet(qt_api='pyqt5'))
 
     MainWindowDesign = QtWidgets.QMainWindow()
 

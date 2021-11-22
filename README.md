@@ -154,7 +154,7 @@ De todas formas, el programa reemplaza asignaturas ya añadidas.
 ```python
 from Main import RunApplication
 
-if __name__ == "__main__": RunApplication(deleteMode=True)
+if __name__ == "__main__": RunApplication(deleteMode=True, replaceMode=False)
 ```
 A continuación hay que ejecutar el programa de la misma manera.
 
