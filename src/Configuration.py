@@ -172,6 +172,11 @@ def getEspaiAulaFilePath(UserPreferences):
 def getCalendarID(UserPreferences): return UserPreferences[UserPreferences.sections()[4]]['CalendarID']
 
 def extractSubjectsPreferencesFromFile(searchOn):
+       """
+       Extracts the subjects information from the .ini file.
+       :param searchOn: BeautifulSoup object with the server answer.
+       :return: Tuples with the subjects information.
+       """
        contentList = searchOn.findAllContent('td', 'lletrab')
        contentList = [x for x in contentList if x != '..'] # Removing some trash data.
        Groups, SubjectsGroups, PGroups, SGroups = set(), [], [], []
@@ -236,6 +241,12 @@ def generateData(fromSubjects, fromGroups, BasicInformation):
        return DATA
 
 def checkEspaiAulaFileIntegrity(filePath):
+       """
+       This function recieves the HTML file with the subject information
+       from the AulaGlobal website and checks if the file is valid.
+       :param filePath: HTML file path.
+       :return: The score of the file.
+       """
        if os.path.exists(filePath):
               try: espaiAulaFile = HTML_LocalFile(filePath, DECODE_HTML_FILE)
               except: return 50
