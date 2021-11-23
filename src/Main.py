@@ -227,4 +227,5 @@ def RunApplication(deleteMode=False, logMessages=None, replaceMode=True):
               else: # Just adding events.
                      addGeneratedEvents(MyCalendar, subjectsBlocks, calendarID, subjectsColors)
 
+       print("Everything has been done successfully.")
        return True
