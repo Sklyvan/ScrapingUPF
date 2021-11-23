@@ -10,9 +10,10 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from Configuration import *
+from Constants import LOG_FILE_PATH
 from Imports import CONFIG_FILE, README_URL, REPOSITORY_URL, APP_LOGO
 from Main import RunApplication
-import sys, webbrowser, qdarkstyle, os
+import sys, webbrowser, qdarkstyle, os, time
 
 class Ui_MainWindowDesign(object):
     def setupUi(self, MainWindowDesign, QtApplication):
@@ -333,6 +334,7 @@ class Ui_MainWindowDesign(object):
         In this function, the GUI is populated with the information
         of the last saved file.
         """
+        self.initialUnixTime = time.time()
         userPreferences = getUserPreferences(CONFIG_FILE)
         basicInformation, timeRange = extractRequestInformation(userPreferences)
 
@@ -389,14 +391,18 @@ class Ui_MainWindowDesign(object):
     def clickAddSubjectsButton(self): # Transferir asignaturas a Google Calendar
         fromDate, toDate = self.startDateEdit.text(), self.endDateEdit.text()
         insertTimeRange(CONFIG_FILE, fromDate, toDate)
-        RunApplication(logMessages=self.plainTextEdit)
+        RunApplication(logMessages=self)
 
     def clickVerificationButton(self):
         for i in range(checkEspaiAulaFileIntegrity(self.filePathText.text())):
             self.progressBar.setValue(i+1)
 
     def clickClearSubjectsButton(self): clearSubjectsPreferences(CONFIG_FILE)
-    def addLogInformation(self, logInformation): self.plainTextEdit.appendPlainText(logInformation)
+
+    def addLogInformation(self, logInformation):
+        with open(LOG_FILE_PATH, 'a') as logFile: logFile.write(f"[{round(time.time() - self.initialUnixTime, 5)}] {logInformation}\n")
+        self.plainTextEdit.appendPlainText(logInformation)
+
     def runInformationWindow(self): print("Not implemented.")
 
     def openManual(self): webbrowser.open(README_URL)

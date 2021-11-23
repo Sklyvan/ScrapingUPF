@@ -9,6 +9,7 @@ TIMEZONE = get_localzone().key
 GOOGLE_CALENDAR_API_MAX_COLORS = 11 # Maximum number of colors allowed by Google Calendar API.
 DECODE_HTML_FILE = 'latin-1' # This is the encoding of the HTML file.
 PYTHON_VERSION = {'Major': 3, 'Minor': 8} # This is the required Python version used to run the program.
+LOG_FILE_PATH = '../Logs.txt'
 
 # Graphic User Interface variables.
 REPOSITORY_URL = "https://github.com/Sklyvan/ScrapingUPF"
