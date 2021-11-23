@@ -396,6 +396,7 @@ class Ui_MainWindowDesign(object):
             self.mainProgressBar.setFormat('Asignaturas Añadidas')
 
     def clickVerificationButton(self):
+        self.progressBar.setValue(0)
         for i in range(checkEspaiAulaFileIntegrity(self.filePathText.text())):
             self.progressBar.setValue(i+1)
 
