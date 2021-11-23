@@ -1,8 +1,9 @@
 from Imports import *
 
-def addLogInformation(logInformation):
+def addLogInformation(logInformation, toStdOut=True):
        with open(LOG_FILE_PATH, 'a') as logFile:
               logFile.write(f"[{round(time.time() - START_PROGRAM_TIME, 5)}] {logInformation}\n")
+       if toStdOut: print(logInformation)
            
 def extractRND(fromSoup):
        """
@@ -20,10 +21,7 @@ def extractRND(fromSoup):
        try:
               float(RND) # I do this to check if the RND is a number.
        except ValueError:
-              if not logOutput: sys.exit("Something went pretty wrong while searching the RND value. "
-                                         "This is probably caused by wrong UserPreferences.ini data.")
-              else: addLogInformation("ERROR:Something went pretty wrong while searching the RND value. "
-                                              "This is probably caused by wrong UserPreferences.ini data.")
+              addLogInformation("Something went pretty bad while searching the RND value. This is probably caused by wrong UserPreferences.ini data.")
               return False
        else: return RND
 
@@ -39,40 +37,31 @@ def downloadContent(fromData, fromDate, toDate, fromHeaders=''):
        jsonFile = False
 
        try:
-              if not logOutput: print("Establishing session.")
-              else: addLogInformation("Establishing session.")
+              addLogInformation("Establishing session.")
               SESSION = Request(URL, fromHeaders, requests.Session(), requestMethod='GET').SESSION
        except Exception as ErrorCode:
-              if not logOutput: sys.exit(f"Something went wrong while generating session. {ErrorCode}")
-              else: addLogInformation(f"ERROR: Something went wrong while generating session. {ErrorCode}")
+              addLogInformation(f"Something went wrong while generating session. {ErrorCode}")
               return False
-       if not logOutput: print("Session successfully established.")
-       else: addLogInformation("Session successfully established.")
 
+       addLogInformation("Session successfully established.")
        try:
-              if not logOutput: print("Searching for RND number.")
-              else: addLogInformation("Searching for RND number.")
+              addLogInformation("Searching for RND number.")
               soupRND = Request(URL_RND, fromHeaders, SESSION, requestMethod='POST', postData=fromData).Soup
        except Exception as ErrorCode:
-              if not logOutput: sys.exit(f"Something went wrong while connecting to search RND number. {ErrorCode}")
-              else: addLogInformation(f"ERROR: Something went wrong while connecting to search RND number. {ErrorCode}")
+              addLogInformation(f"Something went wrong while connecting to search RND number. {ErrorCode}")
               return False
        RND = extractRND(soupRND)
        timeRND = f'rnd={RND}&start={fromDate}&end={toDate}'
-       if not logOutput: print("RND Number found.")
-       else: addLogInformation("RND Number found.")
+       addLogInformation("RND Number found.")
 
        try:
-              if not logOutput: print("Downloading the content.")
-              else: addLogInformation("Downloading the content.")
+              addLogInformation("Downloading the content.")
               contentRequest = Request(URL_JSON, fromHeaders, SESSION, requestMethod='POST', postData=timeRND)
        except Exception as ErrorCode:
-              if not logOutput: sys.exit(f"Something went wrong while obtaining the request content. {ErrorCode}")
-              else: addLogInformation(f"ERROR: Something went wrong while obtaining the request content. {ErrorCode}")
+              addLogInformation(f"Something went wrong while obtaining the request content. {ErrorCode}")
               return False
        jsonFile = contentRequest.getJSON(exportFile=True)
-       if not logOutput: print("Content downloaded, JSON file saved.")
-       else: addLogInformation("Content downloaded, JSON file saved.")
+       addLogInformation("Content downloaded, JSON file saved.")
 
        return jsonFile
 
@@ -89,39 +78,26 @@ def deleteGeneratedEvents(MyCalendar, subjectsBlocks, calendarID, logMessages=No
               descriptions = list(map(lambda x: x.getDescription(), subjectsBlocks))
               events = MyCalendar.getEvents()
        except Exception as ErrorCode:
-              if not logOuput:
-                     print(f"Something went wrong while extrating the current calendar events, "
-                           f"that's possible caused by a Google Calendar API error. "
-                           f"{ErrorCode}")
-                     return False
-              else:
-                     addLogInformation(f"Something went wrong while extrating the current calendar events, "
-                                               f"that's possible caused by a Google Calendar API error. "
-                                               f"{ErrorCode}")
-                     return False
+              addLogInformation(f"Something went wrong while extrating the current calendar events, "
+                                f"that's possible caused by a Google Calendar API error. "
+                                f"{ErrorCode}")
+              return False
 
        for event in events:
               eventDescription, eventID = event[0], event[1]
               if eventDescription in descriptions:
-                     if not logOutput:
-                            print(f"Deleting EventID: {eventID} | {eventDescription}")
-                     else:
-                            addLogInformation(f"Deleting EventID: {eventID} | {eventDescription}")
-
+                     addLogInformation(f"Deleting EventID: {eventID} | {eventDescription}")
                      try:
                             MyCalendar.deleteEvent(eventID, calendarID=calendarID)
                      except Exception as ErrorCode:
-                            print(f"Something went wrong while deleting an event, that can be caused by some problems with Google Calendar API. "
-                                  f"{ErrorCode}")
+                            addLogInformation(f"Something went wrong while deleting an event, "
+                                              f"that can be caused by some problems with Google Calendar API. "
+                                              f"{ErrorCode}")
                             return False
               else:
-                     if not logOutput:
-                            print(f"Skipped EventID: {eventID} | {eventDescription}")
-                     else:
-                            addLogInformation(f"Skipped EventID: {eventID} | {eventDescription}")
+                     addLogInformation(f"Skipped EventID: {eventID} | {eventDescription}")
 
-       if not logOutput: print("Events Removed!")
-       else: addLogInformation("Events Removed!")
+       addLogInformation("All events have been removed from the calendar.")
        return True
 
 def addGeneratedEvents(MyCalendar, subjectsBlocks, calendarID, subjectsColors, logMessages=None):
@@ -135,33 +111,21 @@ def addGeneratedEvents(MyCalendar, subjectsBlocks, calendarID, subjectsColors, l
        :return: True in case of success, False in case of error.
        """
        for subject in subjectsBlocks:
-              if not logOutput:
-                     print(f"Adding {subject.name} to the calendar.")
-              else:
-                     addLogInformation(f"Adding {subject.name} to the calendar.")
+              addLogInformation(f"Adding {subject.name} to the calendar.")
               try:
                      MyCalendar.addEvent(f"{subject.name} ({subject.type[0]})", subject.classroom, subject.getDescription(),
                                          subject.start, subject.end, TIMEZONE, colorID=subjectsColors[str(subject.code)],
                                          calendarID=calendarID)
               except Exception as ErrorCode:
-                     if not logOutput:
-                            print(f"Something went wrong while adding subject {subject.getDescription()} to calendar, that can be caused by a wrong CalendarID "
-                                  f"or a Google Calendar API problem. {ErrorCode}")
-                            return False
-                     else:
-                            addLogInformation(f"Something went wrong while adding subject {subject.getDescription()} to calendar, "
-                                                      f"that can be caused by a wrong CalendarID or a Google Calendar API problem. {ErrorCode}")
-                            return False
+                     addLogInformation(f"Something went wrong while adding subject {subject.getDescription()} to calendar, "
+                                       f"that can be caused by a wrong CalendarID or a Google Calendar API problem. {ErrorCode}")
+                     return False
               else:
-                     if not logOutput:
-                            print(f"{subject.name} added to the calendar.")
-                     else:
-                            addLogInformation(f"{subject.name} added to the calendar.")
-       if not logOutput: print("Done!")
-       else: addLogInformation("Done!")
+                     addLogInformation(f"{subject.name} added to the calendar.")
+       addLogInformation("All events have been added to the calendar.")
        return True
 
-def RunApplication(deleteMode=False, logMessages=None, replaceMode=True):
+def RunApplication(deleteMode=False, replaceMode=True):
        """
        This function is the main function of the application,
        it's going to read the configuration file, then it's going to generate the events.
@@ -169,18 +133,20 @@ def RunApplication(deleteMode=False, logMessages=None, replaceMode=True):
        :param deleteMode: If this is true, the function will delete the events from the Google Calendar.
        :param logMessages: File where we're going to save the log messages, if it's None, the output goes to stdout.
        :param replaceMode: If this is true, the function will replace the events in the Google Calendar.
-       :return: True in case of success.
+       :return: True in case of success, False in case of error.
        """
-       global logOutput # That's necessary to make the GUI able to use the log messages.
-       logOutput = logMessages
 
        # Checking the Python version, in this case we're going to use Python 3.8 or higher, since I'm using the Walrus Operator.
        if sys.version_info.major < PYTHON_VERSION['Major'] or (sys.version_info.major >= PYTHON_VERSION['Major'] and sys.version_info.minor < PYTHON_VERSION['Minor']):
-              sys.exit(f"You're using Python {sys.version_info.major}.{sys.version_info.minor}, required version is 3.8 or bigger.")
+              addLogInformation(f"You're using Python {sys.version_info.major}.{sys.version_info.minor}, required version is 3.8 or bigger.")
+              return False
 
        # Checking if the configuration file exists, if it exists, we're going to read it.
-       if os.path.isfile(CONFIG_FILE): userPreferences = getUserPreferences(CONFIG_FILE)
-       else: sys.exit(f"UserPreferences.ini not found at {CONFIG_FILE}.")
+       if os.path.isfile(CONFIG_FILE):
+              userPreferences = getUserPreferences(CONFIG_FILE)
+       else:
+              addLogInformation(f"UserPreferences.ini not found at {CONFIG_FILE}.")
+              return False
 
        if isUsingEspaiAulaFilePath(userPreferences): # If the user is using the automatic mode, we're going to read the HTML file with user data.
               espaiAulaFile = HTML_LocalFile(getEspaiAulaFilePath(userPreferences), DECODE_HTML_FILE)
@@ -202,17 +168,13 @@ def RunApplication(deleteMode=False, logMessages=None, replaceMode=True):
        """
        if (jsonFile := downloadContent(DATA, fromDate, toDate, fromHeaders=getUserHeaders(CONFIG_FILE))):
               if (n_downloadedSubjects := len(jsonFile)-1) > 0: # If we have downloaded at least one subject, we're going to process them.
-                     if not logOutput: print(f"Downloaded {n_downloadedSubjects} subjects blocks.")
-                     else: addLogInformation(f"Downloaded {n_downloadedSubjects} subjects blocks.")
+                     addLogInformation(f"Downloaded {n_downloadedSubjects} subjects blocks.")
                      subjectsBlocks = generateBlocks(jsonFile, dict(zip(fromSubjects, zip(userSubjectsGroups, pGroups, sGroups))), n_downloadedSubjects)
-                     if not logOutput: print(f"Using {len(subjectsBlocks)} subjects blocks.")
-                     else: addLogInformation(f"Using {len(subjectsBlocks)} subjects blocks.")
+                     addLogInformation(f"Using {len(subjectsBlocks)} subjects blocks.")
               else:
-                     if not logOutput: sys.exit("No subjects blocks have been downloaded, closing program.")
-                     else: addLogInformation(f"WARNING: No subjects blocks have been downloaded, closing program.")
+                     addLogInformation("No subjects blocks have been downloaded, closing program.")
        else:
-              if not logOutput: sys.exit(f"Something went wrong generating blocks, closing program.")
-              else: addLogInformation(f"ERROR: Something went wrong generating blocks, closing program.")
+              addLogInformation("Something went wrong generating blocks, closing program.")
 
        MyCalendar = Calendar()
        calendarID = getCalendarID(userPreferences)
@@ -227,5 +189,5 @@ def RunApplication(deleteMode=False, logMessages=None, replaceMode=True):
               else: # Just adding events.
                      addGeneratedEvents(MyCalendar, subjectsBlocks, calendarID, subjectsColors)
 
-       print("Everything has been done successfully.")
+       addLogInformation("Everything has been done successfully.")
        return True
