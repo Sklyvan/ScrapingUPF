@@ -364,6 +364,13 @@
       </layout>
      </widget>
     </item>
+    <item row="3" column="0">
+     <widget class="QProgressBar" name="mainProgressBar">
+      <property name="value">
+       <number>0</number>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">

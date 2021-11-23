@@ -214,6 +214,10 @@ class Ui_MainWindowDesign(object):
         self.transferButton.setObjectName("transferButton")
         self.verticalLayout.addWidget(self.transferButton)
         self.gridLayout_3.addWidget(self.endBox, 2, 0, 1, 1)
+        self.mainProgressBar = QtWidgets.QProgressBar(self.mainWindow)
+        self.mainProgressBar.setProperty("value", 0)
+        self.mainProgressBar.setObjectName("mainProgressBar")
+        self.gridLayout_3.addWidget(self.mainProgressBar, 3, 0, 1, 1)
         MainWindowDesign.setCentralWidget(self.mainWindow)
         self.menuBar = QtWidgets.QMenuBar(MainWindowDesign)
         self.menuBar.setGeometry(QtCore.QRect(0, 0, 594, 22))
@@ -275,8 +279,6 @@ class Ui_MainWindowDesign(object):
         self.actionManual.triggered.connect(self.openManual)
         self.actionAgradecimientos.triggered.connect(self.runInformationWindow)
 
-        self.threads = {}
-
     def retranslateUi(self, MainWindowDesign):
         _translate = QtCore.QCoreApplication.translate
         MainWindowDesign.setWindowTitle(_translate("MainWindowDesign", "ScrapingUPF"))
@@ -333,6 +335,8 @@ class Ui_MainWindowDesign(object):
         self.endDateEdit.setDate(QtCore.QDate.fromString(timeRange[1], 'dd/MM/yyyy'))
         if isUsingEspaiAulaFilePath(userPreferences): self.filePathText.setText(getEspaiAulaFilePath(userPreferences))
 
+        self.mainProgressBar.setValue(0)
+
     def clickSaveButton(self):
         planEstudio = self.planEstudioText.text()
         idiomaPais = self.idiomaPaisText.text()
@@ -370,18 +374,27 @@ class Ui_MainWindowDesign(object):
     def clickRemoveSubjectsButton(self): # Remove subjects from Google Calendar
         fromDate, toDate = self.startDateEdit.text(), self.endDateEdit.text()
         insertTimeRange(CONFIG_FILE, fromDate, toDate)
-        RunApplication(deleteMode=True)
+        mainLoop = True
+        applicationIterator = RunApplication(deleteMode=True)
+        while mainLoop:
+            try: self.updateMainLoadingBar(next(applicationIterator))
+            except StopIteration: mainLoop = False
 
     def clickAddSubjectsButton(self): # Add subjects to Google Calendar
         fromDate, toDate = self.startDateEdit.text(), self.endDateEdit.text()
         insertTimeRange(CONFIG_FILE, fromDate, toDate)
-        RunApplication()
+        mainLoop = True
+        applicationIterator = RunApplication()
+        while mainLoop:
+            try: self.updateMainLoadingBar(next(applicationIterator))
+            except StopIteration: mainLoop = False
 
     def clickVerificationButton(self):
         for i in range(checkEspaiAulaFileIntegrity(self.filePathText.text())):
             self.progressBar.setValue(i+1)
 
     def clickClearSubjectsButton(self): clearSubjectsPreferences(CONFIG_FILE)
+    def updateMainLoadingBar(self, toValue): self.mainProgressBar.setValue(toValue)
 
     def runInformationWindow(self): print("Not implemented.")
 

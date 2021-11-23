@@ -126,6 +126,8 @@ def addGeneratedEvents(MyCalendar, subjectsBlocks, calendarID, subjectsColors, l
        return True
 
 def RunApplication(deleteMode=False, replaceMode=True):
+       global loadingStatus
+       loadingStatus = 0
        """
        This function is the main function of the application,
        it's going to read the configuration file, then it's going to generate the events.
@@ -135,11 +137,14 @@ def RunApplication(deleteMode=False, replaceMode=True):
        :param replaceMode: If this is true, the function will replace the events in the Google Calendar.
        :return: True in case of success, False in case of error.
        """
+       yield loadingStatus
 
        # Checking the Python version, in this case we're going to use Python 3.8 or higher, since I'm using the Walrus Operator.
        if sys.version_info.major < PYTHON_VERSION['Major'] or (sys.version_info.major >= PYTHON_VERSION['Major'] and sys.version_info.minor < PYTHON_VERSION['Minor']):
               addLogInformation(f"You're using Python {sys.version_info.major}.{sys.version_info.minor}, required version is 3.8 or bigger.")
               return False
+       loadingStatus += 3
+       yield loadingStatus
 
        # Checking if the configuration file exists, if it exists, we're going to read it.
        if os.path.isfile(CONFIG_FILE):
@@ -147,20 +152,28 @@ def RunApplication(deleteMode=False, replaceMode=True):
        else:
               addLogInformation(f"UserPreferences.ini not found at {CONFIG_FILE}.")
               return False
+       loadingStatus += 12
+       yield loadingStatus
 
        if isUsingEspaiAulaFilePath(userPreferences): # If the user is using the automatic mode, we're going to read the HTML file with user data.
               espaiAulaFile = HTML_LocalFile(getEspaiAulaFilePath(userPreferences), DECODE_HTML_FILE)
               fromGroups, fromSubjects, userSubjectsGroups, pGroups, sGroups = extractSubjectsPreferencesFromFile(espaiAulaFile)
        else: # If the user is using the manual mode, we're going to read the user groups and subjects from the user preferences file.
               fromGroups, fromSubjects, userSubjectsGroups, pGroups, sGroups = extractSubjectsPreferences(userPreferences)
+       loadingStatus += 15
+       yield loadingStatus
 
        subjectsColors = dict(zip(fromSubjects, [str(x%GOOGLE_CALENDAR_API_MAX_COLORS+1) for x in range(len(fromSubjects))])) # Generating a dictionary[subjectCode] = assignedColor
+       loadingStatus += 5
+       yield loadingStatus
 
        # Extracting the time information.
        basicInformation, timeRange = extractRequestInformation(userPreferences)
        DATA = generateData(fromSubjects, fromGroups, basicInformation)
        fromDate = int(time.mktime(datetime.datetime.strptime(timeRange[0], "%d/%m/%Y").timetuple()))
        toDate = int(time.mktime(datetime.datetime.strptime(timeRange[1], "%d/%m/%Y").timetuple()))
+       loadingStatus += 25
+       yield loadingStatus
 
        """
        At this point, we have all the user data and we checked if it's correct.
@@ -173,11 +186,17 @@ def RunApplication(deleteMode=False, replaceMode=True):
                      addLogInformation(f"Using {len(subjectsBlocks)} subjects blocks.")
               else:
                      addLogInformation("No subjects blocks have been downloaded, closing program.")
+                     return False
        else:
               addLogInformation("Something went wrong generating blocks, closing program.")
+              return False
+       loadingStatus += 15
+       yield loadingStatus
 
        MyCalendar = Calendar()
        calendarID = getCalendarID(userPreferences)
+       loadingStatus += 5
+       yield loadingStatus
 
        # Now, with all the information downloaded, we're going to work with Google Calendar API.
        if replaceMode: # In this case, we're deleting all the events in the calendar and then adding the new ones.
@@ -190,4 +209,6 @@ def RunApplication(deleteMode=False, replaceMode=True):
                      addGeneratedEvents(MyCalendar, subjectsBlocks, calendarID, subjectsColors)
 
        addLogInformation("Everything has been done successfully.")
+       loadingStatus += 20
+       yield loadingStatus
        return True
