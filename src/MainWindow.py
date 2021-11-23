@@ -319,7 +319,6 @@ class Ui_MainWindowDesign(object):
         In this function, the GUI is populated with the information
         of the last saved file.
         """
-        self.initialUnixTime = time.time()
         userPreferences = getUserPreferences(CONFIG_FILE)
         basicInformation, timeRange = extractRequestInformation(userPreferences)
 
@@ -383,10 +382,6 @@ class Ui_MainWindowDesign(object):
             self.progressBar.setValue(i+1)
 
     def clickClearSubjectsButton(self): clearSubjectsPreferences(CONFIG_FILE)
-
-    def addLogInformation(self, logInformation):
-        with open(LOG_FILE_PATH, 'a') as logFile:
-            logFile.write(f"[{round(time.time() - self.initialUnixTime, 5)}] {logInformation}\n")
 
     def runInformationWindow(self): print("Not implemented.")
 

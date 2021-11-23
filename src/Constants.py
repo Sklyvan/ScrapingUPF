@@ -1,4 +1,5 @@
 from tzlocal import get_localzone # With this, I extract the user timezone and use it to add the events to the calendar with this timezone.
+from time import time as get_time # I rename the function to avoid confusion with the datetime.time() function.
 
 # Main program constants.
 CONFIG_FILE = "../UserPreferences.ini"
@@ -10,6 +11,7 @@ GOOGLE_CALENDAR_API_MAX_COLORS = 11 # Maximum number of colors allowed by Google
 DECODE_HTML_FILE = 'latin-1' # This is the encoding of the HTML file.
 PYTHON_VERSION = {'Major': 3, 'Minor': 8} # This is the required Python version used to run the program.
 LOG_FILE_PATH = '../Logs.txt'
+START_PROGRAM_TIME = get_time()
 
 # Graphic User Interface variables.
 REPOSITORY_URL = "https://github.com/Sklyvan/ScrapingUPF"
