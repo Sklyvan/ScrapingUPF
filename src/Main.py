@@ -178,7 +178,6 @@ def RunApplication(deleteMode=False, logMessages=None, replaceMode=True):
        if os.path.isfile(CONFIG_FILE): userPreferences = getUserPreferences(CONFIG_FILE)
        else: sys.exit(f"UserPreferences.ini not found at {CONFIG_FILE}.")
 
-
        if isUsingEspaiAulaFilePath(userPreferences): # If the user is using the automatic mode, we're going to read the HTML file with user data.
               espaiAulaFile = HTML_LocalFile(getEspaiAulaFilePath(userPreferences), DECODE_HTML_FILE)
               fromGroups, fromSubjects, userSubjectsGroups, pGroups, sGroups = extractSubjectsPreferencesFromFile(espaiAulaFile)

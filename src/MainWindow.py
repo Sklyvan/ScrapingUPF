@@ -214,11 +214,6 @@ class Ui_MainWindowDesign(object):
         self.transferButton.setObjectName("transferButton")
         self.verticalLayout.addWidget(self.transferButton)
         self.gridLayout_3.addWidget(self.endBox, 2, 0, 1, 1)
-        self.plainTextEdit = QtWidgets.QPlainTextEdit(self.mainWindow)
-        self.plainTextEdit.setReadOnly(True)
-        self.plainTextEdit.setPlainText("")
-        self.plainTextEdit.setObjectName("plainTextEdit")
-        self.gridLayout_3.addWidget(self.plainTextEdit, 3, 0, 1, 1)
         MainWindowDesign.setCentralWidget(self.mainWindow)
         self.menuBar = QtWidgets.QMenuBar(MainWindowDesign)
         self.menuBar.setGeometry(QtCore.QRect(0, 0, 594, 22))
@@ -279,6 +274,8 @@ class Ui_MainWindowDesign(object):
         self.actionAbout.triggered.connect(self.openRepository)
         self.actionManual.triggered.connect(self.openManual)
         self.actionAgradecimientos.triggered.connect(self.runInformationWindow)
+
+        self.threads = {}
 
     def retranslateUi(self, MainWindowDesign):
         _translate = QtCore.QCoreApplication.translate
@@ -367,16 +364,16 @@ class Ui_MainWindowDesign(object):
 
         return newSubject['Code'], newSubject['T'], newSubject['P'], newSubject['S']
 
-    def clickUseFileButton(self): # Usar Archivo
+    def clickUseFileButton(self):
         insertFilePath(CONFIG_FILE, self.filePathText.text())
         return self.filePathText.text()
 
-    def clickRemoveSubjectsButton(self): # Eliminar asignaturas de Google Calendar
+    def clickRemoveSubjectsButton(self): # Remove subjects from Google Calendar
         fromDate, toDate = self.startDateEdit.text(), self.endDateEdit.text()
         insertTimeRange(CONFIG_FILE, fromDate, toDate)
-        RunApplication(deleteMode=True, logMessages=self.plainTextEdit)
+        RunApplication(deleteMode=True, logMessages=self)
 
-    def clickAddSubjectsButton(self): # Transferir asignaturas a Google Calendar
+    def clickAddSubjectsButton(self): # Add subjects to Google Calendar
         fromDate, toDate = self.startDateEdit.text(), self.endDateEdit.text()
         insertTimeRange(CONFIG_FILE, fromDate, toDate)
         RunApplication(logMessages=self)
@@ -388,8 +385,8 @@ class Ui_MainWindowDesign(object):
     def clickClearSubjectsButton(self): clearSubjectsPreferences(CONFIG_FILE)
 
     def addLogInformation(self, logInformation):
-        with open(LOG_FILE_PATH, 'a') as logFile: logFile.write(f"[{round(time.time() - self.initialUnixTime, 5)}] {logInformation}\n")
-        self.plainTextEdit.appendPlainText(logInformation)
+        with open(LOG_FILE_PATH, 'a') as logFile:
+            logFile.write(f"[{round(time.time() - self.initialUnixTime, 5)}] {logInformation}\n")
 
     def runInformationWindow(self): print("Not implemented.")
 
