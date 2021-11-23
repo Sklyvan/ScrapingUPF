@@ -54,7 +54,7 @@ Si hay alguna duda sobre cuál es su código de su Plan de Estudio, el Plan Doce
 <br>
 · **Connection**: Este apartado solo contiene los Headers de la petición, solo es necesario para usuarios que tengan algún problema, no debería ser necesario modificar los valores que se encuentran por defecto.
 
-· **Información Básica**: Este apartado contiene información genérica sobre el estudiante, hay que rellenar esos campos con la información deseada.
+· **Basic Information**: Este apartado contiene información genérica sobre el estudiante, hay que rellenar esos campos con la información deseada.
 
 | <u>Nombre</u>     | <u>Descripción</u>                                                 | <u>Ejemplos</u>                                                  |
 |:-----------------:|:------------------------------------------------------------------:|:----------------------------------------------------------------:|
@@ -66,7 +66,7 @@ Si hay alguna duda sobre cuál es su código de su Plan de Estudio, el Plan Doce
 | **CodigoEstudio** | Código identificador de la carrera que se está cursando.           | CodigoEstudio=3377<br/>CodigoEstudio=3370<br/>CodigoEstudio=3378 |
 | **Curso**         | Curso del que se hacen la mayoría de asignaturas.                  | Curso=1<br/>Curso=2<br/>Curso=3<br/>Curso=4                      |
 
-· **Asignaturas**: Información sobre cada una de las asignaturas que se quiere añadir al horario. <br>
+· **Subjects Information**: Información sobre cada una de las asignaturas que se quiere añadir al horario. <br>
 Se pueden añadir las asignaturas mediante dos métodos:
 
 #### Método Automático
@@ -78,7 +78,7 @@ Se pueden añadir las asignaturas mediante dos métodos:
 3. Añadir la ubicación del archivo HTML en el archivo de preferencias. (En este ejemplo se guarda en *ScrapingUPF/res/EspaiAulaFiles/Gestió de Grups i Aules.html*) <br> <br>
 ⚠ Usuarios Windows: En Windows es recomendable añadir la ruta completa del archivo como por ejemplo *C:/Users/ScrapingUPF/res/EspaiAulaFiles/Grups.html*, importante añadir las barras de separación de directorios como / y no como \.
    ```ini
-   [ASIGNATURAS]
+   [SUBJECTS_INFORMATION]
    Asignaturas=False
    GruposAsignaturas=False
    GruposPracticas=False
@@ -98,7 +98,7 @@ Se pueden añadir tantas asignaturas como se quiera siempre que: <br>
 Para añadir la asignatura Bases de Datos (24303), del grupo 2 de teorías, 201 de prácticas y 202 de seminarios:
 
 ```ini
-[ASIGNATURAS]
+[SUBJECTS_INFORMATION]
 Asignaturas=24303
 GruposAsignaturas=2
 GruposPracticas=201
@@ -109,7 +109,7 @@ EspaiAulaFilePath=False
 Si se quiere añadir también Inteligencia Artificial (24304) con el grupo 1 de teorías, 101 de prácticas y 102 de seminarios:
 
 ```ini
-[ASIGNATURAS]
+[SUBJECTS_INFORMATION]
 Asignaturas=24303,24304
 GruposAsignaturas=2,1
 GruposPracticas=201,101
@@ -122,7 +122,7 @@ EspaiAulaFilePath=False
 Si queremos añadir las asignaturas de solo el de 10 de Octubre de 2021:
 
 ```ini
-[FECHAS]
+[DATES]
 Inicio=10/10/2021
 Final=10/10/2021
 ```
@@ -130,7 +130,7 @@ Final=10/10/2021
 Si queremos añadir todo el mes de Octubre:
 
 ```ini
-[FECHAS]
+[DATES]
 Inicio=01/10/2021
 Final=31/10/2021
 ```
@@ -149,12 +149,17 @@ Al iniciar el programa se va a abrir una ventana con nuestro buscador que nos va
 ![](./res/RunningTheApplication.gif)
 
 #### Eliminar Asignaturas Añadidas
-Si se quieren eliminar de Google Calendar asignaturas que se han añadido mediante el archivo UserPreferences.ini, se debe abrir el Application.py y establecer deleteMode=True.
+Si se quieren eliminar de Google Calendar asignaturas que se han añadido mediante el archivo UserPreferences.ini, se debe abrir el Application.py y establecer replaceMode=False y deleteMode=True.
 De todas formas, el programa reemplaza asignaturas ya añadidas.
 ```python
 from Main import RunApplication
 
-if __name__ == "__main__": RunApplication(deleteMode=True, replaceMode=False)
+if __name__ == "__main__":
+    mainLoop = True
+    applicationIterator = RunApplication(deleteMode=True, replaceMode=False)
+    while mainLoop:
+        try: next(applicationIterator)
+        except StopIteration: mainLoop = False
 ```
 A continuación hay que ejecutar el programa de la misma manera.
 

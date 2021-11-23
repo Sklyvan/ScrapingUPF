@@ -375,9 +375,9 @@ class Ui_MainWindowDesign(object):
         fromDate, toDate = self.startDateEdit.text(), self.endDateEdit.text()
         insertTimeRange(CONFIG_FILE, fromDate, toDate)
         mainLoop = True
-        applicationIterator = RunApplication(deleteMode=True)
+        applicationIterator = RunApplication(deleteMode=True, replaceMode=False)
         while mainLoop:
-            try: self.updateMainLoadingBar(next(applicationIterator))
+            try: self.updateMainLoadingBar(round(next(applicationIterator)))
             except StopIteration: mainLoop = False
 
     def clickAddSubjectsButton(self): # Add subjects to Google Calendar
@@ -386,7 +386,7 @@ class Ui_MainWindowDesign(object):
         mainLoop = True
         applicationIterator = RunApplication()
         while mainLoop:
-            try: self.updateMainLoadingBar(next(applicationIterator))
+            try: self.updateMainLoadingBar(round(next(applicationIterator)))
             except StopIteration: mainLoop = False
 
     def clickVerificationButton(self):
