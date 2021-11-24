@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>594</width>
-    <height>601</height>
+    <height>586</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,361 +17,390 @@
    <locale language="Spanish" country="Spain"/>
   </property>
   <widget class="QWidget" name="mainWindow">
-   <layout class="QGridLayout" name="gridLayout_3">
-    <item row="0" column="0">
-     <widget class="QGroupBox" name="basicInformationBox">
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QGroupBox" name="basicInformation">
-         <property name="title">
-          <string>Información Básica</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_4">
-          <item row="0" column="0">
-           <widget class="QLabel" name="planEstudio">
-            <property name="text">
-             <string>Plan de Estudio</string>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="0" colspan="2">
-           <widget class="QPushButton" name="saveButton">
-            <property name="text">
-             <string>Guardar</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="planDocente">
-            <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Año Docente&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QLineEdit" name="codigoCentroText"/>
-          </item>
-          <item row="5" column="1">
-           <widget class="QLineEdit" name="codigoEstudioText"/>
-          </item>
-          <item row="2" column="1">
-           <widget class="QSpinBox" name="trimestreSpinBox">
-            <property name="minimum">
-             <number>1</number>
-            </property>
-            <property name="maximum">
-             <number>3</number>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="codigoEstudio">
-            <property name="text">
-             <string>Código Estudio</string>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="0">
-           <widget class="QLabel" name="curso">
-            <property name="text">
-             <string>Curso</string>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="1">
-           <widget class="QSpinBox" name="cursoSpinBox">
-            <property name="minimum">
-             <number>1</number>
-            </property>
-            <property name="maximum">
-             <number>4</number>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="codigoCentro">
-            <property name="text">
-             <string>Código Centro</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="idiomaPais">
-            <property name="text">
-             <string>Idioma y País</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="idiomaPaisText"/>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLineEdit" name="planEstudioText"/>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="trimestre">
-            <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Trimestre&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QLineEdit" name="planDocenteText"/>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox">
-         <property name="title">
-          <string>Información Variable</string>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
-          <item>
-           <widget class="QTabWidget" name="tabWidget">
-            <property name="autoFillBackground">
-             <bool>false</bool>
-            </property>
-            <property name="currentIndex">
-             <number>1</number>
-            </property>
-            <widget class="QWidget" name="subjectsWidget1">
-             <attribute name="title">
-              <string>Método Manual</string>
-             </attribute>
-             <layout class="QVBoxLayout" name="verticalLayout_4">
-              <item>
-               <widget class="QGroupBox" name="subjectsInfoBox">
-                <property name="title">
-                 <string/>
-                </property>
-                <layout class="QGridLayout" name="gridLayout">
-                 <item row="3" column="1">
-                  <widget class="QLineEdit" name="subjectSeminarsText"/>
-                 </item>
-                 <item row="3" column="0" alignment="Qt::AlignHCenter">
-                  <widget class="QLabel" name="subjectSeminars">
+   <widget class="QGroupBox" name="basicInformationBox">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>9</y>
+      <width>576</width>
+      <height>415</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QGroupBox" name="basicInformation">
+       <property name="title">
+        <string>Información Básica</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
+         <widget class="QLabel" name="planEstudio">
+          <property name="text">
+           <string>Plan de Estudio</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0" colspan="2">
+         <widget class="QPushButton" name="saveButton">
+          <property name="text">
+           <string>Guardar</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="planDocente">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Año Docente&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLineEdit" name="codigoCentroText"/>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLineEdit" name="codigoEstudioText"/>
+        </item>
+        <item row="2" column="1">
+         <widget class="QSpinBox" name="trimestreSpinBox">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>3</number>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="codigoEstudio">
+          <property name="text">
+           <string>Código Estudio</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QLabel" name="curso">
+          <property name="text">
+           <string>Curso</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QSpinBox" name="cursoSpinBox">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>4</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="codigoCentro">
+          <property name="text">
+           <string>Código Centro</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="idiomaPais">
+          <property name="text">
+           <string>Idioma y País</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="idiomaPaisText"/>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="planEstudioText"/>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="trimestre">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Trimestre&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="planDocenteText"/>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox">
+       <property name="title">
+        <string>Información Variable</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QTabWidget" name="tabWidget">
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="currentIndex">
+           <number>1</number>
+          </property>
+          <widget class="QWidget" name="subjectsWidget1">
+           <attribute name="title">
+            <string>Método Manual</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <item>
+             <widget class="QGroupBox" name="subjectsInfoBox">
+              <property name="title">
+               <string/>
+              </property>
+              <layout class="QGridLayout" name="gridLayout">
+               <item row="3" column="1">
+                <widget class="QLineEdit" name="subjectSeminarsText"/>
+               </item>
+               <item row="3" column="0" alignment="Qt::AlignHCenter">
+                <widget class="QLabel" name="subjectSeminars">
+                 <property name="text">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Grupo de Seminarios&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0" colspan="2">
+                <widget class="QPushButton" name="addButton">
+                 <property name="text">
+                  <string>Añadir</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0" alignment="Qt::AlignHCenter">
+                <widget class="QLabel" name="subjectTheory">
+                 <property name="text">
+                  <string>Grupo de Teoría</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLineEdit" name="subjectTheoryText"/>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="subjectCode">
+                 <property name="text">
+                  <string>Código de Asignatura</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLineEdit" name="subjectCodeText"/>
+               </item>
+               <item row="2" column="0" alignment="Qt::AlignHCenter">
+                <widget class="QLabel" name="subjectPractice">
+                 <property name="text">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Grupo de Prácticas&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QLineEdit" name="subjectPracticesText"/>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="clearButton">
+              <property name="text">
+               <string>Limpiar Asignaturas</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="subjectsWidget2">
+           <attribute name="title">
+            <string>Método Automático</string>
+           </attribute>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QGroupBox" name="subjectFilePathBox">
+              <property name="title">
+               <string>Introducir la ubicación del archivo:</string>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_7">
+               <item>
+                <widget class="QLineEdit" name="filePathText"/>
+               </item>
+               <item>
+                <layout class="QGridLayout" name="gridLayout_5">
+                 <item row="1" column="0">
+                  <widget class="QPushButton" name="verificationButton">
                    <property name="text">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Grupo de Seminarios&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    <string>Verificar Archivo</string>
                    </property>
                   </widget>
-                 </item>
-                 <item row="4" column="0" colspan="2">
-                  <widget class="QPushButton" name="addButton">
-                   <property name="text">
-                    <string>Añadir</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0" alignment="Qt::AlignHCenter">
-                  <widget class="QLabel" name="subjectTheory">
-                   <property name="text">
-                    <string>Grupo de Teoría</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QLineEdit" name="subjectTheoryText"/>
                  </item>
                  <item row="0" column="0">
-                  <widget class="QLabel" name="subjectCode">
-                   <property name="text">
-                    <string>Código de Asignatura</string>
+                  <widget class="QProgressBar" name="progressBar">
+                   <property name="value">
+                    <number>0</number>
                    </property>
                   </widget>
-                 </item>
-                 <item row="0" column="1">
-                  <widget class="QLineEdit" name="subjectCodeText"/>
-                 </item>
-                 <item row="2" column="0" alignment="Qt::AlignHCenter">
-                  <widget class="QLabel" name="subjectPractice">
-                   <property name="text">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Grupo de Prácticas&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="1">
-                  <widget class="QLineEdit" name="subjectPracticesText"/>
                  </item>
                 </layout>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="clearButton">
+               </item>
+               <item>
+                <widget class="QPushButton" name="useFileButton">
+                 <property name="text">
+                  <string>Usar Archivo</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="datesBox">
+          <property name="title">
+           <string/>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="QWidget" name="calendarDates" native="true">
+             <property name="autoFillBackground">
+              <bool>false</bool>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_2">
+              <item row="0" column="1">
+               <widget class="QLabel" name="startDateLabel">
                 <property name="text">
-                 <string>Limpiar Asignaturas</string>
+                 <string>Fecha Inicial</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLabel" name="endDateLabel">
+                <property name="text">
+                 <string>Fecha Final</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QDateEdit" name="endDateEdit">
+                <property name="maximumDate">
+                 <date>
+                  <year>2030</year>
+                  <month>1</month>
+                  <day>1</day>
+                 </date>
+                </property>
+                <property name="minimumDate">
+                 <date>
+                  <year>2020</year>
+                  <month>1</month>
+                  <day>1</day>
+                 </date>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QDateEdit" name="startDateEdit">
+                <property name="minimumDateTime">
+                 <datetime>
+                  <hour>0</hour>
+                  <minute>0</minute>
+                  <second>0</second>
+                  <year>2020</year>
+                  <month>1</month>
+                  <day>1</day>
+                 </datetime>
+                </property>
+                <property name="maximumDate">
+                 <date>
+                  <year>2030</year>
+                  <month>1</month>
+                  <day>1</day>
+                 </date>
+                </property>
+                <property name="minimumDate">
+                 <date>
+                  <year>2020</year>
+                  <month>1</month>
+                  <day>1</day>
+                 </date>
+                </property>
+                <property name="calendarPopup">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="subjectsWidget2">
-             <attribute name="title">
-              <string>Método Automático</string>
-             </attribute>
-             <layout class="QHBoxLayout" name="horizontalLayout_3">
-              <item>
-               <widget class="QGroupBox" name="subjectFilePathBox">
-                <property name="title">
-                 <string>Introducir la ubicación del archivo:</string>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_7">
-                 <item>
-                  <widget class="QLineEdit" name="filePathText"/>
-                 </item>
-                 <item>
-                  <layout class="QGridLayout" name="gridLayout_5">
-                   <item row="1" column="0">
-                    <widget class="QPushButton" name="verificationButton">
-                     <property name="text">
-                      <string>Verificar Archivo</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="0">
-                    <widget class="QProgressBar" name="progressBar">
-                     <property name="value">
-                      <number>0</number>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="useFileButton">
-                   <property name="text">
-                    <string>Usar Archivo</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </widget>
-          </item>
-          <item>
-           <widget class="QGroupBox" name="datesBox">
-            <property name="title">
-             <string/>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_3">
-             <item>
-              <widget class="QWidget" name="calendarDates" native="true">
-               <property name="autoFillBackground">
-                <bool>false</bool>
-               </property>
-               <layout class="QGridLayout" name="gridLayout_2">
-                <item row="0" column="1">
-                 <widget class="QLabel" name="startDateLabel">
-                  <property name="text">
-                   <string>Fecha Inicial</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QLabel" name="endDateLabel">
-                  <property name="text">
-                   <string>Fecha Final</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="2">
-                 <widget class="QDateEdit" name="endDateEdit">
-                  <property name="maximumDate">
-                   <date>
-                    <year>2030</year>
-                    <month>1</month>
-                    <day>1</day>
-                   </date>
-                  </property>
-                  <property name="minimumDate">
-                   <date>
-                    <year>2020</year>
-                    <month>1</month>
-                    <day>1</day>
-                   </date>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="2">
-                 <widget class="QDateEdit" name="startDateEdit">
-                  <property name="minimumDateTime">
-                   <datetime>
-                    <hour>0</hour>
-                    <minute>0</minute>
-                    <second>0</second>
-                    <year>2020</year>
-                    <month>1</month>
-                    <day>1</day>
-                   </datetime>
-                  </property>
-                  <property name="maximumDate">
-                   <date>
-                    <year>2030</year>
-                    <month>1</month>
-                    <day>1</day>
-                   </date>
-                  </property>
-                  <property name="minimumDate">
-                   <date>
-                    <year>2020</year>
-                    <month>1</month>
-                    <day>1</day>
-                   </date>
-                  </property>
-                  <property name="calendarPopup">
-                   <bool>false</bool>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QFrame" name="endBox">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QPushButton" name="deleteButton">
-         <property name="text">
-          <string>Eliminar asignaturas de Google Calendar</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="transferButton">
-         <property name="text">
-          <string>Transferir asignaturas a Google Calendar</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QProgressBar" name="mainProgressBar">
-      <property name="value">
-       <number>0</number>
-      </property>
-     </widget>
-    </item>
-   </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QFrame" name="endBox">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>430</y>
+      <width>581</width>
+      <height>76</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QPushButton" name="deleteButton">
+       <property name="text">
+        <string>Eliminar asignaturas de Google Calendar</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="transferButton">
+       <property name="text">
+        <string>Transferir asignaturas a Google Calendar</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>510</y>
+      <width>581</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="loadingBarStatus">
+       <property name="text">
+        <string>0/3</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QProgressBar" name="mainProgressBar">
+       <property name="value">
+        <number>0</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

@@ -374,6 +374,7 @@ class Ui_MainWindowDesign(object):
     def clickRemoveSubjectsButton(self): # Remove subjects from Google Calendar
         fromDate, toDate = self.startDateEdit.text(), self.endDateEdit.text()
         insertTimeRange(CONFIG_FILE, fromDate, toDate)
+        self.mainProgressBar.setFormat("%p%")
         mainLoop = True
         applicationIterator = RunApplication(deleteMode=True, replaceMode=False)
         while mainLoop:
@@ -386,6 +387,7 @@ class Ui_MainWindowDesign(object):
     def clickAddSubjectsButton(self): # Add subjects to Google Calendar
         fromDate, toDate = self.startDateEdit.text(), self.endDateEdit.text()
         insertTimeRange(CONFIG_FILE, fromDate, toDate)
+        self.mainProgressBar.setFormat("%p%")
         mainLoop = True
         applicationIterator = RunApplication()
         while mainLoop:
