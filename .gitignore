@@ -389,3 +389,5 @@ UserPreferences.ini
 /res/GUI/AppLogo.xcf
 src/MainWindowNew.py
 src/InformationWindowNew.py
+./Logs.txt
+./MainWindow.spec
