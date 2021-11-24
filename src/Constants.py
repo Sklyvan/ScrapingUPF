@@ -12,6 +12,9 @@ DECODE_HTML_FILE = 'latin-1' # This is the encoding of the HTML file.
 PYTHON_VERSION = {'Major': 3, 'Minor': 8} # This is the required Python version used to run the program.
 LOG_FILE_PATH = '../Logs.txt'
 START_PROGRAM_TIME = get_time()
+TOKEN_FILE = '../key/token.pickle'
+CREDS_FILE = '../key/credentials.json'
+API_URL = 'https://www.googleapis.com/auth/calendar'
 
 # Graphic User Interface variables.
 REPOSITORY_URL = "https://github.com/Sklyvan/ScrapingUPF"

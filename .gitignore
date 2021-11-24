@@ -385,7 +385,7 @@ cython_debug/
 UserPreferences.ini
 /res/EspaiAulaFiles/
 /res/JSON Files/
-/keys/token.pickle
+/key/token.pickle
 /res/GUI/AppLogo.xcf
 src/MainWindowNew.py
 src/InformationWindowNew.py
