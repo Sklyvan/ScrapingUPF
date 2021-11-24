@@ -387,4 +387,5 @@ UserPreferences.ini
 /res/JSON Files/
 /keys/token.pickle
 /res/GUI/AppLogo.xcf
-src/MainWindow
+src/MainWindowNew.py
+src/InformationWindowNew.py
