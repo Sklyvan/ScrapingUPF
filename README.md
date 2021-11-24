@@ -29,7 +29,7 @@ Esta aplicación no requiere que el usuario introduzca datos sensibles de inicio
 ```shell
 git clone https://github.com/Sklyvan/ScrapingUPF.git
 cd ScrapingUPF/
-pip install -r Requirements.txt # Si PIP da error, hay que usar pip3.
+pip install -r CoreRequirements.txt # Si PIP da error, hay que usar pip3.
 ```
 
 #### - Windows
@@ -43,7 +43,7 @@ pip install -r Requirements.txt # Si PIP da error, hay que usar pip3.
 4. Seguir los pasos:
 ```shell
 cd ScrapingUPF/
-pip install -r Requirements.txt # Si PIP da error, hay que usar pip3.
+pip install -r CoreRequirements.txt # Si PIP da error, hay que usar pip3.
 ```
 
 ### 3. Seleccionar las Preferencias
