@@ -3,6 +3,7 @@ from Imports import *
 def addLogInformation(logInformation, toStdOut=True):
        with open(LOG_FILE_PATH, 'a') as logFile:
               logFile.write(f"[{round(time.time() - START_PROGRAM_TIME, 5)}] {logInformation}\n")
+              logFile.close()
        if toStdOut: print(logInformation)
            
 def extractRND(fromSoup):
@@ -174,7 +175,10 @@ def RunApplication(deleteMode=False, replaceMode=True):
        yield loadingStatus # 9%
 
        if isUsingEspaiAulaFilePath(userPreferences): # If the user is using the automatic mode, we're going to read the HTML file with user data.
-              espaiAulaFile = HTML_LocalFile(getEspaiAulaFilePath(userPreferences), DECODE_HTML_FILE)
+              try: espaiAulaFile = HTML_LocalFile(getEspaiAulaFilePath(userPreferences), DECODE_HTML_FILE)
+              except FileNotFoundError:
+                     addLogInformation(f"HTML file not found at {getEspaiAulaFilePath(userPreferences)}.")
+                     return False
               fromGroups, fromSubjects, userSubjectsGroups, pGroups, sGroups = extractSubjectsPreferencesFromFile(espaiAulaFile)
        else: # If the user is using the manual mode, we're going to read the user groups and subjects from the user preferences file.
               fromGroups, fromSubjects, userSubjectsGroups, pGroups, sGroups = extractSubjectsPreferences(userPreferences)
