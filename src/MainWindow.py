@@ -404,6 +404,7 @@ class Ui_MainWindowDesign(object):
 
         if self.progressBar.value() == self.progressBar.maximum():
             self.progressBar.setFormat('Verificación Correcta')
+            self.clickUseFileButton()
 
     def clickClearSubjectsButton(self): clearSubjectsPreferences(CONFIG_FILE)
     def updateMainLoadingBar(self, toValue): self.mainProgressBar.setValue(toValue)
