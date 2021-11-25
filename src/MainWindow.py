@@ -334,8 +334,10 @@ class Ui_MainWindowDesign(object):
         self.startDateEdit.setDate(QtCore.QDate.fromString(timeRange[0], 'dd/MM/yyyy'))
         self.endDateEdit.setDate(QtCore.QDate.fromString(timeRange[1], 'dd/MM/yyyy'))
         if isUsingEspaiAulaFilePath(userPreferences): self.filePathText.setText(getEspaiAulaFilePath(userPreferences))
-
         self.mainProgressBar.setValue(0)
+
+        self.startDateEdit.setDisplayFormat('dd/MM/yyyy')
+        self.endDateEdit.setDisplayFormat('dd/MM/yyyy')
 
     def clickSaveButton(self):
         planEstudio = self.planEstudioText.text()
