@@ -419,6 +419,8 @@ class Ui_MainWindowDesign(object):
 
 if __name__ == "__main__":
     QtApplication = QtWidgets.QApplication(sys.argv)
+    # Dark Mode is still under development, but if you want to use it, uncomment the following line.
+    # QtApplication.setPalette(darkPalette)
 
     MainWindowDesign = QtWidgets.QMainWindow()
 
