@@ -3,6 +3,7 @@ Esta aplicación nos permite transferir el horario de la página web de la [Univ
 
 Esta aplicación no requiere que el usuario introduzca datos sensibles de inicio de sesión en el Campus Global o ningún otro tipo de información, así que en todo momento tus datos sensibles son respetados.
 ![](./res/InterfaceScreenshots.png)
+
 ### Índice de Contenido
 
 1. [Requisitos Previos](#1-requisitos-previos)
@@ -90,20 +91,19 @@ Se pueden añadir las asignaturas mediante dos métodos:
 
 3. Añadir la ubicación del archivo HTML en el archivo de preferencias. 
    
-   (En este ejemplo se guarda en *ScrapingUPF/res/EspaiAulaFiles/Grups.html*)
-   
-    <br>⚠ Usuarios Windows: En Windows es recomendable añadir la ruta completa del archivo como por ejemplo *C:/Users/ScrapingUPF/res/EspaiAulaFiles/Grups.html*, importante añadir las barras de separación de directorios como / y no como "\".
-   
-   ```ini
-   [SUBJECTS_INFORMATION]
-   Asignaturas=False
-   GruposAsignaturas=False
-   GruposPracticas=False
-   GruposSeminarios=False
-   EspaiAulaFilePath=../res/EspaiAulaFiles/Grups.html
-   ```
-   
-   ⚠ **Se recomienda no usar ni tildes ni ñ en el EspaiAulaFilePath.**
+(En este ejemplo se guarda en *ScrapingUPF/res/EspaiAulaFiles/Grups.html*)
+
+<br>⚠ En Windows es recomendable añadir la ruta completa del archivo como por ejemplo *C:/Users/ScrapingUPF/res/EspaiAulaFiles/Grups.html*
+<br>⚠ Es importante añadir las barras de separación de directorios como / y no como "\".
+<br>⚠ **Se recomienda no usar ni tildes ni ñ en el EspaiAulaFilePath.**
+```ini
+[SUBJECTS_INFORMATION]
+Asignaturas=False
+GruposAsignaturas=False
+GruposPracticas=False
+GruposSeminarios=False
+EspaiAulaFilePath=../res/EspaiAulaFiles/Grups.html
+```
 
 #### Método Manual
 
