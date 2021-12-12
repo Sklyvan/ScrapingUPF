@@ -24,12 +24,15 @@ Esta aplicación no requiere que el usuario introduzca datos sensibles de inicio
 
 ### 2. Instalación
 
+### · Instalación + Interfaz Gráfica
+
 #### - MacOS, Linux & UNIX-Like Systems.
 
 ```shell
 git clone https://github.com/Sklyvan/ScrapingUPF.git
 cd ScrapingUPF/
-pip install -r CoreRequirements.txt # Si PIP da error, hay que usar pip3.
+pip install -r GraphicRequirements.txt 
+# Si PIP da error, hay que usar pip3.
 ```
 
 #### - Windows
@@ -42,10 +45,19 @@ pip install -r CoreRequirements.txt # Si PIP da error, hay que usar pip3.
 
 4. Seguir los pasos:
    
-   ```shell
-   cd ScrapingUPF/
-   pip install -r CoreRequirements.txt # Si PIP da error, hay que usar pip3.
-   ```
+```shell
+cd ScrapingUPF/
+pip install -r GraphicRequirements.txt 
+# Si PIP da error, hay que usar pip3.
+```
+
+### · Instalación sin Interfaz Gráfica
+
+La única diferencia para instalar sin interfaz gráfica es que no es necesario instalar los requisitos de PyQt5, solo hay que instalar lo más básico.
+
+```shell
+pip install -r CoreRequirements.txt # Si PIP da error, hay que usar pip3.
+```
 
 ### 3. Seleccionar las Preferencias
 
@@ -72,12 +84,15 @@ Se pueden añadir las asignaturas mediante dos métodos:
 
 #### Método Automático
 
-1. Clic derecho en la [página](https://campusglobal.upf.edu/GGiA/SVGELPortal?OPERACIO=ESTUDIANT) y seleccionar Guardar Como.
+1. Clic derecho en esta [página](https://campusglobal.upf.edu/GGiA/SVGELPortal?OPERACIO=ESTUDIANT) y seleccionar Guardar Como.
 
 2. Guardar el archivo (Recomendable guardar la página web en una carpeta dentro del directorio ScrapingUPF).
 
-3. Añadir la ubicación del archivo HTML en el archivo de preferencias. (En este ejemplo se guarda en *ScrapingUPF/res/EspaiAulaFiles/Gestió de Grups i Aules.html*) <br> <br>
-   ⚠ Usuarios Windows: En Windows es recomendable añadir la ruta completa del archivo como por ejemplo *C:/Users/ScrapingUPF/res/EspaiAulaFiles/Grups.html*, importante añadir las barras de separación de directorios como / y no como \.
+3. Añadir la ubicación del archivo HTML en el archivo de preferencias. 
+   
+   (En este ejemplo se guarda en *ScrapingUPF/res/EspaiAulaFiles/Grups.html*)
+   
+    <br>⚠ Usuarios Windows: En Windows es recomendable añadir la ruta completa del archivo como por ejemplo *C:/Users/ScrapingUPF/res/EspaiAulaFiles/Grups.html*, importante añadir las barras de separación de directorios como / y no como "\".
    
    ```ini
    [SUBJECTS_INFORMATION]
@@ -88,7 +103,7 @@ Se pueden añadir las asignaturas mediante dos métodos:
    EspaiAulaFilePath=../res/EspaiAulaFiles/Grups.html
    ```
    
-   ⚠ **Se recomienda no usar tildes ni ñ en el EspaiAulaFilePath.**
+   ⚠ **Se recomienda no usar ni tildes ni ñ en el EspaiAulaFilePath.**
 
 #### Método Manual
 
@@ -144,6 +159,13 @@ Para ejecutar el programa simplemente hay que lanzar el archivo Main.py mediante
 
 ```shell
 cd src
+python3 MainWindow.py
+```
+
+En caso de querer usar el programa sin interfaz gráfica:
+
+```shell
+cd src
 python3 Application.py
 ```
 
@@ -179,9 +201,7 @@ En caso de que se quiera crear una interfaz gráfica para la aplicación se pued
 
 ### Próximamente
 
-· Implementar una Interfaz Gráfica.
-<br>
-· Generar binarios para Windows, MacOS y Linux.
+· Generar binarios para Windows y MacOS.
 
 ### Contacto
 
