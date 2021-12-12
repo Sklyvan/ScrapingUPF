@@ -24,7 +24,7 @@ Esta aplicación no requiere que el usuario introduzca datos sensibles de inicio
 
 ### 2. Instalación
 
-#### - MacOS, Linux & UNIX-Like Systems. 
+#### - MacOS, Linux & UNIX-Like Systems.
 
 ```shell
 git clone https://github.com/Sklyvan/ScrapingUPF.git
@@ -41,10 +41,11 @@ pip install -r CoreRequirements.txt # Si PIP da error, hay que usar pip3.
 3. Abrir una terminal en el directorio ScrapingUPF.
 
 4. Seguir los pasos:
-```shell
-cd ScrapingUPF/
-pip install -r CoreRequirements.txt # Si PIP da error, hay que usar pip3.
-```
+   
+   ```shell
+   cd ScrapingUPF/
+   pip install -r CoreRequirements.txt # Si PIP da error, hay que usar pip3.
+   ```
 
 ### 3. Seleccionar las Preferencias
 
@@ -76,7 +77,8 @@ Se pueden añadir las asignaturas mediante dos métodos:
 2. Guardar el archivo (Recomendable guardar la página web en una carpeta dentro del directorio ScrapingUPF).
 
 3. Añadir la ubicación del archivo HTML en el archivo de preferencias. (En este ejemplo se guarda en *ScrapingUPF/res/EspaiAulaFiles/Gestió de Grups i Aules.html*) <br> <br>
-⚠ Usuarios Windows: En Windows es recomendable añadir la ruta completa del archivo como por ejemplo *C:/Users/ScrapingUPF/res/EspaiAulaFiles/Grups.html*, importante añadir las barras de separación de directorios como / y no como \.
+   ⚠ Usuarios Windows: En Windows es recomendable añadir la ruta completa del archivo como por ejemplo *C:/Users/ScrapingUPF/res/EspaiAulaFiles/Grups.html*, importante añadir las barras de separación de directorios como / y no como \.
+   
    ```ini
    [SUBJECTS_INFORMATION]
    Asignaturas=False
@@ -85,7 +87,8 @@ Se pueden añadir las asignaturas mediante dos métodos:
    GruposSeminarios=False
    EspaiAulaFilePath=../res/EspaiAulaFiles/Grups.html
    ```
-⚠ **Se recomienda no usar tildes ni ñ en el EspaiAulaFilePath.**
+   
+   ⚠ **Se recomienda no usar tildes ni ñ en el EspaiAulaFilePath.**
 
 #### Método Manual
 
@@ -149,8 +152,10 @@ Al iniciar el programa se va a abrir una ventana con nuestro buscador que nos va
 ![](./res/RunningTheApplication.gif)
 
 #### Eliminar Asignaturas Añadidas
+
 Si se quieren eliminar de Google Calendar asignaturas que se han añadido mediante el archivo UserPreferences.ini, se debe abrir el Application.py y establecer replaceMode=False y deleteMode=True.
 De todas formas, el programa reemplaza asignaturas ya añadidas.
+
 ```python
 from Main import RunApplication
 
@@ -161,6 +166,7 @@ if __name__ == "__main__":
         try: next(applicationIterator)
         except StopIteration: mainLoop = False
 ```
+
 A continuación hay que ejecutar el programa de la misma manera.
 
 ### 5. Información para Desarrolladores

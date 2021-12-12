@@ -189,7 +189,7 @@ def RunApplication(deleteMode=False, replaceMode=True):
        loadingStatus += 2
        yield loadingStatus # 16%
 
-       # Extracting the time information.
+       # Extracting the time and main information.
        basicInformation, timeRange = extractRequestInformation(userPreferences)
        DATA = generateData(fromSubjects, fromGroups, basicInformation)
        fromDate = int(time.mktime(datetime.datetime.strptime(timeRange[0], "%d/%m/%Y").timetuple()))
