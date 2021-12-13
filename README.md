@@ -33,7 +33,7 @@ Esta aplicación no requiere que el usuario introduzca datos sensibles de inicio
 git clone https://github.com/Sklyvan/ScrapingUPF.git
 cd ScrapingUPF/
 pip install -r GraphicRequirements.txt 
-# Si PIP da error, hay que usar pip3.
+# Si pip da error, hay que usar pip3.
 ```
 
 #### - Windows
@@ -49,7 +49,7 @@ pip install -r GraphicRequirements.txt
 ```shell
 cd ScrapingUPF/
 pip install -r GraphicRequirements.txt 
-# Si PIP da error, hay que usar pip3.
+# Si pip da error, hay que usar pip3.
 ```
 
 ### · Instalación sin Interfaz Gráfica
@@ -57,7 +57,7 @@ pip install -r GraphicRequirements.txt
 La única diferencia para instalar sin interfaz gráfica es que no es necesario instalar los requisitos de PyQt5, solo hay que instalar lo más básico.
 
 ```shell
-pip install -r CoreRequirements.txt # Si PIP da error, hay que usar pip3.
+pip install -r CoreRequirements.txt # Si pip da error, hay que usar pip3.
 ```
 
 ### 3. Seleccionar las Preferencias
@@ -169,43 +169,26 @@ cd src
 python3 Application.py
 ```
 
-Al iniciar el programa se va a abrir una ventana con nuestro buscador que nos va a pedir autorización para la API de Google Calendar.
-
-![](./res/RunningTheApplication.gif)
-
-#### Eliminar Asignaturas Añadidas
-
-Si se quieren eliminar de Google Calendar asignaturas que se han añadido mediante el archivo UserPreferences.ini, se debe abrir el Application.py y establecer replaceMode=False y deleteMode=True.
-De todas formas, el programa reemplaza asignaturas ya añadidas.
-
-```python
-from Main import RunApplication
-
-if __name__ == "__main__":
-    mainLoop = True
-    applicationIterator = RunApplication(deleteMode=True, replaceMode=False)
-    while mainLoop:
-        try: next(applicationIterator)
-        except StopIteration: mainLoop = False
-```
-
-A continuación hay que ejecutar el programa de la misma manera.
+Al añadir las asignaturas, el programa se va a abrir una ventana con nuestro buscador que nos va a pedir autorización para la API de Google Calendar.
 
 ### 5. Información para Desarrolladores
 
-El producto ha sido desarrollado bajo la licencia [GNU General Public License 3](https://www.gnu.org/licenses/gpl-3.0.en.html), por lo que se permite la modificación del mismo, su distribución y su uso privado, siempre que el código siga siendo completamente abierto y público tal y como obliga su licencia. 
+El producto ha sido desarrollado bajo la licencia [GNU General Public License 3](https://www.gnu.org/licenses/gpl-3.0.en.html), por lo que se permite la modificación del mismo, su distribución y su uso privado, siempre que el código siga siendo completamente abierto y público tal y como obliga su licencia.
+<br>
+El archivo de credenciales de la API de Google Calendar es totalmente pública, de manera que se puede seguir usando la misma API para proyectos basados en esta. 
 
-El archivo de credenciales de la API de Google Calendar es totalmente pública, de manera que se puede seguir usando la misma API para proyectos basados en esta 
-
-En caso de que se quiera crear una interfaz gráfica para la aplicación se pueden usar herramientas como [PyQt5](https://pypi.org/project/PyQt5/) que solo van a necesitar editar el archivo de [UserPreferences.ini](UserPreferences.ini). 
+En caso de que se quiera contribuir con el código, es recomendable leer la [documentación del programa](./doc/Documentation.pdf).
 
 ### Próximamente
 
 · Generar binarios para Windows y MacOS.
+· Modificar el funcionamiento de la barra de carga.
 
 ### Contacto
 
-Cualquier duda, consulta o problema: joan.gracia01@estudiant.upf.edu
+Cualquier duda, consulta o problema: <br>
+E-Mail: joan.gracia01@estudiant.upf.edu <br>
+Discord: Sklyvan #3902 <br>
 
 ![](./res/GoogleCalendar-Month.png)
 ![](./res/GoogleCalendar-Week.png)
