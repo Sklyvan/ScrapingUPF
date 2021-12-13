@@ -176,13 +176,17 @@ Al añadir las asignaturas, el programa se va a abrir una ventana con nuestro bu
 El producto ha sido desarrollado bajo la licencia [GNU General Public License 3](https://www.gnu.org/licenses/gpl-3.0.en.html), por lo que se permite la modificación del mismo, su distribución y su uso privado, siempre que el código siga siendo completamente abierto y público tal y como obliga su licencia.
 <br>
 El archivo de credenciales de la API de Google Calendar es totalmente pública, de manera que se puede seguir usando la misma API para proyectos basados en esta. 
-
+<br>
+Si por alguna razón se necesita modificar la licencia, contacte con el autor del programa.
+<br>
 En caso de que se quiera contribuir con el código, es recomendable leer la [documentación del programa](./doc/Documentation.pdf).
 
-### Próximamente
+### Posibles Contribuciones
 
-· Generar binarios para Windows y MacOS.
-· Modificar el funcionamiento de la barra de carga.
+· Generar binarios para Windows y MacOS. <br>
+· Modificar el funcionamiento de la barra de carga. <br>
+· Buscar un método para que el usuario solo tenga que añadir las asignaturas. <br>
+· Modo Oscuro de la Interfaz Gráfica Qt5. <br>
 
 ### Contacto
 
