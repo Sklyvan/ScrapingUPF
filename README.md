@@ -60,7 +60,7 @@ La única diferencia para instalar sin interfaz gráfica es que no es necesario 
 pip install -r CoreRequirements.txt # Si pip da error, hay que usar pip3.
 ```
 
-### 3. Seleccionar las Preferencias
+### 3. Seleccionar las Preferencias (Este paso se puede saltar si usas la interfaz gráfica)
 
 La selección de asignaturas se hace modificando el archivo [UserPreferences.ini](UserPreferences.ini), no hay que modificar nada más del programa para su uso común. **Solo se puede añadir una línea de cada elemento, es decir, no se pueden añadir dos PlanEstudio.**
 <br>
