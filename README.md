@@ -93,7 +93,7 @@ Se pueden añadir las asignaturas mediante dos métodos:
    
 (En este ejemplo se guarda en *ScrapingUPF/res/EspaiAulaFiles/Grups.html*)
 
-<br>⚠ En Windows es recomendable añadir la ruta completa del archivo como por ejemplo *C:/Users/ScrapingUPF/res/EspaiAulaFiles/Grups.html*
+<br>⚠ En Windows es recomendable añadir la ruta completa del archivo como por ejemplo *C:/Users/Grups.html*
 <br>⚠ Es importante añadir las barras de separación de directorios como / y no como "\".
 <br>⚠ **Se recomienda no usar ni tildes ni ñ en el EspaiAulaFilePath.**
 ```ini
