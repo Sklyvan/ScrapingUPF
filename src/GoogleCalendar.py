@@ -26,8 +26,9 @@ class Calendar:
 
         self.Service = service
 
-    def addEvent(self, eventName="", eventLocation="", eventDescription="", start="", end="", timeZone="Europe/Madrid", colorID='undefined', calendarID='primary'):
+    def addEvent(self, subjectID, eventName="", eventLocation="", eventDescription="", start="", end="", timeZone="Europe/Madrid", colorID='undefined', calendarID='primary'):
         """
+        :param subjectID: This has to be unique, contain onlye Base32HEX encoding characters and length between 5 and 1024.
         :param eventName: Event name, that name is going to appear at Google Calendar GUI.
         :param eventLocation: Event location, Google Maps can use it.
         :param eventDescription: Just text about the event.
@@ -54,8 +55,14 @@ class Calendar:
             "reminders": # By default, Google Calendar will send a reminder to the user.
             {
                 "useDefault": False,
+            },
+            "extendedProperties":
+            {
+                "private":
+                    {
+                        "subjectID": subjectID,
+                    }
             }
-
         }
 
         newEvent = self.Service.events().insert(calendarId=calendarID, body=newEvent).execute()
@@ -74,7 +81,7 @@ class Calendar:
             events = self.Service.events().list(calendarId=calendarID, pageToken=pageToken).execute()
             for event in events['items']:
                 try:
-                    eventsList.append((event['description'], event['id']))
+                    eventsList.append((event['description'], event['id'], event['extendedProperties']['private']['subjectID']))
                 except KeyError:
                     None
             pageToken = events.get('nextPageToken')

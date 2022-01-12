@@ -79,7 +79,8 @@ def deleteGeneratedEvents(MyCalendar, subjectsBlocks, calendarID, logMessages=No
        loadingBarIncreaser = loadingWork/len(subjectsBlocks)
        accumulatedLoadingStatus = 0
        try:
-              descriptions = list(map(lambda x: x.getDescription(), subjectsBlocks))
+              # Getting the IDs of all the events that we're going to add.
+              subjectsID = list(map(lambda x: x.subjectID, subjectsBlocks))
               events = MyCalendar.getEvents()
        except Exception as ErrorCode:
               addLogInformation(f"Something went wrong while extrating the current calendar events, "
@@ -87,9 +88,9 @@ def deleteGeneratedEvents(MyCalendar, subjectsBlocks, calendarID, logMessages=No
                                 f"{ErrorCode}")
               return False
 
-       for event in events:
-              eventDescription, eventID = event[0], event[1]
-              if eventDescription in descriptions:
+       for event in events: # For every event inside Google Calendar.
+              eventDescription, eventID, subjectID = event
+              if subjectID in subjectsID: # If a new event is alredy in the calendar.
                      addLogInformation(f"Deleting EventID: {eventID} | {eventDescription}")
                      try:
                             MyCalendar.deleteEvent(eventID, calendarID=calendarID)
@@ -127,12 +128,12 @@ def addGeneratedEvents(MyCalendar, subjectsBlocks, calendarID, subjectsColors, l
        for subject in subjectsBlocks:
               addLogInformation(f"Adding {subject.name} to the calendar.")
               try:
-                     MyCalendar.addEvent(f"{subject.name} ({subject.type[0]})", subject.classroom, subject.getDescription(),
+                     MyCalendar.addEvent(subject.subjectID, f"{subject.name} ({subject.type[0]})", subject.classroom, subject.getDescription(),
                                          subject.start, subject.end, TIMEZONE, colorID=subjectsColors[str(subject.code)],
                                          calendarID=calendarID)
               except Exception as ErrorCode:
                      addLogInformation(f"Something went wrong while adding subject {subject.getDescription()} to calendar, "
-                                       f"that can be caused by a wrong CalendarID or a Google Calendar API problem. {ErrorCode}")
+                                       f"that can be caused by a wrong CalendarID or a Google Calendar API problem:\n {ErrorCode}")
                      return False
               else:
                      accumulatedLoadingStatus += loadingBarIncreaser
