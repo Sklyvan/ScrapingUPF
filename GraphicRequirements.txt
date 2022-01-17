@@ -6,3 +6,4 @@ google-auth-httplib2 == 0.1.0
 google-auth-oauthlib == 0.4.6
 tzlocal == 3.0
 PyQt5 == 5.15.4
+pretty-errors
