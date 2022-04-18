@@ -23,10 +23,9 @@ class SubjectBlock:
         self.start, self.end = self.start.replace(" ", "T"), self.end.replace(" ", "T") # Converting to the Google Calendar API format.
         self.colorID = colorID
 
-        self.subjectID = f"{self.name}{self.classroom}{self.type}{self.group}{self.code}{self.start}{self.end}"
+        self.subjectID = f"{self.name}{self.type}{self.group}{self.code}{self.start}{self.end}"
         self.subjectID = html.escape(self.subjectID)
         self.subjectID = hashlib.md5(self.subjectID.encode('utf-8')).hexdigest()
-
 
     def getDescription(self): # This description goes to the event description.
         if self.classroom == 'Online': # In case the class is online, we don't need to show the classroom.
