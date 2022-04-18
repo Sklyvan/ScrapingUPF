@@ -61,6 +61,7 @@ class Calendar:
                 "private":
                     {
                         "subjectID": subjectID,
+                        "fromUPF": True, # Value to identify UPF events.
                     }
             }
         }
