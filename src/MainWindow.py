@@ -386,7 +386,7 @@ class Ui_MainWindowDesign(object):
         if self.mainProgressBar.value() == self.mainProgressBar.maximum():
             self.mainProgressBar.setFormat('Asignaturas Eliminadas')
 
-    def clickAddSubjectsButton(self): # Add subjects to Google Calendar
+    def clickAddSubjectsButton(self): # Transfer subjects to Google Calendar
         fromDate, toDate = self.startDateEdit.text(), self.endDateEdit.text()
         insertTimeRange(CONFIG_FILE, fromDate, toDate)
         self.mainProgressBar.setFormat("%p%")
