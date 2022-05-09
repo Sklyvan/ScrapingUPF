@@ -87,4 +87,4 @@ class Calendar:
                     None
             pageToken = events.get('nextPageToken')
             if not pageToken: break
-        return eventsList
+        return eventsList # List of tuples (description, eventID, subjectID)
