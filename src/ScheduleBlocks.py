@@ -23,6 +23,12 @@ class SubjectBlock:
         self.start, self.end = self.start.replace(" ", "T"), self.end.replace(" ", "T") # Converting to the Google Calendar API format.
         self.colorID = colorID
 
+        # Subject ID is the Hash of:
+        #   Name: Name of the subject as a string
+        #   Type: Type of the subject, can be a Seminar, Practice or Theory.
+        #   Group: Group of the subject class.
+        #   Code: Subject code.
+        #   Start/End: Start and end time of the subject block.
         self.subjectID = f"{self.name}{self.type}{self.group}{self.code}{self.start}{self.end}"
         self.subjectID = html.escape(self.subjectID)
         self.subjectID = hashlib.md5(self.subjectID.encode('utf-8')).hexdigest()
