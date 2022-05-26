@@ -19,7 +19,6 @@ Esta aplicación no requiere que el usuario introduzca datos sensibles de inicio
 ### 1. Requisitos Previos
 
 - [Python 3.8](https://www.python.org/downloads/) o versiones superiores.
-  (Hay una [versión del programa para Python 3.7](https://github.com/Sklyvan/ScrapingUPF/tree/oldpython) y versiones inferiores, pero no está en mantenimiento.)
 
 - [Python Package Installer](https://github.com/pypa/pip) (PIP) 
 
