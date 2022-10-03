@@ -1,7 +1,7 @@
 import time, datetime, html, hashlib
 
 class SubjectBlock:
-    def __init__(self, name, classroom, type, group, code, start, end, colorID='1'):
+    def __init__(self, name, classroom, type, group, code, start, end, colorID='1', extraInfo=None):
         """
         This class is used to store the information of a subject block.
         A subject block is a element of the schedule.
@@ -13,6 +13,7 @@ class SubjectBlock:
         :param start: Start time of the subject block.
         :param end: End time of the subject block.
         :param colorID: Color of the block into the calendar.
+        :param extraInfo: Extra information about the subject block, sometimes here we have the classroom.
         """
         self.name, self.classroom, self.type = name, classroom, type
         self.group, self.code = group, code
@@ -22,6 +23,7 @@ class SubjectBlock:
         self.endUnix = time.mktime(datetime.datetime.strptime(end, "%Y-%m-%d %H:%M:%S").timetuple())
         self.start, self.end = self.start.replace(" ", "T"), self.end.replace(" ", "T") # Converting to the Google Calendar API format.
         self.colorID = colorID
+        self.extraInfo = extraInfo
 
         # Subject ID is the Hash of:
         #   Code: Subject code.
@@ -32,10 +34,16 @@ class SubjectBlock:
         self.subjectID = hashlib.md5(self.subjectID.encode('utf-8')).hexdigest()
 
     def getDescription(self): # This description goes to the event description.
-        if self.classroom == 'Online': # In case the class is online, we don't need to show the classroom.
-            return f"{self.type}: {self.name} ({self.code}) is {self.classroom} ({self.type[0]}{self.group})"
+        if self.extraInfo is None:
+            if self.classroom == 'Online': # In case the class is online, we don't need to show the classroom.
+                return f"{self.type}: {self.name} ({self.code}) is {self.classroom} ({self.type[0]}{self.group})"
+            else:
+                return f"{self.type}: {self.name} ({self.code}) at {self.classroom} ({self.type[0]}{self.group})"
         else:
-            return f"{self.type}: {self.name} ({self.code}) at {self.classroom} ({self.type[0]}{self.group})"
+            if self.classroom == 'Online':
+                return f"{self.type}: {self.name} ({self.code}) is {self.classroom} ({self.type[0]}{self.group}) | {self.extraInfo}"
+            else:
+                return f"{self.type}: {self.name} ({self.code}) at {self.classroom} ({self.type[0]}{self.group}) | {self.extraInfo}"
 
     def __len__(self): return float((self.endUnix - self.startUnix)/(60*60)) # Returning the duration of the class in hours.
 
@@ -59,21 +67,25 @@ def generateBlocks(jsonFile, subjectsGroups, toRead=False):
     for subject in jsonFile[:toRead]:
         try:
             mainGroup, pGroup, sGroup = subjectsGroups[str(subject['codAsignatura'])]
+            observation = None if subject['observacion'] == '' else subject['observacion']
         except KeyError:
             None
         else:
-            addBlock = False
+            addBlock = False # This variable is used to know if we need to add the block to the list based on the groups.
             if subject['tipologia'][0] == 'T' and mainGroup == subject['grup']: # Si es una teoria, y el grupo de teorías es el que ha seleccionado el usuario.
                 newBlock = SubjectBlock(html.unescape(subject['title']), 'Online' if subject['aula'] == ' ' else subject['aula'],
-                                        html.unescape(subject['tipologia']), subject['grup'], subject['codAsignatura'], subject['start'], subject['end'])
+                                        html.unescape(subject['tipologia']), subject['grup'], subject['codAsignatura'], subject['start'], subject['end'],
+                                        extraInfo=observation)
                 addBlock = True
             elif subject['tipologia'][0] == 'P' and pGroup == subject['grup']: # Si es una práctica, y el grupo de prácticas es el que ha seleccionado el usuario.
                 newBlock = SubjectBlock(html.unescape(subject['title']), 'Online' if subject['aula'] == ' ' else subject['aula'],
-                                        html.unescape(subject['tipologia']), subject['grup'], subject['codAsignatura'], subject['start'], subject['end'])
+                                        html.unescape(subject['tipologia']), subject['grup'], subject['codAsignatura'], subject['start'], subject['end'],
+                                        extraInfo=observation)
                 addBlock = True
             elif subject['tipologia'][0] == 'S' and sGroup == subject['grup']: # Si es un seminario, y el grupo de seminarios es el que ha seleccionado el usuario.
                 newBlock = SubjectBlock(html.unescape(subject['title']), 'Online' if subject['aula'] == ' ' else subject['aula'],
-                                        html.unescape(subject['tipologia']), subject['grup'], subject['codAsignatura'], subject['start'], subject['end'])
+                                        html.unescape(subject['tipologia']), subject['grup'], subject['codAsignatura'], subject['start'], subject['end'],
+                                        extraInfo=observation)
                 addBlock = True
 
             if addBlock: blocks.append(newBlock)
