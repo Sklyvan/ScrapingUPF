@@ -23,7 +23,7 @@ class SubjectBlock:
         self.endUnix = time.mktime(datetime.datetime.strptime(end, "%Y-%m-%d %H:%M:%S").timetuple())
         self.start, self.end = self.start.replace(" ", "T"), self.end.replace(" ", "T") # Converting to the Google Calendar API format.
         self.colorID = colorID
-        self.extraInfo = extraInfo
+        self.extraInfo = None if extraInfo == '' else extraInfo
 
         # Subject ID is the Hash of:
         #   Code: Subject code.
