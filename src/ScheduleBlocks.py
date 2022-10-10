@@ -23,7 +23,7 @@ class SubjectBlock:
         self.endUnix = time.mktime(datetime.datetime.strptime(end, "%Y-%m-%d %H:%M:%S").timetuple())
         self.start, self.end = self.start.replace(" ", "T"), self.end.replace(" ", "T") # Converting to the Google Calendar API format.
         self.colorID = colorID
-        self.extraInfo = None if extraInfo == '' else extraInfo
+        self.extraInfo = extraInfo
 
         # Subject ID is the Hash of:
         #   Code: Subject code.
@@ -67,7 +67,7 @@ def generateBlocks(jsonFile, subjectsGroups, toRead=False):
     for subject in jsonFile[:toRead]:
         try:
             mainGroup, pGroup, sGroup = subjectsGroups[str(subject['codAsignatura'])]
-            observation = None if subject['observacion'] == '' else subject['observacion']
+            observation = None if subject['observacion'] == ' ' else subject['observacion']
         except KeyError:
             None
         else:
