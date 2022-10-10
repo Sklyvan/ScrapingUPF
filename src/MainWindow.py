@@ -387,6 +387,7 @@ class Ui_MainWindowDesign(object):
             self.mainProgressBar.setFormat('Asignaturas Eliminadas')
 
     def clickAddSubjectsButton(self): # Transfer subjects to Google Calendar
+        self.clickSaveButton() # Save the user preferences
         fromDate, toDate = self.startDateEdit.text(), self.endDateEdit.text()
         insertTimeRange(CONFIG_FILE, fromDate, toDate)
         self.mainProgressBar.setFormat("%p%")
