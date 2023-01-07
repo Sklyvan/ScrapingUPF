@@ -112,13 +112,12 @@ def deleteGeneratedEvents(MyCalendar, subjectsBlocks, calendarID, logMessages=No
 
        return True
 
-def addGeneratedEvents(MyCalendar, subjectsBlocks, calendarID, subjectsColors, logMessages=None, initialLoadingStatus=0, loadingWork=100):
+def addGeneratedEvents(MyCalendar, subjectsBlocks, calendarID, logMessages=None, initialLoadingStatus=0, loadingWork=100):
        """
        With this function we're going to add the generated events to the Google Calendar.
        :param MyCalendar: That's the Google Calendar object were we're adding the events.
        :param subjectsBlocks: List of subjects that we are going to add to the Google Calendar.
        :param calendarID: The ID of the Google Calendar where we're going to add the events.
-       :param subjectsColors: Dictionary with the subjects and their colors.
        :param logMessages: File where we're going to save the log messages, if it's None, the output goes to stdout.
        :return: True in case of success, False in case of error.
        """
@@ -129,7 +128,7 @@ def addGeneratedEvents(MyCalendar, subjectsBlocks, calendarID, subjectsColors, l
               addLogInformation(f"Adding {subject.name} to the calendar.")
               try:
                      MyCalendar.addEvent(subject.subjectID, f"{subject.name} ({subject.type[0]})", subject.classroom, subject.getDescription(),
-                                         subject.start, subject.end, TIMEZONE, colorID=subjectsColors[str(subject.code)],
+                                         subject.start, subject.end, TIMEZONE, colorID=subject.colorID,
                                          calendarID=calendarID)
               except Exception as ErrorCode:
                      addLogInformation(f"Something went wrong while adding subject {subject.getDescription()} to calendar, "
@@ -186,10 +185,6 @@ def RunApplication(deleteMode=False, replaceMode=True):
        loadingStatus += 5
        yield loadingStatus # 14%
 
-       subjectsColors = dict(zip(fromSubjects, [str(x%GOOGLE_CALENDAR_API_MAX_COLORS+1) for x in range(len(fromSubjects))])) # Generating a dictionary[subjectCode] = assignedColor
-       loadingStatus += 2
-       yield loadingStatus # 16%
-
        # Extracting the time and main information.
        basicInformation, timeRange = extractRequestInformation(userPreferences)
        DATA = generateData(fromSubjects, fromGroups, basicInformation)
@@ -203,9 +198,28 @@ def RunApplication(deleteMode=False, replaceMode=True):
        Now, we're going to access the UPF website to extract the schedule information.
        """
        if (jsonFile := downloadContent(DATA, fromDate, toDate, fromHeaders=getUserHeaders(CONFIG_FILE))):
+
+              filteredJSON = filter(lambda x: 'codAsignatura' in x, jsonFile)
+              diferentSubjects = set(map(lambda x: x['codAsignatura'], filteredJSON))
+
+              userDefinedColors = getColorList(userPreferences)
+              if userDefinedColors[0] == 'False':
+                     # Generating a dictionary[subjectCode] = assignedColor
+                     subjectsColors = dict(zip(diferentSubjects,
+                                               [str(x%GOOGLE_CALENDAR_API_MAX_COLORS+1) for x in range(len(diferentSubjects))]))
+              else:
+                        # Generating a dictionary[subjectCode] = assignedColor
+                        subjectsColors = dict(zip(diferentSubjects, userDefinedColors))
+              loadingStatus += 2
+              yield loadingStatus # 16%
+
               if (n_downloadedSubjects := len(jsonFile)-1) > 0: # If we have downloaded at least one subject, we're going to process them.
                      addLogInformation(f"Downloaded {n_downloadedSubjects} subjects blocks.")
-                     subjectsBlocks = generateBlocks(jsonFile, dict(zip(fromSubjects, zip(userSubjectsGroups, pGroups, sGroups))), n_downloadedSubjects)
+                     subjectsBlocks = generateBlocks(jsonFile,
+                                                     dict(zip(fromSubjects,
+                                                              zip(userSubjectsGroups, pGroups, sGroups))),
+                                                     subjectsColors,
+                                                     n_downloadedSubjects)
                      addLogInformation(f"Using {len(subjectsBlocks)} subjects blocks.")
               else:
                      addLogInformation("No subjects blocks have been downloaded, closing program.")
@@ -231,7 +245,7 @@ def RunApplication(deleteMode=False, replaceMode=True):
                      yield loadingStatus
 
               mainLoop = True
-              functionIterator = addGeneratedEvents(MyCalendar, subjectsBlocks, calendarID, subjectsColors, initialLoadingStatus=66, loadingWork=33)
+              functionIterator = addGeneratedEvents(MyCalendar, subjectsBlocks, calendarID, initialLoadingStatus=66, loadingWork=33)
               while mainLoop:
                      try: loadingStatus = next(functionIterator)
                      except StopIteration: mainLoop = False
@@ -247,7 +261,7 @@ def RunApplication(deleteMode=False, replaceMode=True):
                             yield loadingStatus
               else: # Just adding events.
                      mainLoop = True
-                     functionIterator = addGeneratedEvents(MyCalendar, subjectsBlocks, calendarID, subjectsColors, initialLoadingStatus=33, loadingWork=66)
+                     functionIterator = addGeneratedEvents(MyCalendar, subjectsBlocks, calendarID, initialLoadingStatus=33, loadingWork=66)
                      while mainLoop:
                             try: loadingStatus = next(functionIterator)
                             except StopIteration: mainLoop = False

@@ -171,6 +171,8 @@ def getEspaiAulaFilePath(UserPreferences):
 
 def getCalendarID(UserPreferences): return UserPreferences[UserPreferences.sections()[4]]['CalendarID']
 
+def getColorList(UserPreferences): return UserPreferences[UserPreferences.sections()[4]]['SubjectsColors'].split(',')
+
 def extractSubjectsPreferencesFromFile(searchOn):
        """
        Extracts the subjects information from the .ini file.

@@ -53,12 +53,13 @@ class SubjectBlock:
         else:
             return f"{self.type} {self.name} at {self.classroom} | Group: {self.group} | Code: {self.code} | {self.start} - {self.end}"
 
-def generateBlocks(jsonFile, subjectsGroups, toRead=False):
+def generateBlocks(jsonFile, subjectsGroups, subjectsColors, toRead=False):
     """
     Given a json file and a list of groups, this function
     will generate the blocks of the schedule.
     :param jsonFile: This file contains the subjects information.
     :param subjectsGroups: This list contains the groups of the subjects.
+    :param subjectsColors: Dictionary with subjectsColors[subjectCode] = colorID
     :param toRead: I don't understand this parameter and I don't remember why I'm using it :)
     :return: List of SubjectBlocks.
     """
@@ -88,6 +89,8 @@ def generateBlocks(jsonFile, subjectsGroups, toRead=False):
                                         extraInfo=observation)
                 addBlock = True
 
-            if addBlock: blocks.append(newBlock)
+            if addBlock:
+                newBlock.colorID = subjectsColors[newBlock.code]
+                blocks.append(newBlock)
 
     return blocks
