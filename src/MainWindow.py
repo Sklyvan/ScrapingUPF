@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
+# -*- Coding: UTF-8 -*-
 # Created by: PyQt5 UI Code Generator 5.15.6
-
 from PyQt5_Imports import *
 
 class Ui_MainWindowDesign(object):
@@ -411,9 +410,7 @@ class Ui_MainWindowDesign(object):
 
     def clickClearSubjectsButton(self): clearSubjectsPreferences(CONFIG_FILE)
     def updateMainLoadingBar(self, toValue): self.mainProgressBar.setValue(toValue)
-
     def runInformationWindow(self): print("Not implemented.")
-
     def openManual(self): webbrowser.open(README_URL)
     def openRepository(self): webbrowser.open(REPOSITORY_URL)
     def exitApplication(self): self.QtApplication.quit()
