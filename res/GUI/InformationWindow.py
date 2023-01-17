@@ -9,9 +9,9 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import sys
 
-class Ui_InformationWindow(object):
+
+class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(300, 242)
@@ -57,15 +57,8 @@ class Ui_InformationWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "Agradecimientos"))
         self.label_4.setText(_translate("MainWindow", "PyQt5"))
         self.label_7.setText(_translate("MainWindow", "Beautiful Soup 4"))
-        self.label.setText(_translate("MainWindow", "Python 3"))
+        self.label.setText(_translate("MainWindow", "Python 3.9.7"))
         self.label_6.setText(_translate("MainWindow", "Carla <3"))
-        self.label_2.setText(_translate("MainWindow", "PyCharm Professional"))
-        self.label_3.setText(_translate("MainWindow", "Git"))
+        self.label_2.setText(_translate("MainWindow", "PyCharm Professional 2021.2.2"))
+        self.label_3.setText(_translate("MainWindow", "Git 2.30.2"))
         self.label_5.setText(_translate("MainWindow", "Jstiefel - Qt5 ROS Melodic"))
-
-def startInformationWindow():
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_InformationWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
