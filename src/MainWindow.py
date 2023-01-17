@@ -410,7 +410,7 @@ class Ui_MainWindowDesign(object):
 
     def clickClearSubjectsButton(self): clearSubjectsPreferences(CONFIG_FILE)
     def updateMainLoadingBar(self, toValue): self.mainProgressBar.setValue(toValue)
-    def runInformationWindow(self): print("Not implemented.")
+    def runInformationWindow(self): startInformationWindow()
     def openManual(self): webbrowser.open(README_URL)
     def openRepository(self): webbrowser.open(REPOSITORY_URL)
     def exitApplication(self): self.QtApplication.quit()
