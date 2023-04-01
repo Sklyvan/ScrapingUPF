@@ -1,4 +1,8 @@
 ![](./res/NewTittle.png)
+> Debido a que he terminado las asignaturas de mi grado, la aplicación dejará de recibir actualizaciones. 
+> El repositorio queda archivado pero puede ser clonado por quien quiera y continuar su desarrollo mediante la [documentación del programa](./doc/Documentation.pdf).
+> <br> Gracias a todos los usuarios que habéis usado y ayudado en la aplicación. <3
+
 Esta aplicación nos permite transferir el horario de la página web de la [Universidad Pompeu Fabra](https://www.upf.edu) a un archivo [JSON](https://en.wikipedia.org/wiki/JSON) que automáticamente se usará para añadir los horarios a [Google Calendar](https://calendar.google.com/calendar/u/0/r) con el nombre de la asignatura, la clase, el inicio, el final y el tipo de clase. Para añadir eventos al calendario, se usa la [Google Calendar API](https://developers.google.com/calendar/api).
 
 Esta aplicación no requiere que el usuario introduzca datos sensibles de inicio de sesión en el Campus Global o ningún otro tipo de información, así que en todo momento tus datos sensibles son respetados.
